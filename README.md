@@ -7,3 +7,5 @@
 4、ThinkPHP\Library\Vendor\WeiXinpay\lib\WxPay.Config.php  微信小程序的appid、appsecret、mchid、key、notify_url参数修改；
 
 5、App/Api/Controller/WxPayController.class.php 50行修改链接
+
+后台登录的用户名是admin，密码是123456
