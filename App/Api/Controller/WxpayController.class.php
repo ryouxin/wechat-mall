@@ -37,7 +37,7 @@ class WxpayController extends Controller{
 			echo json_encode(array('status'=>0,'err'=>'用户状态异常！'));
 			exit();
 		}
-		
+
 		//②、统一下单
 		$input = new \WxPayUnifiedOrder();
 		$input->SetBody("蓝果小镇商城商品购买_".trim($order_info['order_sn']));
@@ -158,9 +158,12 @@ class WxpayController extends Controller{
 				$buff .= $k . "=" . $v . "&";
 			}
 		}
-		
+
 		$buff = trim($buff, "&");
 		return $buff;
 	}
+    public function test(){
+        echo 1;
+    }
 }
 ?>
