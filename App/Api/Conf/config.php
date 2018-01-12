@@ -51,14 +51,14 @@ return array(
     'weixin'=>array(
 
 
-        'appid' =>'',			//微信appid
-        'secret'=>'', //微信secret
+        'appid' =>'wxbb7976dac4127a75',			//微信appid
+        'secret'=>'b457d1898b6a2aa8efcdaf37b14a8821', //微信secret
 
-        'mchid' => '',
-        'key' => '',
+        'mchid' => '1415076802',
+        'key' => 'f6a79c1ee3b2906f00d2538283e22f83',
 
         //这里是异步通知页面url，提交到项目的Pay控制器的notifyurl方法；
-        'notify_url'=>'https://xxx.xxxx.com/index.php/Api/Wxpay/notify',
+        'notify_url'=>'http://shop.allugame.com/index.php/Api/Wxpay/notify',
 
     ),
 );

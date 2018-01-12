@@ -9,25 +9,25 @@
     <link rel="Bookmark" href="/favicon.ico" >
     <link rel="Shortcut Icon" href="/favicon.ico" />
     <!--[if lt IE 9]>
-    <script type="text/javascript" src="/minipetmrschool/Public/admin/lib/html5shiv.js"></script>
-    <script type="text/javascript" src="/minipetmrschool/Public/admin/lib/respond.min.js"></script>
+    <script type="text/javascript" src="/Public/admin/lib/html5shiv.js"></script>
+    <script type="text/javascript" src="/Public/admin/lib/respond.min.js"></script>
     <![endif]-->
-    <link rel="stylesheet" type="text/css" href="/minipetmrschool/Public/admin/static/h-ui/css/H-ui.min.css" />
-    <link rel="stylesheet" type="text/css" href="/minipetmrschool/Public/admin/static/h-ui.admin/css/H-ui.admin.css" />
-    <link rel="stylesheet" type="text/css" href="/minipetmrschool/Public/admin/lib/Hui-iconfont/1.0.8/iconfont.css" />
-    <link rel="stylesheet" type="text/css" href="/minipetmrschool/Public/admin/static/h-ui.admin/skin/default/skin.css" id="skin" />
-    <link rel="stylesheet" type="text/css" href="/minipetmrschool/Public/admin/static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/Public/admin/static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="/Public/admin/static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="/Public/admin/lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="/Public/admin/static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="/Public/admin/static/h-ui.admin/css/style.css" />
     <!--[if IE 6]>
-    <script type="text/javascript" src="/minipetmrschool/Public/admin/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script type="text/javascript" src="/Public/admin/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
-    <script type="text/javascript" src="/minipetmrschool/Public/admin/js/jquery.js"></script>
-    <script type="text/javascript" src="/minipetmrschool/Public/admin/js/action.js"></script>
+    <script type="text/javascript" src="/Public/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="/Public/admin/js/action.js"></script>
 
     <title>管理员列表</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 管理员管理 <span class="c-gray en">&gt;</span> 新增管理员 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 管理员管理 <span class="c-gray en">&gt;</span> 新增/修改管理员 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
     <form class="form form-horizontal" id="form-admin-add" action="?id=<?php echo ($id); ?>" method="post" onsubmit="return ac_from();">
         <div class="row cl">
@@ -53,15 +53,15 @@
     </form>
 </div>
 <!--_footer 作为公共模版分离出去-->
-<script type="text/javascript" src="/minipetmrschool/Public/admin/lib/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="/minipetmrschool/Public/admin/lib/layer/2.4/layer.js"></script>
-<script type="text/javascript" src="/minipetmrschool/Public/admin/static/h-ui/js/H-ui.min.js"></script>
-<script type="text/javascript" src="/minipetmrschool/Public/admin/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/Public/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/Public/admin/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/Public/admin/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/Public/admin/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="/minipetmrschool/Public/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
-<script type="text/javascript" src="/minipetmrschool/Public/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="/minipetmrschool/Public/admin/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="/Public/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/Public/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/Public/admin/lib/laypage/1.2/laypage.js"></script>
 
 <script>
     function ac_from(){

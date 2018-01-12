@@ -21,11 +21,11 @@ class WxPayConfig
 	 * 获取地址：https://mp.weixin.qq.com/advanced/advanced?action=dev&t=advanced/dev&token=2005451881&lang=zh_CN
 	 * @var string
 	 */
-    const APPID = '';
-    const MCHID = '';
-    const KEY = '';
-    const APPSECRET = '';
-    const NOTIFY_URL = 'https://www.xxx.com/index.php/Api/Wxpay/notify';
+    const APPID = 'wxbb7976dac4127a75';
+    const MCHID = '1415076802';
+    const KEY = 'f6a79c1ee3b2906f00d2538283e22f83';
+    const APPSECRET = 'b457d1898b6a2aa8efcdaf37b14a8821';
+    const NOTIFY_URL = 'http://shop.allugame.com/index.php/Api/Wxpay/notify';
 	
 	//=======【证书路径设置】=====================================
 	/**

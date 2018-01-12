@@ -8,25 +8,25 @@
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <link rel="Bookmark" href="/favicon.ico" >
     <link rel="Shortcut Icon" href="/favicon.ico" />
-    <link href="/minipetmrschool/Public/admin/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/Public/admin/css/main.css" rel="stylesheet" type="text/css" />
     <!--[if lt IE 9]>
-    <script type="text/javascript" src="/minipetmrschool/Public/admin/lib/html5shiv.js"></script>
-    <script type="text/javascript" src="/minipetmrschool/Public/admin/lib/respond.min.js"></script>
+    <script type="text/javascript" src="/Public/admin/lib/html5shiv.js"></script>
+    <script type="text/javascript" src="/Public/admin/lib/respond.min.js"></script>
     <![endif]-->
-    <link rel="stylesheet" type="text/css" href="/minipetmrschool/Public/admin/static/h-ui/css/H-ui.min.css" />
-    <link rel="stylesheet" type="text/css" href="/minipetmrschool/Public/admin/static/h-ui.admin/css/H-ui.admin.css" />
-    <link rel="stylesheet" type="text/css" href="/minipetmrschool/Public/admin/lib/Hui-iconfont/1.0.8/iconfont.css" />
-    <link rel="stylesheet" type="text/css" href="/minipetmrschool/Public/admin/static/h-ui.admin/skin/default/skin.css" id="skin" />
-    <link rel="stylesheet" type="text/css" href="/minipetmrschool/Public/admin/static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/Public/admin/static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="/Public/admin/static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="/Public/admin/lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="/Public/admin/static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="/Public/admin/static/h-ui.admin/css/style.css" />
     <!--[if IE 6]>
-    <script type="text/javascript" src="/minipetmrschool/Public/admin/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script type="text/javascript" src="/Public/admin/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
-    <script type="text/javascript" src="/minipetmrschool/Public/admin/js/jquery.js"></script>
-    <script type="text/javascript" src="/minipetmrschool/Public/admin/js/action.js"></script>
-    <script type="text/javascript" src="/minipetmrschool/Public/plugins/xheditor/xheditor-1.2.1.min.js"></script>
-    <script type="text/javascript" src="/minipetmrschool/Public/plugins/xheditor/xheditor_lang/zh-cn.js"></script>
-    <script type="text/javascript" src="/minipetmrschool/Public/admin/js/jCalendar.js"></script>
+    <script type="text/javascript" src="/Public/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="/Public/admin/js/action.js"></script>
+    <script type="text/javascript" src="/Public/plugins/xheditor/xheditor-1.2.1.min.js"></script>
+    <script type="text/javascript" src="/Public/plugins/xheditor/xheditor_lang/zh-cn.js"></script>
+    <script type="text/javascript" src="/Public/admin/js/jCalendar.js"></script>
 
     <style>
         <?php
@@ -186,7 +186,7 @@
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>缩略图，图片大小230*230</label>
             <div class="formControls col-xs-8 col-sm-3">
                 <?php if ($pro_allinfo['photo_x']) { ?>
-                <img src="/minipetmrschool/Data/<?php echo $pro_allinfo['photo_x']; ?>" width="80" height="80" style="margin-bottom: 3px;" />
+                <img src="/Data/<?php echo $pro_allinfo['photo_x']; ?>" width="80" height="80" style="margin-bottom: 3px;" />
                 <br />
                 <?php } ?>
                 <input type="file" name="photo_x" id="photo_x" />
@@ -197,7 +197,7 @@
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>大 图，图片大小600*600</label>
             <div class="formControls col-xs-8 col-sm-3">
                 <?php if ($pro_allinfo['photo_d']) { ?>
-                <img src="/minipetmrschool/Data/<?php echo $pro_allinfo['photo_d']; ?>" width="125" height="125" style="margin-bottom: 3px;" />
+                <img src="/Data/<?php echo $pro_allinfo['photo_d']; ?>" width="125" height="125" style="margin-bottom: 3px;" />
                 <br />
                 <?php } ?>
                 <input type="file" name="photo_d" id="photo_d" />
@@ -214,7 +214,7 @@
                     <?php foreach ($img_str as $v) { ?>
                     <div>
                         <div class="img-err" title="删除" onclick="del_img('<?php echo $v; ?>',this);">×</div>
-                        <img src="<?php echo '/minipetmrschool/Data/'.$v; ?>" width="125" height="125">
+                        <img src="<?php echo '/Data/'.$v; ?>" width="125" height="125">
                     </div>
                     <?php } ?>
                 </li>
@@ -286,7 +286,7 @@
         </div>
     </form>
 </div>
-<script type="text/javascript" src="/minipetmrschool/Public/admin/js/product.js"></script>
+<script type="text/javascript" src="/Public/admin/js/product.js"></script>
 
 <!--_footer 作为公共模版分离出去-->
 

@@ -8,24 +8,24 @@
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <link rel="Bookmark" href="/favicon.ico" >
     <link rel="Shortcut Icon" href="/favicon.ico" />
-    <link href="/minipetmrschool/Public/admin/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/Public/admin/css/main.css" rel="stylesheet" type="text/css" />
 
     <!--[if lt IE 9]>
-    <script type="text/javascript" src="/minipetmrschool/Public/admin/lib/html5shiv.js"></script>
-    <script type="text/javascript" src="/minipetmrschool/Public/admin/lib/respond.min.js"></script>
+    <script type="text/javascript" src="/Public/admin/lib/html5shiv.js"></script>
+    <script type="text/javascript" src="/Public/admin/lib/respond.min.js"></script>
     <![endif]-->
-    <link rel="stylesheet" type="text/css" href="/minipetmrschool/Public/admin/static/h-ui/css/H-ui.min.css" />
-    <link rel="stylesheet" type="text/css" href="/minipetmrschool/Public/admin/static/h-ui.admin/css/H-ui.admin.css" />
-    <link rel="stylesheet" type="text/css" href="/minipetmrschool/Public/admin/lib/Hui-iconfont/1.0.8/iconfont.css" />
-    <link rel="stylesheet" type="text/css" href="/minipetmrschool/Public/admin/static/h-ui.admin/skin/default/skin.css" id="skin" />
-    <link rel="stylesheet" type="text/css" href="/minipetmrschool/Public/admin/static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/Public/admin/static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="/Public/admin/static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="/Public/admin/lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="/Public/admin/static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="/Public/admin/static/h-ui.admin/css/style.css" />
     <!--[if IE 6]>
-    <script type="text/javascript" src="/minipetmrschool/Public/admin/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script type="text/javascript" src="/Public/admin/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
-    <script type="text/javascript" src="/minipetmrschool/Public/admin/js/jquery.js"></script>
-    <script type="text/javascript" src="/minipetmrschool/Public/admin/js/action.js"></script>
-    <script type="text/javascript" src="/minipetmrschool/Public/admin/js/mydate.js"></script>
+    <script type="text/javascript" src="/Public/admin/js/jquery.js"></script>
+    <script type="text/javascript" src="/Public/admin/js/action.js"></script>
+    <script type="text/javascript" src="/Public/admin/js/mydate.js"></script>
 
     <title>新增优惠券</title>
 </head>
@@ -103,7 +103,7 @@
         <li>
             <div class="d1">已选产品:</div>
             <div>
-                <?php if(is_array($voucher['pro_list'])): $i = 0; $__LIST__ = $voucher['pro_list'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$v): $mod = ($i % 2 );++$i;?><img src="/minipetmrschool/Data/<?php echo ($v); ?>" width="100px" height="100px" /><?php endforeach; endif; else: echo "" ;endif; ?>
+                <?php if(is_array($voucher['pro_list'])): $i = 0; $__LIST__ = $voucher['pro_list'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$v): $mod = ($i % 2 );++$i;?><img src="/Data/<?php echo ($v); ?>" width="100px" height="100px" /><?php endforeach; endif; else: echo "" ;endif; ?>
             </div>
         </li>
         <?php } ?>
@@ -117,17 +117,17 @@
     </form>
 </div>
 <!--_footer 作为公共模版分离出去-->
-<script type="text/javascript" src="/minipetmrschool/Public/admin/lib/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="/minipetmrschool/Public/admin/lib/layer/2.4/layer.js"></script>
-<script type="text/javascript" src="/minipetmrschool/Public/admin/static/h-ui/js/H-ui.min.js"></script>
-<script type="text/javascript" src="/minipetmrschool/Public/admin/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/Public/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/Public/admin/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/Public/admin/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/Public/admin/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="/minipetmrschool/Public/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
-<script type="text/javascript" src="/minipetmrschool/Public/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="/minipetmrschool/Public/admin/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="/Public/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/Public/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/Public/admin/lib/laypage/1.2/laypage.js"></script>
 
-<script type="text/javascript" src="/minipetmrschool/Public/admin/js/product.js"></script>
+<script type="text/javascript" src="/Public/admin/js/product.js"></script>
 <script>
     function ac_from(){
 
