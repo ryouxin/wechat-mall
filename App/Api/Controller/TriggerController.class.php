@@ -16,7 +16,7 @@ class TriggerController extends PublicController{
     // make sure update.sh is added to crontab which does the update actually
     public function index()
     {
-        system('echo 1 > ../tools/git_update && chmod 777 ../tools/git_update ');
+        system('echo 1 > ./tools/git_update && chmod 777 ./tools/git_update ');
         echo 'SUCCESS 等待10秒后 项目部署成功';
     }
 
