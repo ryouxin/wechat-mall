@@ -162,8 +162,5 @@ class WxpayController extends Controller{
 		$buff = trim($buff, "&");
 		return $buff;
 	}
-    public function test(){
-        echo 1;
-    }
 }
 ?>
