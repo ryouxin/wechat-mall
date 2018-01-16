@@ -16,7 +16,7 @@ return array(
     //'DB_NAME'               => 'aaa_pts_lscy'.$sckey,    // 数据库名
     //'DB_USER'               => '1234',      // 用户名
     //'DB_PWD'                => 'towebappptstowebapppts',       // 密码
-    
+
 
     // 'DB_HOST'               =>  'rm-bp12j54a6nuw04l8t.mysql.rds.aliyuncs.com', // 服务器地址
     // 'DB_NAME'               =>  'r6hpk2l184',          // 数据库名
@@ -46,7 +46,7 @@ return array(
 	'TMPL_ACTION_SUCCESS'   =>  'Public/success', // 默认成功跳转对应的模板文件
 
      //以上配置项，是从接口包中alipay.config.php 文件中复制过来，进行配置；
-   
+
 	//微信配置参数
     'weixin'=>array(
 
@@ -58,7 +58,7 @@ return array(
         'key' => 'f6a79c1ee3b2906f00d2538283e22f83',
 
         //这里是异步通知页面url，提交到项目的Pay控制器的notifyurl方法；
-        'notify_url'=>'http://shop.allugame.com/index.php/Api/Wxpay/notify',
+        'notify_url'=>'https://wechat-shop.zytxgame.com/index.php/Api/Wxpay/notify',
 
     ),
 );
