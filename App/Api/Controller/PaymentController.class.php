@@ -295,6 +295,7 @@ class PaymentController extends PublicController {
 		$order_pro=M("order_product");
 		$shopping=M('shopping_char');
 
+		echo '$product '.$product.' $post '.$post.' $order_pro '.$order_pro.' $shopping '.$shopping;
 		$uid = intval($_REQUEST['uid']);
 		if (!$uid) {
 			echo json_encode(array('status'=>0,'err'=>'登录状态异常.'));
@@ -368,7 +369,7 @@ class PaymentController extends PublicController {
 			$data['del']=0;
 			$data['type']=$_POST['type'];
 			$data['status']=10;
-			
+
 			// $adds_id = intval($_POST['aid']);
 			// if (!$adds_id) {
 			// 	throw new \Exception("请选择收货地址.".__LINE__);
