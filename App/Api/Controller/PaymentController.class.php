@@ -295,7 +295,7 @@ class PaymentController extends PublicController {
 		$order_pro=M("order_product");
 		$shopping=M('shopping_char');
 
-		echo '$product '.$product.' $post '.$post.' $order_pro '.$order_pro.' $shopping '.$shopping;
+		// echo '$product '.$product.' $post '.$post.' $order_pro '.$order_pro.' $shopping '.$shopping;
 		$uid = intval($_REQUEST['uid']);
 		if (!$uid) {
 			echo json_encode(array('status'=>0,'err'=>'登录状态异常.'));
