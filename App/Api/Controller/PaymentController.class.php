@@ -24,7 +24,7 @@ class PaymentController extends PublicController {
 		$product=M("product");
 		//运费
 		$post = M('post');
-        
+
         //立即购买数量
         $num=intval($_REQUEST['num']);
         if (!$num) {
@@ -45,7 +45,7 @@ class PaymentController extends PublicController {
 			echo json_encode(array('status'=>0,'err'=>'库存不足.'));
 			exit();
 		}
-        
+
 		$qz=C('DB_PREFIX');//前缀
 
 		$pro=$shopping->where(''.$qz.'shopping_char.uid='.intval($uid).' and '.$qz.'shopping_char.id='.intval($cart_id))->join('LEFT JOIN __PRODUCT__ ON __PRODUCT__.id=__SHOPPING_CHAR__.pid')->join('LEFT JOIN __SHANGCHANG__ ON __SHANGCHANG__.id=__SHOPPING_CHAR__.shop_id')->field(''.$qz.'product.num as pnum,'.$qz.'shopping_char.id,'.$qz.'shopping_char.pid,'.$qz.'shangchang.name as sname,'.$qz.'product.name,'.$qz.'product.shop_id,'.$qz.'product.photo_x,'.$qz.'product.price_yh,'.$qz.'shopping_char.num,'.$qz.'shopping_char.buff,'.$qz.'shopping_char.price,'.$qz.'shangchang.alipay,'.$qz.'shangchang.alipay_pid,'.$qz.'shangchang.alipay_key')->find();
@@ -103,12 +103,12 @@ class PaymentController extends PublicController {
 		}
 
 		//下单
-			try {	
+			try {
 				$data = array();
 				$data['shop_id']=intval($_POST['sid']);
 				$data['uid']=intval($uid);
 				$data['addtime']=time();
-				$data['del']=0; 
+				$data['del']=0;
 				$data['type']=trim($_POST['paytype']);
 				//订单状态 10未付款20代发货30确认收货（待收货）40交易关闭50交易完成
 				$data['status']=10;//未付款
@@ -175,7 +175,7 @@ class PaymentController extends PublicController {
 					$product->where('id='.intval($date['pid']))->save($up);
 
 					$url=$_SERVER['HTTP_REFERER'];
-					
+
 				}else{
 					throw new \Exception("下单 失败！");
 				}
@@ -328,7 +328,7 @@ class PaymentController extends PublicController {
 			if ($_POST['yunfei']) {
 				$yunPrice = $post->where('id='.intval($_POST['yunfei']))->find();
 			}
-			
+
 			$data['shop_id']=$shop[$ke]['shop_id'];
 			$data['uid']=intval($uid);
 
@@ -368,11 +368,11 @@ class PaymentController extends PublicController {
 			$data['del']=0;
 			$data['type']=$_POST['type'];
 			$data['status']=10;
-
-			$adds_id = intval($_POST['aid']);
-			if (!$adds_id) {
-				throw new \Exception("请选择收货地址.".__LINE__);
-			}
+			
+			// $adds_id = intval($_POST['aid']);
+			// if (!$adds_id) {
+			// 	throw new \Exception("请选择收货地址.".__LINE__);
+			// }
 			$adds_info = M('address')->where('id='.intval($adds_id))->find();
 			$data['receiver']=$adds_info['name'];
 			$data['tel']=$adds_info['tel'];
@@ -426,7 +426,7 @@ class PaymentController extends PublicController {
 	            	//echo  $product->getLastSql();
 	            	//删除购物车数据
 	            	$shopping->where('uid='.intval($uid).' AND id='.intval($var))->delete();
-					
+
 				}
 			}else{
 				throw new \Exception("下单 失败！");
@@ -435,14 +435,14 @@ class PaymentController extends PublicController {
 		  	echo json_encode(array('status'=>0,'err'=>$e->getMessage()));
 		  	exit();
 		  }
-		  
+
 		    //把需要的数据返回
 			$arr = array();
 			$arr['order_id'] = $result;
 			$arr['order_sn'] = $data['order_sn'];
 			$arr['pay_type'] = $_POST['type'];
 			echo json_encode(array('status'=>1,'arr'=>$arr));
-			exit();	
+			exit();
     }
 
     //****************************
