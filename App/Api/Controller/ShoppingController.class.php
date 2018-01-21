@@ -91,7 +91,7 @@ class ShoppingController extends PublicController {
 			echo json_encode(array('status'=>0,'err'=>'库存不足！'));
 			exit();
 		}
-		
+
 		$data=array();
 		$data['num']=$num;
 
@@ -103,7 +103,7 @@ class ShoppingController extends PublicController {
 			echo json_encode(array('status'=>0,'err'=>'操作失败.'));
 			exit();
 		}
-		
+
 	}
 
 	//多个购物车商品删除
@@ -133,6 +133,7 @@ class ShoppingController extends PublicController {
 
 	//添加购物车
 	public function add(){
+		echo json_encode($_REQUEST);
 		$uid = intval($_REQUEST['uid']);
 		if (!$uid) {
 			echo json_encode(array('status'=>0,'err'=>'登录状态异常.'));
@@ -244,9 +245,9 @@ class ShoppingController extends PublicController {
 			echo json_encode(array('status'=>0));
 			exit();
 		}
-		
+
 		$names = i_array_column($shoop, 'shop_id');
-		
+
 		$arr=array_unique($names);
 		$val= sizeof($arr);
 		if($val=='1'){
@@ -255,7 +256,7 @@ class ShoppingController extends PublicController {
 		}else{
 			echo json_encode(array('status'=>2));
 			exit();
-		}	 
+		}
 	}
 
 	//购物车添加。删除检测公共方法
@@ -267,7 +268,7 @@ class ShoppingController extends PublicController {
 		}
 
 		return array('status'=>1);
-	}   
+	}
 
     /*
        去除HTNL标签
