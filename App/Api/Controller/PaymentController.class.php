@@ -312,10 +312,10 @@ class PaymentController extends PublicController {
 		  try {
 		  	$qz=C('DB_PREFIX');//前缀
 		  	$cart_id = explode(',', $cart_id);
-			echo json_encode($cart_id);
 			$shop=array();
 			foreach($cart_id as $ke => $vl){
 				$shop[$ke]=$shopping->where(''.$qz.'shopping_char.uid='.intval($uid).' and '.$qz.'shopping_char.id='.$vl)->join('LEFT JOIN __PRODUCT__ ON __PRODUCT__.id=__SHOPPING_CHAR__.pid')->field(''.$qz.'shopping_char.pid,'.$qz.'shopping_char.num,'.$qz.'shopping_char.shop_id,'.$qz.'shopping_char.buff,'.$qz.'shopping_char.price,'.$qz.'product.price_yh')->find();
+				echo $shopping->getLastSql();
 				$num+=$shop[$ke]['num'];
                 if($shop[$ke]['buff']!=''){
 			    	$ozprice+=$shop[$ke]['price']*$shop[$ke]['num'];
