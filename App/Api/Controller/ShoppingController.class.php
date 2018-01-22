@@ -182,6 +182,8 @@ class ShoppingController extends PublicController {
 		//判断购物车内是否已经存在该商品
 		$data = array();
 		$cart_info = $shpp->where('pid='.intval($pid).' AND uid='.intval($uid))->field('id,num')->find();
+		echo $shpp->getLastSql();
+		echo '<br>';
 		echo $pid.'  '.$uid;
 		echo '<br>';
 		echo $cart_info;
