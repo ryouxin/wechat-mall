@@ -307,7 +307,7 @@ class PaymentController extends PublicController
             echo json_encode(array('status'=>0,'err'=>'登录状态异常.'));
             exit();
         }
-
+		echo $cart_id;
         $cart_id = trim($_REQUEST['cart_id'], ',');
         if (!$cart_id) {
             echo json_encode(array('status'=>0,'err'=>'数据异常.'));
