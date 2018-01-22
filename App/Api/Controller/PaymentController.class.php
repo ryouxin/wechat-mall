@@ -321,7 +321,7 @@ class PaymentController extends PublicController
               $shop=array();
               foreach ($cart_id as $ke => $vl) {
                   $shop[$ke]=$shopping->where(''.$qz.'shopping_char.uid='.intval($uid).' and '.$qz.'shopping_char.id='.$vl)->join('LEFT JOIN __PRODUCT__ ON __PRODUCT__.id=__SHOPPING_CHAR__.pid')->field(''.$qz.'shopping_char.pid,'.$qz.'shopping_char.num,'.$qz.'shopping_char.shop_id,'.$qz.'shopping_char.buff,'.$qz.'shopping_char.price,'.$qz.'product.price_yh')->find();
-                // echo $shopping->getLastSql();
+                echo $shopping->getLastSql();
                 // echo json_encode($shop[$ke]);
                 $num+=$shop[$ke]['num'];
                   if ($shop[$ke]['buff']!='') {
