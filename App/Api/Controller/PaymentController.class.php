@@ -336,6 +336,7 @@ class PaymentController extends PublicController
               if ($_POST['yunfei']) {
                   $yunPrice = $post->where('id='.intval($_POST['yunfei']))->find();
               }
+			  echo json_encode($shop);
             // if ($shop[$ke]['shop_id']){
                     $data['shop_id']=$shop[$ke]['shop_id'];
             // }else{
