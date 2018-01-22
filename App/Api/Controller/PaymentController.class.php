@@ -312,6 +312,7 @@ class PaymentController extends PublicController {
 		  try {
 		  	$qz=C('DB_PREFIX');//前缀
 			echo json_encode($qz);
+			echo '<br/>';
 		  	$cart_id = explode(',', $cart_id);
 			$shop=array();
 			foreach($cart_id as $ke => $vl){
