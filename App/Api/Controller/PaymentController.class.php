@@ -397,7 +397,7 @@ class PaymentController extends PublicController
 			  echo 'get result'.__LINE__;
             $result = $order->add($data);
 
-            echo $order_pro->getLastSql().' '.__LINE__;
+            echo $order->getLastSql().' '.__LINE__;
             if ($result) {
                 //$prid = explode(",", $_POST['ids']);
                 foreach ($cart_id as $key => $var) {
