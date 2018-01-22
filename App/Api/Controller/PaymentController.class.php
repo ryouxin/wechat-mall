@@ -385,7 +385,7 @@ class PaymentController extends PublicController {
 
 			$result = $order->add($data);
 
-			echo $order_pro->getLastSql().' '.__LINE__;
+			// echo $order_pro->getLastSql().' '.__LINE__;
 		    if($result){
 	            //$prid = explode(",", $_POST['ids']);
 			    foreach($cart_id as $key => $var){
@@ -417,7 +417,7 @@ class PaymentController extends PublicController {
 					$date['num']=$shops[$key]['num'];
 					$date['pro_guige']='';
 					$res = $order_pro->add($date);
-					echo $order_pro->getLastSql().' '.__LINE__;
+					// echo $order_pro->getLastSql().' '.__LINE__;
 					if (!$res) {
 						throw new \Exception("下单 失败！".__LINE__);
 					}
@@ -427,7 +427,7 @@ class PaymentController extends PublicController {
 					$up['num'] = intval($check_pro['num'])-intval($date['num']);
 					$up['shiyong'] = intval($check_pro['shiyong'])+intval($date['num']);
 					$product->where('id='.intval($date['pid']))->save($up);
-	            	echo  $product->getLastSql().' '.__LINE__;
+	            	// echo  $product->getLastSql().' '.__LINE__;
 	            	//删除购物车数据
 	            	$shopping->where('uid='.intval($uid).' AND id='.intval($var))->delete();
 
