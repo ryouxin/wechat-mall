@@ -182,14 +182,19 @@ class ShoppingController extends PublicController {
 		//判断购物车内是否已经存在该商品
 		$data = array();
 		$cart_info = $shpp->where('pid='.intval($pid).' AND uid='.intval($uid))->field('id,num')->find();
-		echo $shpp->getLastSql();
-		echo '<br>';
-		echo $pid.'  '.$uid;
-		echo '<br>';
-		echo json_encode($cart_info);
-		echo '<br>';
+		// echo $shpp->getLastSql();
+		// echo '<br>';
+		// echo $pid.'  '.$uid;
+		// echo '<br>';
+		// echo json_encode($cart_info);
+		// echo '<br>';
 		if ($cart_info) {
 			$data['num'] = intval($cart_info['num'])+intval($num);
+			echo $data['num'];
+			echo '<br>';
+			echo intval($cart_info['num']);
+			echo '<br>';
+			echo intval($num);
 			//判断库存
 			if (intval($check_info['num'])<=$data['num']) {
 				echo json_encode(array('status'=>0,'err'=>'库存不足！'));
