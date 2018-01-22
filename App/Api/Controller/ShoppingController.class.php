@@ -202,7 +202,8 @@ class ShoppingController extends PublicController {
 			}
 			$data['type']=$ptype;
 			$data['price'] = $check_info['price_yh'];
-
+			echo $data;
+			echo '<br>';
 			$res=$shpp->add($data);
 		}
 
