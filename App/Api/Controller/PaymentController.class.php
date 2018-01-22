@@ -320,7 +320,6 @@ class PaymentController extends PublicController
             $cart_id = explode(',', $cart_id);
               $shop=array();
               foreach ($cart_id as $ke => $vl) {
-				  echo $vl;
                   $shop[$ke]=$shopping->where(''.$qz.'shopping_char.uid='.intval($uid).' and '.$qz.'shopping_char.id='.$vl)->join('LEFT JOIN __PRODUCT__ ON __PRODUCT__.id=__SHOPPING_CHAR__.pid')->field(''.$qz.'shopping_char.pid,'.$qz.'shopping_char.num,'.$qz.'shopping_char.shop_id,'.$qz.'shopping_char.buff,'.$qz.'shopping_char.price,'.$qz.'product.price_yh')->find();
                 // echo $shopping->getLastSql();
                 // echo json_encode($shop[$ke]);
@@ -430,7 +429,7 @@ class PaymentController extends PublicController
                     $date['num']=$shops[$key]['num'];
                     $date['pro_guige']='';
                     $res = $order_pro->add($date);
-                    // echo $order_pro->getLastSql().' '.__LINE__;
+                    echo $order_pro->getLastSql().' '.__LINE__;
                     if (!$res) {
                         throw new \Exception("下单 失败！".__LINE__);
                     }
