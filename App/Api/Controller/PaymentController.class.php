@@ -415,6 +415,7 @@ class PaymentController extends PublicController {
 					$date['num']=$shops[$key]['num'];
 					$date['pro_guige']='';
 					$res = $order_pro->add($date);
+					echo $order_pro->getLastSql();
 					if (!$res) {
 						throw new \Exception("下单 失败！".__LINE__);
 					}
