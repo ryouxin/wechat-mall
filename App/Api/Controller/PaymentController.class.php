@@ -311,7 +311,7 @@ class PaymentController extends PublicController {
 		//生成订单
 		  try {
 		  	$qz=C('DB_PREFIX');//前缀
-
+			echo json_encode($qz);
 		  	$cart_id = explode(',', $cart_id);
 			$shop=array();
 			foreach($cart_id as $ke => $vl){
@@ -329,7 +329,6 @@ class PaymentController extends PublicController {
 			if ($_POST['yunfei']) {
 				$yunPrice = $post->where('id='.intval($_POST['yunfei']))->find();
 			}
-			echo json_encode($shop);
 			$data['shop_id']=$shop[$ke]['shop_id'];
 			$data['uid']=intval($uid);
 
