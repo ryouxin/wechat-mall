@@ -201,9 +201,10 @@ class ShoppingController extends PublicController {
 				exit;
 			}
 			$res = $shpp->where('id='.intval($cart_info['id']))->save($data);
-			echo $shpp->getLastSql();
-			echo '<br>';
-			echo $res;
+			// echo $shpp->getLastSql();
+			// echo '<br>';
+			// echo $res;
+			$res = $cart_info['id'];
 		}else{
 			$data['pid']=intval($pid);
 			$data['num']=intval($num);
