@@ -186,7 +186,7 @@ class ShoppingController extends PublicController {
 		echo '<br>';
 		echo $pid.'  '.$uid;
 		echo '<br>';
-		echo $cart_info;
+		echo json_encode($cart_info);
 		echo '<br>';
 		if ($cart_info) {
 			$data['num'] = intval($cart_info['num'])+intval($num);
