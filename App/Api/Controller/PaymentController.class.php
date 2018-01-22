@@ -300,7 +300,7 @@ class PaymentController extends PublicController
         $order=M("order");
         $order_pro=M("order_product");
         $shopping=M('shopping_char');
-		echo $_REQUEST;
+		echo json_encode($_REQUEST);
         // echo '$product '.$product.' $post '.$post.' $order_pro '.$order_pro.' $shopping '.$shopping;
         $uid = intval($_REQUEST['uid']);
         if (!$uid) {
