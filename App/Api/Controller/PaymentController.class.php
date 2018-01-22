@@ -384,7 +384,7 @@ class PaymentController extends PublicController {
 			$data['order_sn']=$this->build_order_no();//生成唯一订单号
 
 			$result = $order->add($data);
-			echo $order_pro->getLastSql();
+			// echo $order_pro->getLastSql();
 		    if($result){
 	            //$prid = explode(",", $_POST['ids']);
 			    foreach($cart_id as $key => $var){
@@ -416,7 +416,7 @@ class PaymentController extends PublicController {
 					$date['num']=$shops[$key]['num'];
 					$date['pro_guige']='';
 					$res = $order_pro->add($date);
-					echo $order_pro->getLastSql();
+					// echo $order_pro->getLastSql();
 					if (!$res) {
 						throw new \Exception("下单 失败！".__LINE__);
 					}
