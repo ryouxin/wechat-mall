@@ -443,6 +443,7 @@ class PaymentController extends PublicController
                     // echo  $product->getLastSql().' '.__LINE__;
                     //删除购物车数据
                     $shopping->where('uid='.intval($uid).' AND id='.intval($var))->delete();
+					echo $shopping->getLastSql();
                 }
             } else {
                 throw new \Exception("下单 失败！");
