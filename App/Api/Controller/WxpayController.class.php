@@ -20,6 +20,7 @@ class WxpayController extends Controller{
 		}
 
 		$order_info = M('order')->where('order_sn="'.$pay_sn.'"')->find();
+        echo json_encode($order_info);
 		if (!$order_info) {
 			echo json_encode(array('status'=>0,'err'=>'没有找到支付订单！'));
 			exit();
@@ -51,7 +52,7 @@ class WxpayController extends Controller{
 		$input->SetTrade_type("JSAPI");
 		$input->SetOpenid($openId);
 		$order = \WxPayApi::unifiedOrder($input);
-        echo $order;
+        // echo $order;
 		//echo '<font color="#f00"><b>统一下单支付单信息</b></font><br/>';
 		//printf_info($order);
 		$arr = array();
