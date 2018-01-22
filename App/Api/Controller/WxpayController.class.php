@@ -20,7 +20,6 @@ class WxpayController extends Controller{
 		}
 
 		$order_info = M('order')->where('order_sn="'.$pay_sn.'"')->find();
-        // echo json_encode($order_info);
 		if (!$order_info) {
 			echo json_encode(array('status'=>0,'err'=>'没有找到支付订单！'));
 			exit();
@@ -51,10 +50,7 @@ class WxpayController extends Controller{
 		$input->SetNotify_url('https://wechat-shop.zytxgame.com/index.php/Api/Wxpay/notify');
 		$input->SetTrade_type("JSAPI");
 		$input->SetOpenid($openId);
-        // echo json_encode($order_info).__LINE__;
-        // echo json_encode($input).__LINE__;
 		$order = \WxPayApi::unifiedOrder($input);
-        // echo json_encode($order).__LINE__;
 		//echo '<font color="#f00"><b>统一下单支付单信息</b></font><br/>';
 		//printf_info($order);
 		$arr = array();
@@ -66,7 +62,7 @@ class WxpayController extends Controller{
 		$str = $this->ToUrlParams($arr);
 		$jmstr = $str."&key=".\WxPayConfig::KEY;
 		$arr['paySign'] = strtoupper(MD5($jmstr));
-		// echo json_encode(array('status'=>1,'arr'=>$arr));
+		echo json_encode(array('status'=>1,'arr'=>$arr));
 		exit();
 		//获取共享收货地址js函数参数
 		//$editAddress = $tools->GetEditAddressParameters();
