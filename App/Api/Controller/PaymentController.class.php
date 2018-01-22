@@ -442,8 +442,8 @@ class PaymentController extends PublicController
                     $product->where('id='.intval($date['pid']))->save($up);
                     // echo  $product->getLastSql().' '.__LINE__;
                     //删除购物车数据
-                    $shopping->where('uid='.intval($uid).' AND id='.intval($var))->delete();
-					echo $shopping->getLastSql();
+                    // $shopping->where('uid='.intval($uid).' AND id='.intval($var))->delete();
+					// echo $shopping->getLastSql();
                 }
             } else {
                 throw new \Exception("下单 失败！");
