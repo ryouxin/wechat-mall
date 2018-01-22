@@ -143,7 +143,7 @@ class WxpayController extends Controller{
 			if (intval($check_info['vid'])) {
 				$vou_info = M('user_voucher')->where('uid='.intval($check_info['uid']).' AND vid='.intval($check_info['vid']))->find();
 				if (intval($vou_info['status'])==1) {
-					M('user_voucher')->where('id='.intval($vou_info['id']))->save(array('status'=>2));
+					M('user_voucher')->where('id='.intval($vou_info['id']))->save(array('status'=>5));
 				}
 			}
 			return array('status'=>1,'data'=>$data);
