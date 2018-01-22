@@ -316,7 +316,7 @@ class PaymentController extends PublicController {
 			foreach($cart_id as $ke => $vl){
 				$shop[$ke]=$shopping->where(''.$qz.'shopping_char.uid='.intval($uid).' and '.$qz.'shopping_char.id='.$vl)->join('LEFT JOIN __PRODUCT__ ON __PRODUCT__.id=__SHOPPING_CHAR__.pid')->field(''.$qz.'shopping_char.pid,'.$qz.'shopping_char.num,'.$qz.'shopping_char.shop_id,'.$qz.'shopping_char.buff,'.$qz.'shopping_char.price,'.$qz.'product.price_yh')->find();
 				// echo $shopping->getLastSql();
-				echo json_encode($shop[$ke]);
+				// echo json_encode($shop[$ke]);
 				$num+=$shop[$ke]['num'];
                 if($shop[$ke]['buff']!=''){
 			    	$ozprice+=$shop[$ke]['price']*$shop[$ke]['num'];
@@ -330,6 +330,7 @@ class PaymentController extends PublicController {
 			if ($_POST['yunfei']) {
 				$yunPrice = $post->where('id='.intval($_POST['yunfei']))->find();
 			}
+			echo $shop[$ke]['shop_id'];
 			$data['shop_id']=$shop[$ke]['shop_id'];
 			$data['uid']=intval($uid);
 
