@@ -20,7 +20,7 @@ class WxpayController extends Controller{
 		}
 
 		$order_info = M('order')->where('order_sn="'.$pay_sn.'"')->find();
-        echo json_encode($order_info);
+        // echo json_encode($order_info);
 		if (!$order_info) {
 			echo json_encode(array('status'=>0,'err'=>'没有找到支付订单！'));
 			exit();
