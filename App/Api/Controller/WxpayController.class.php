@@ -131,7 +131,7 @@ class WxpayController extends Controller{
 		$up = array();
 		$up['type'] = $pay_type;
 		$up['price_h'] = sprintf("%.2f",floatval($total_fee/100));
-		$up['status'] = 20;
+		$up['status'] = 50;
 		$up['trade_no'] = $trade_no;
 		$res = M('order')->where('order_sn="'.$order_sn.'"')->save($up);
 		if ($res) {
@@ -139,7 +139,7 @@ class WxpayController extends Controller{
 			if (intval($check_info['vid'])) {
 				$vou_info = M('user_voucher')->where('uid='.intval($check_info['uid']).' AND vid='.intval($check_info['vid']))->find();
 				if (intval($vou_info['status'])==1) {
-					M('user_voucher')->where('id='.intval($vou_info['id']))->save(array('status'=>5));
+					M('user_voucher')->where('id='.intval($vou_info['id']))->save(array('status'=>2));
 				}
 			}
 			return array('status'=>1,'data'=>$data);
