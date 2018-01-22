@@ -190,17 +190,20 @@ class ShoppingController extends PublicController {
 		// echo '<br>';
 		if ($cart_info) {
 			$data['num'] = intval($cart_info['num'])+intval($num);
-			echo $data['num'];
-			echo '<br>';
-			echo intval($cart_info['num']);
-			echo '<br>';
-			echo intval($num);
+			// echo $data['num'];
+			// echo '<br>';
+			// echo intval($cart_info['num']);
+			// echo '<br>';
+			// echo intval($num);
 			//判断库存
 			if (intval($check_info['num'])<=$data['num']) {
 				echo json_encode(array('status'=>0,'err'=>'库存不足！'));
 				exit;
 			}
 			$res = $shpp->where('id='.intval($cart_info['id']))->save($data);
+			echo $shpp->getLastSql();
+			echo '<br>';
+			echo $res;
 		}else{
 			$data['pid']=intval($pid);
 			$data['num']=intval($num);
