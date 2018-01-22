@@ -395,7 +395,7 @@ class PaymentController extends PublicController
               $data['product_num']=$num;
               $data['remark']=$_REQUEST['remark'];
               $data['order_sn']=$this->build_order_no();//生成唯一订单号
-			  echo ''.json_encode($data);
+			  // echo ''.json_encode($data);
             $result = $order->add($data);
 
             // echo $order->getLastSql().' '.__LINE__;
