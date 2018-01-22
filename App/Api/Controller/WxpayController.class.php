@@ -51,6 +51,7 @@ class WxpayController extends Controller{
 		$input->SetNotify_url('https://wechat-shop.zytxgame.com/index.php/Api/Wxpay/notify');
 		$input->SetTrade_type("JSAPI");
 		$input->SetOpenid($openId);
+        echo json_encode($order_info).__LINE__;
         echo json_encode($input).__LINE__;
 		$order = \WxPayApi::unifiedOrder($input);
         echo json_encode($order).__LINE__;
