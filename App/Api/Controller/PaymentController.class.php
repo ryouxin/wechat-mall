@@ -336,6 +336,7 @@ class PaymentController extends PublicController
               if ($_POST['yunfei']) {
                   $yunPrice = $post->where('id='.intval($_POST['yunfei']))->find();
               }
+			  echo $shop[$ke]['shop_id'];
 			  if (!$shop[$ke]['shop_id']) {
 				  throw new \Exception("订单 失效,请重新添加购买！".__LINE__);
 			  }
