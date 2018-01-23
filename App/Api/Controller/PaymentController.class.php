@@ -446,7 +446,7 @@ class PaymentController extends PublicController
 					// echo $shopping->getLastSql();
                 }
             } else {
-                throw new \Exception("下单 失败！");
+                throw new \Exception("下单 失败,请重新购买！");
             }
           } catch (Exception $e) {
               echo json_encode(array('status'=>0,'err'=>$e->getMessage()));
