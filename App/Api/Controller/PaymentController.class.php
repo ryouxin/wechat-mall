@@ -432,7 +432,7 @@ class PaymentController extends PublicController
                     $res = $order_pro->add($date);
                     // echo $order_pro->getLastSql().' '.__LINE__;
                     if (!$res) {
-                        throw new \Exception("下单 失败！".__LINE__);
+                        throw new \Exception("下单 失败,请重新购买！".__LINE__);
                     }
                     //检查产品是否存在，并修改库存
                     $check_pro = $product->where('id='.intval($date['pid']).' AND del=0 AND is_down=0')->field('num,shiyong')->find();
