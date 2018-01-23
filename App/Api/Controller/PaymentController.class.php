@@ -336,6 +336,9 @@ class PaymentController extends PublicController
               if ($_POST['yunfei']) {
                   $yunPrice = $post->where('id='.intval($_POST['yunfei']))->find();
               }
+			  if (!$shop[$ke]['shop_id']) {
+				  throw new \Exception("订单 失效,请重新添加购买！".__LINE__);
+			  }
 			  // echo json_encode($shop);
             // if ($shop[$ke]['shop_id']){
                     $data['shop_id']=$shop[$ke]['shop_id'];
@@ -432,7 +435,7 @@ class PaymentController extends PublicController
                     $res = $order_pro->add($date);
                     // echo $order_pro->getLastSql().' '.__LINE__;
                     if (!$res) {
-                        throw new \Exception("下单 失败,请重新购买！".__LINE__);
+                        throw new \Exception("下单 失败！".__LINE__);
                     }
                     //检查产品是否存在，并修改库存
                     $check_pro = $product->where('id='.intval($date['pid']).' AND del=0 AND is_down=0')->field('num,shiyong')->find();
@@ -446,7 +449,7 @@ class PaymentController extends PublicController
 					// echo $shopping->getLastSql();
                 }
             } else {
-                throw new \Exception("下单 失败,请重新购买！");
+                throw new \Exception("下单 失败！");
             }
           } catch (Exception $e) {
               echo json_encode(array('status'=>0,'err'=>$e->getMessage()));
