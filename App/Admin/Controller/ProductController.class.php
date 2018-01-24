@@ -3,7 +3,7 @@ namespace Admin\Controller;
 use Think\Controller;
 class ProductController extends PublicController{
 	//***********************************************
-    public static $Array;//这个给检查产品的字段用 
+    public static $Array;//这个给检查产品的字段用
     public static $PRO_FENLEI; //这个给产品分类打勾用
 	//**************************************************
 	//**********************************************
@@ -52,7 +52,7 @@ class ProductController extends PublicController{
 		$this->assign('page',$page);
 		//=============
 		// 将变量输出
-		//=============	
+		//=============
 		$this->assign('productlist',$productlist);
 		$this->assign('page_index',$page_index);
 		$this->display();
@@ -61,7 +61,7 @@ class ProductController extends PublicController{
 	//说明：产品 添加修改
 	//注意：cid 分类id  shop_id店铺id
 	//**********************************************
-	public function add(){	
+	public function add(){
 
 		$id=(int)$_GET['id'];
 		$page=(int)$_GET['page'];
@@ -69,9 +69,10 @@ class ProductController extends PublicController{
 		$type=$_GET['type'];
 
 		if($_POST['submit']==true){
-		try{	
+		try{
 			//如果不是管理员则查询商家会员的店铺ID
 			$id = intval($_POST['pro_id']);
+            echo json_encode($_POST);
 			$array=array(
 				'name'=>$_POST['name'] ,
 				'intro'=>$_POST['intro'] ,
@@ -79,13 +80,13 @@ class ProductController extends PublicController{
 				'cid'=> intval($_POST['cid']) ,			//产品分类ID
 				'brand_id'=> intval($_POST['brand_id']) ,//产品品牌ID
 				'pro_number'=>$_POST['pro_number'] ,	//产品编号
-				'sort'=>(int)$_POST['sort'] , 
-				'price'=>(float)$_POST['price'] , 
+				'sort'=>(int)$_POST['sort'] ,
+				'price'=>(float)$_POST['price'] ,
 				'price_yh'=>(float)$_POST['price_yh'] ,
 				'price_jf'=>(float)$_POST['price_jf'] ,//赠送积分
 				'updatetime'=>time(),
 				'num'=>(int)$_POST['num'] ,			//库存
-				'content'=>$_POST['content'] , 
+				'content'=>$_POST['content'] ,
 				'company'=>$_POST['company'],  //产品单位
 				'pro_type'=>1,
 				'renqi' => intval($_POST['renqi']),
@@ -93,14 +94,14 @@ class ProductController extends PublicController{
 				'is_show'=>intval($_POST['is_show']),//是否新品
 				'is_sale'=>intval($_POST['is_sale']),//是否折扣
 			);
-			  
+
 			//判断产品详情页图片是否有设置宽度，去掉重复的100%
 			if(strpos($array['content'],'width="100%"')){
 				$array['content']=str_replace(' width="100%"','',$array['content']);
 			}
 			//为img标签添加一个width
 			$array['content']=str_replace('alt=""','alt="" width="100%"',$array['content']);
-		  
+
 			//上传产品小图
 			if (!empty($_FILES["photo_x"]["tmp_name"])) {
 					//文件上传
@@ -174,7 +175,7 @@ class ProductController extends PublicController{
 					}
 					$array['photo_string'] = $adv_str;
 			}
-			
+
 			//执行添加
 			if(intval($id)>0){
 				$imgs = M('product')->where('id='.intval($id))->getField('photo_string');
@@ -203,7 +204,7 @@ class ProductController extends PublicController{
 			}else{
 				throw new \Exception('操作失败.');
 			}
-			  
+
 			}catch(\Exception $e){
 				echo "<script>alert('".$e->getMessage()."');location='{:U('index')}?shop_id=".$shop_id."';</script>";
 			}
@@ -251,7 +252,7 @@ class ProductController extends PublicController{
 		$this->assign('page',$page);
 		//=============
 		// 将变量输出
-		//=============	
+		//=============
 		$this->assign('pro_allinfo',$pro_allinfo);
 		$this->assign('shangchang',$shangchang);
 		$this->display();
@@ -321,7 +322,7 @@ class ProductController extends PublicController{
 
 		// $shopinfo = M('shangchang')->where('id='.intval($tj_update['shop_id']))->find();
 		// //查status,不符合条件不给通过
-		// if(intval($shopinfo['status']) != 1) { 
+		// if(intval($shopinfo['status']) != 1) {
 		//     $this->error('商家未通过审核，产品不能设置推荐.');
 		//     exit;
 		// }
@@ -440,7 +441,7 @@ class ProductController extends PublicController{
 			$this->error('操作失败.');
 			exit();
 		}
-	}	
+	}
 
 	//*************************************************************************
     // 说明：销售统计，发送过来的字段是产品的id  此处不同订单和店铺的销售统计
@@ -472,7 +473,7 @@ class ProductController extends PublicController{
 			 $day_String .= ',"'.date('Y/m',$day).'"';
 		  }else{
 			 $day = strtotime(date('Y-m-d')) - 86400*(11-$i);
-			 $dayend = $day+86400; 
+			 $dayend = $day+86400;
 			 $day_String .= ',"'.date('m/d',$day).'"';
 		  }
 		  $ordernum=M('OrderProduct')->where("pid=$id and addtime>$day and addtime<$dayend")->count();
@@ -498,7 +499,7 @@ class ProductController extends PublicController{
 		$this->assign('type',$type);
 		//=============
 		// 将变量输出
-		//=============	
+		//=============
 		$this->assign('day_String',$day_String);
 		$this->assign('data1',$data1);
 		$this->assign('order_today',$order_today);
@@ -512,18 +513,18 @@ class ProductController extends PublicController{
   	// 说明：产品字段检测
   	//**************************************
 	public function check(){
-		try 
+		try
 		{
-			
+
 			if(self::$Array['name']==''){
 				throw new \Exception('产品名字不能为空！');
 			}
-			
+
 			if(self::$Array['shop_id']==''){
 				throw new \Exception('请选择所属店铺！');
 			}
-			
-			
+
+
 			//验证开始时间
 			/*if(self::$Array['start_time']==''){
 				throw new \Exception('开始日期不能为空！');
@@ -536,7 +537,7 @@ class ProductController extends PublicController{
 					self::$Array['start_time'] = $start_time;
 				}
 			}
-			
+
 			//验证结束时间
 			if(self::$Array['end_time']==''){
 				throw new \Exception('结束日期不能为空！');
@@ -554,9 +555,9 @@ class ProductController extends PublicController{
 					throw new \Exception('结束日期格式不正确！');
 				}
 			}*/
-			
+
 			return 1;
-			
+
 		}
 		catch(\Exception $e)
 		{
@@ -743,7 +744,7 @@ class ProductController extends PublicController{
 				exit();
 			}else{// 上传成功 获取上传文件信息
 				$array['img'] = 'UploadFiles/'.$info['savepath'].$info['savename'];
-			}			
+			}
 		}
 		if ($array) {
 			$res = M('guige')->where('id='.intval($id))->save($array);
