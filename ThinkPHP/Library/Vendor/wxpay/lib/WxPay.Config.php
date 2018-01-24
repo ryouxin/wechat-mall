@@ -10,27 +10,27 @@ class WxPayConfig
 	/**
 	 * TODO: 修改这里配置为您自己申请的商户信息
 	 * 微信公众号信息配置
-	 * 
+	 *
 	 * APPID：绑定支付的APPID（必须配置，开户邮件中可查看）
-	 * 
+	 *
 	 * MCHID：商户号（必须配置，开户邮件中可查看）
-	 * 
+	 *
 	 * KEY：商户支付密钥，参考开户邮件设置（必须配置，登录商户平台自行设置）
 	 * 设置地址：https://pay.weixin.qq.com/index.php/account/api_cert
-	 * 
+	 *
 	 * APPSECRET：公众帐号secert（仅JSAPI支付的时候需要配置， 登录公众平台，进入开发者中心可设置），
 	 * 获取地址：https://mp.weixin.qq.com/advanced/advanced?action=dev&t=advanced/dev&token=2005451881&lang=zh_CN
 	 * @var string
 	 */
-    const APPID = 'wxbb7976dac4127a75';
-    const MCHID = '1415076802';
-    const KEY = 'f6a79c1ee3b2906f00d2538283e22f83';
-    const APPSECRET = 'b457d1898b6a2aa8efcdaf37b14a8821';
+    const APPID = 'wxf26bf0e013e7e9f7';
+    const MCHID = '1484101292';
+    const KEY = '8F60C8102D29FCD525162D02EED4566B';
+    const APPSECRET = 'e53c852496502ddae82b11f00aaf59b5';
 	// const APPID = C("wxpay_config.app_id");
 	// const MCHID = C("wxpay_config.partner");
 	// const KEY = C("wxpay_config.partner_key");
 	// const APPSECRET = C("wxpay_config.app_secret");
-	
+
 	//=======【证书路径设置】=====================================
 	/**
 	 * TODO：设置商户证书路径
@@ -40,7 +40,7 @@ class WxPayConfig
 	 */
 	const SSLCERT_PATH = '../cert/apiclient_cert.pem';
 	const SSLKEY_PATH = '../cert/apiclient_key.pem';
-	
+
 	//=======【curl代理设置】===================================
 	/**
 	 * TODO：这里设置代理机器，只有需要代理的时候才设置，不需要代理，请设置为0.0.0.0和0
@@ -50,7 +50,7 @@ class WxPayConfig
 	 */
 	const CURL_PROXY_HOST = "0.0.0.0";//"10.152.18.220";
 	const CURL_PROXY_PORT = 0;//8080;
-	
+
 	//=======【上报信息配置】===================================
 	/**
 	 * TODO：接口调用上报等级，默认紧错误上报（注意：上报超时间为【1s】，上报无论成败【永不抛出异常】，

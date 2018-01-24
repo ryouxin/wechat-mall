@@ -51,11 +51,11 @@ return array(
     'weixin'=>array(
 
 
-        'appid' =>'wxbb7976dac4127a75',			//微信appid
-        'secret'=>'b457d1898b6a2aa8efcdaf37b14a8821', //微信secret
+        'appid' =>'wxf26bf0e013e7e9f7',			//微信appid
+        'secret'=>'e53c852496502ddae82b11f00aaf59b5', //微信secret
 
-        'mchid' => '1415076802',
-        'key' => 'f6a79c1ee3b2906f00d2538283e22f83',
+        'mchid' => '1484101292',
+        'key' => '8F60C8102D29FCD525162D02EED4566B',
 
         //这里是异步通知页面url，提交到项目的Pay控制器的notifyurl方法；
         'notify_url'=>'https://wechat-shop.zytxgame.com/index.php/Api/Wxpay/notify',

@@ -9,24 +9,24 @@
 //分页
 
 //php 去除html标签 js 和 css样式 - 最爱用的一个PHP清楚html格式函数
-function clearhtml($content) {  
-   $content = preg_replace("/<a[^>]*>/i", "", $content);  
-   $content = preg_replace("/<\/a>/i", "", $content);   
-   $content = preg_replace("/<div[^>]*>/i", "", $content);  
-   $content = preg_replace("/<\/div>/i", "", $content);      
+function clearhtml($content) {
+   $content = preg_replace("/<a[^>]*>/i", "", $content);
+   $content = preg_replace("/<\/a>/i", "", $content);
+   $content = preg_replace("/<div[^>]*>/i", "", $content);
+   $content = preg_replace("/<\/div>/i", "", $content);
    $content = preg_replace("/<!--[^>]*-->/i", "", $content);//注释内容
-  // $content = preg_replace("/style=.+?['|\"]/i",'',$content);//去除样式  
-   $content = preg_replace("/class=.+?['|\"]/i",'',$content);//去除样式  
-   $content = preg_replace("/id=.+?['|\"]/i",'',$content);//去除样式     
-   $content = preg_replace("/lang=.+?['|\"]/i",'',$content);//去除样式      
-   $content = preg_replace("/width=.+?['|\"]/i",'',$content);//去除样式  
-   
+  // $content = preg_replace("/style=.+?['|\"]/i",'',$content);//去除样式
+   $content = preg_replace("/class=.+?['|\"]/i",'',$content);//去除样式
+   $content = preg_replace("/id=.+?['|\"]/i",'',$content);//去除样式
+   $content = preg_replace("/lang=.+?['|\"]/i",'',$content);//去除样式
+   $content = preg_replace("/width=.+?['|\"]/i",'',$content);//去除样式
+
    $content = preg_replace("/width:.+?['|\;]/i",'',$content);//去除样式
    $content = preg_replace("/height:.+?['|\;]/i",'',$content);//去除样式
-    
-   $content = preg_replace("/height=.+?['|\"]/i",'',$content);//去除样式   
-   $content = preg_replace("/border=.+?['|\"]/i",'',$content);//去除样式   
-   $content = preg_replace("/face=.+?['|\"]/i",'',$content);//去除样式   
+
+   $content = preg_replace("/height=.+?['|\"]/i",'',$content);//去除样式
+   $content = preg_replace("/border=.+?['|\"]/i",'',$content);//去除样式
+   $content = preg_replace("/face=.+?['|\"]/i",'',$content);//去除样式
    $content = preg_replace("/face=.+?['|\"]/",'',$content);//去除样式只允许小写正则匹配没有带 i 参数
    return $content;
 }
@@ -62,13 +62,13 @@ function object_array($array)
 }
 
 function get_config(){
-	$config_org = S('config_org');	
+	$config_org = S('config_org');
 	if(!$config_org){
 		$lyb_config = M('lyb_config');
 		$config_org = $lyb_config->field('code,value')->select();
 		S('config_org',$config_org);
 	}
-	
+
 	$config_list = array();
 	foreach($config_org as $k => $v){
 		$config_list[$v['code']] = $v['value'];
@@ -77,27 +77,27 @@ function get_config(){
 }
 
 //是否手机访问
-function isMobile(){  
-	$useragent=isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';  
-	$useragent_commentsblock=preg_match('|\(.*?\)|',$useragent,$matches)>0?$matches[0]:'';  	  
-	function CheckSubstrs($substrs,$text){  
-		foreach($substrs as $substr)  
-			if(false!==strpos($text,$substr)){  
-				return true;  
-			}  
-			return false;  
+function isMobile(){
+	$useragent=isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+	$useragent_commentsblock=preg_match('|\(.*?\)|',$useragent,$matches)>0?$matches[0]:'';
+	function CheckSubstrs($substrs,$text){
+		foreach($substrs as $substr)
+			if(false!==strpos($text,$substr)){
+				return true;
+			}
+			return false;
 	}
 	$mobile_os_list=array('Google Wireless Transcoder','Windows CE','WindowsCE','Symbian','Android','armv6l','armv5','Mobile','CentOS','mowser','AvantGo','Opera Mobi','J2ME/MIDP','Smartphone','Go.Web','Palm','iPAQ');
-	$mobile_token_list=array('Profile/MIDP','Configuration/CLDC-','160×160','176×220','240×240','240×320','320×240','UP.Browser','UP.Link','SymbianOS','PalmOS','PocketPC','SonyEricsson','Nokia','BlackBerry','Vodafone','BenQ','Novarra-Vision','Iris','NetFront','HTC_','Xda_','SAMSUNG-SGH','Wapaka','DoCoMo','iPhone','iPod');  
-		  
-	$found_mobile=CheckSubstrs($mobile_os_list,$useragent_commentsblock) ||  
-			  CheckSubstrs($mobile_token_list,$useragent);  
-		  
-	if ($found_mobile){  
-		return true;  
-	}else{  
-		return false;  
-	}  
+	$mobile_token_list=array('Profile/MIDP','Configuration/CLDC-','160×160','176×220','240×240','240×320','320×240','UP.Browser','UP.Link','SymbianOS','PalmOS','PocketPC','SonyEricsson','Nokia','BlackBerry','Vodafone','BenQ','Novarra-Vision','Iris','NetFront','HTC_','Xda_','SAMSUNG-SGH','Wapaka','DoCoMo','iPhone','iPod');
+
+	$found_mobile=CheckSubstrs($mobile_os_list,$useragent_commentsblock) ||
+			  CheckSubstrs($mobile_token_list,$useragent);
+
+	if ($found_mobile){
+		return true;
+	}else{
+		return false;
+	}
 }
 
 function get_org_url($php,$m='',$c='',$a='',$list=array()){
@@ -110,7 +110,7 @@ function get_org_url($php,$m='',$c='',$a='',$list=array()){
 		$list_str = '';
 		foreach($list as $k=>$v){
 			$list_str = $list_str.'&';
-			$list_str = $list_str.$k.'='.$v;	
+			$list_str = $list_str.$k.'='.$v;
 		}
 		$url = $url.$list_str;
 	}
@@ -119,7 +119,7 @@ function get_org_url($php,$m='',$c='',$a='',$list=array()){
 
 function get_region_name($region_id){
 	$region_name = M('all_region')->getFieldByregion_id($region_id,'region_name');
-	return $region_name;	
+	return $region_name;
 }
 
 function browse_insert($cat,$id=0){
@@ -129,40 +129,40 @@ function browse_insert($cat,$id=0){
 
 //是否微信访问
 function is_weixin()
-{ 
+{
     if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) {
         return true;
-    }  
+    }
         return false;
 }
 
 //取IP地址
-function getIP() { 
-if (getenv('HTTP_CLIENT_IP')) { 
-$ip = getenv('HTTP_CLIENT_IP'); 
-} 
-elseif (getenv('HTTP_X_FORWARDED_FOR')) { 
-$ip = getenv('HTTP_X_FORWARDED_FOR'); 
-} 
-elseif (getenv('HTTP_X_FORWARDED')) { 
-$ip = getenv('HTTP_X_FORWARDED'); 
-} 
-elseif (getenv('HTTP_FORWARDED_FOR')) { 
-$ip = getenv('HTTP_FORWARDED_FOR'); 
+function getIP() {
+if (getenv('HTTP_CLIENT_IP')) {
+$ip = getenv('HTTP_CLIENT_IP');
+}
+elseif (getenv('HTTP_X_FORWARDED_FOR')) {
+$ip = getenv('HTTP_X_FORWARDED_FOR');
+}
+elseif (getenv('HTTP_X_FORWARDED')) {
+$ip = getenv('HTTP_X_FORWARDED');
+}
+elseif (getenv('HTTP_FORWARDED_FOR')) {
+$ip = getenv('HTTP_FORWARDED_FOR');
 
-} 
-elseif (getenv('HTTP_FORWARDED')) { 
-$ip = getenv('HTTP_FORWARDED'); 
-} 
-else { 
-$ip = $_SERVER['REMOTE_ADDR']; 
+}
+elseif (getenv('HTTP_FORWARDED')) {
+$ip = getenv('HTTP_FORWARDED');
+}
+else {
+$ip = $_SERVER['REMOTE_ADDR'];
 }
 
 if(strstr($ip,',')){
-$ip = substr($ip,0,strrpos($ip,','));  
+$ip = substr($ip,0,strrpos($ip,','));
 }
-return $ip; 
-} 
+return $ip;
+}
 
 //创建文件夹
  function createFolder($path)
@@ -215,11 +215,11 @@ function page_fu($count,$size,$page,$_pagenum = 10,$_offset = 2){
         for ($i=$_from;$i<=$_to;++$i)
         {
             $pager['page_number'][$i] =  $i;
-        }	
+        }
 	return $pager;
 }
 //二维数组排序
-function array_sort($arr,$keys,$type='asc'){ 
+function array_sort($arr,$keys,$type='asc'){
 	$keysvalue = $new_array = array();
 	foreach ($arr as $k=>$v){
 		$keysvalue[$k] = $v[$keys];
@@ -233,5 +233,5 @@ function array_sort($arr,$keys,$type='asc'){
 	foreach ($keysvalue as $k=>$v){
 		$new_array[$k] = $arr[$k];
 	}
-	return $new_array; 
+	return $new_array;
 }
