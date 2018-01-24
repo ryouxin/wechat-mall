@@ -133,7 +133,7 @@ class ShoppingController extends PublicController {
 
 	//添加购物车
 	public function add(){
-		// echo json_encode($_REQUEST);
+		echo json_encode($_REQUEST);
 		$uid = intval($_REQUEST['uid']);
 		if (!$uid) {
 			echo json_encode(array('status'=>0,'err'=>'登录状态异常.'));
@@ -182,28 +182,14 @@ class ShoppingController extends PublicController {
 		//判断购物车内是否已经存在该商品
 		$data = array();
 		$cart_info = $shpp->where('pid='.intval($pid).' AND uid='.intval($uid))->field('id,num')->find();
-		// echo $shpp->getLastSql();
-		// echo '<br>';
-		// echo $pid.'  '.$uid;
-		// echo '<br>';
-		// echo json_encode($cart_info);
-		// echo '<br>';
 		if ($cart_info) {
 			$data['num'] = intval($cart_info['num'])+intval($num);
-			// echo $data['num'];
-			// echo '<br>';
-			// echo intval($cart_info['num']);
-			// echo '<br>';
-			// echo intval($num);
 			//判断库存
 			if (intval($check_info['num'])<=$data['num']) {
 				echo json_encode(array('status'=>0,'err'=>'库存不足！'));
 				exit;
 			}
 			$res = $shpp->where('id='.intval($cart_info['id']))->save($data);
-			// echo $shpp->getLastSql();
-			// echo '<br>';
-			// echo $res;
 			$res = $cart_info['id'];
 		}else{
 			$data['pid']=intval($pid);
@@ -217,8 +203,6 @@ class ShoppingController extends PublicController {
 			}
 			$data['type']=$ptype;
 			$data['price'] = $check_info['price_yh'];
-			// echo $data;
-			// echo '<br>';
 			$res=$shpp->add($data);
 		}
 

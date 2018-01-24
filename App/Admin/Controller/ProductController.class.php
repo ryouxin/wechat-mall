@@ -72,7 +72,6 @@ class ProductController extends PublicController{
 		try{
 			//如果不是管理员则查询商家会员的店铺ID
 			$id = intval($_POST['pro_id']);
-            // echo json_encode($_POST);
 			$array=array(
 				'name'=>$_POST['name'] ,
 				'intro'=>$_POST['intro'] ,
