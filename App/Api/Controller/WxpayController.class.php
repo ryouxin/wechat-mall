@@ -52,7 +52,7 @@ class WxpayController extends Controller{
 		$input->SetOpenid($openId);
 		$order = \WxPayApi::unifiedOrder($input);
 
-        echo json_encode($input);
+        echo json_encode($order);
 		//echo '<font color="#f00"><b>统一下单支付单信息</b></font><br/>';
 		//printf_info($order);
 		$arr = array();
