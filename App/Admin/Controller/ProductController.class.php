@@ -72,7 +72,7 @@ class ProductController extends PublicController{
 		try{
 			//如果不是管理员则查询商家会员的店铺ID
 			$id = intval($_POST['pro_id']);
-            echo json_encode($_POST);
+            // echo json_encode($_POST);
 			$array=array(
 				'name'=>$_POST['name'] ,
 				'intro'=>$_POST['intro'] ,
@@ -86,6 +86,7 @@ class ProductController extends PublicController{
 				'price_jf'=>(float)$_POST['price_jf'] ,//赠送积分
 				'updatetime'=>time(),
 				'num'=>(int)$_POST['num'] ,			//库存
+                'num'=>(int)$_POST['max'] ,			//限购
 				'content'=>$_POST['content'] ,
 				'company'=>$_POST['company'],  //产品单位
 				'pro_type'=>1,
