@@ -149,8 +149,9 @@ class WxpayController extends Controller
         } else {
             $product_info = M('product')->where('id='.$max_info['pid'])->find();
             if ($product_info['max']<999999) {
-                return $product_info['max'];
+                // return $product_info['max'];
                 $product_max = M('product_max')->where('product_id='.$max_info['pid'].' AND user_id='.$check_info['uid'])->find();
+                return json_encode($product_max);
                 if ($product_max) {
                     $product_max_up=array();
                     $product_max_up['buy_num']=$check_info['product_num']+$product_max['buy_num'];
