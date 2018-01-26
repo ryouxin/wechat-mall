@@ -193,7 +193,7 @@ class ShoppingController extends PublicController
         if ($cart_info) {
             $data['num'] = intval($cart_info['num'])+intval($num);
 			//判断限购
-			echo $this->check_max($data['num'],$pid,$uid);
+			echo json_encode($this->check_max($data['num'],$pid,$uid));
             //判断库存
             if (intval($check_info['num'])<=$data['num']) {
                 echo json_encode(array('status'=>0,'err'=>'库存不足！'));
@@ -204,7 +204,7 @@ class ShoppingController extends PublicController
         } else {
             $data['pid']=intval($pid);
             $data['num']=intval($num);
-			echo $this->check_max($data['num'],$pid,$uid);
+			echo json_encode($this->check_max($data['num'],$pid,$uid));
             $data['addtime']=time();
             $data['uid']=intval($uid);
             $data['shop_id']=intval($check_info['shop_id']);
