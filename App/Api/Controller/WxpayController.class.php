@@ -178,6 +178,15 @@ class WxpayController extends Controller
                     $product_max_up['buy_num']=$check_info['product_num']+$product_max['buy_num'];
                     $product_max_up['update_time']=time();
                     $check_res = M('product_max')->where('product_id='.$max_info['pid'].' AND user_id='.$check_info['uid'])->save($product_max_up);
+
+
+
+                    $path = "./Data/log/";
+                    $files = $path."error_".date("Ymd").".log";    // 写入的文件
+                    file_put_contents($files, json_encode($product_max), FILE_APPEND);
+
+
+
                     if($check_res){
                         return array('status'=>1).__LINE__;
                     }else{
@@ -193,7 +202,7 @@ class WxpayController extends Controller
                     );
                     $path = "./Data/log/";
                     $files = $path."error_".date("Ymd").".log";    // 写入的文件
-                    file_put_contents($files, json_encode($product_max_up), FILE_APPEND); 
+                    file_put_contents($files, json_encode($product_max_up), FILE_APPEND);
                     // $check_res = M('product_max')->add($product_max_up);
                     // if($check_res){
                     //     return array('status'=>1).__LINE__;
