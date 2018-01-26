@@ -174,7 +174,7 @@ class ShoppingController extends PublicController {
 		// echo '<br>';
 		// echo json_encode($product_info);
 		// echo '<br>';
-		if($all_num==$product_info->max){
+		if($all_num>=$product_info->max){
 			echo $all_num.' '.$product_info->max;
 			return;
 		}
