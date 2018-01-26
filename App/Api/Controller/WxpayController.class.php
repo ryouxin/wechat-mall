@@ -102,7 +102,7 @@ class WxpayController extends Controller
         $data['trade_no'] = $ret['transaction_id'];
         $data['total_fee'] = $ret['total_fee'];
 
-        $check_max = $this->check_max($data['order_sn']);
+        // $check_max = $this->check_max($data['order_sn']);
 
         $result = $this->orderhandle($data);
 
