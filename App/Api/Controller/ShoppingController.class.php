@@ -297,6 +297,8 @@ class ShoppingController extends PublicController
     //判断限购数量
     public function check_max($num, $pid, $uid)
     {
+		echo $num.' '.$pid.' '.$uid;
+		echo '<br>';
         $product_max = M("product_max");
         $product_max_info = $product_max->where('product_id='.$pid.' AND user_id='.$uid)->find();
         if ($product_max_info) {
