@@ -193,7 +193,11 @@ class ShoppingController extends PublicController
         if ($cart_info) {
             $data['num'] = intval($cart_info['num'])+intval($num);
 			//判断限购
-			echo json_encode($this->check_max($data['num'],$pid,$uid));
+			$check_res = $this->check_max($data['num'],$pid,$uid);
+			if($check_res['status']!=1){
+				echo json_encode($check_res);
+				exit;
+			}
             //判断库存
             if (intval($check_info['num'])<=$data['num']) {
                 echo json_encode(array('status'=>0,'err'=>'库存不足！'));
@@ -204,7 +208,12 @@ class ShoppingController extends PublicController
         } else {
             $data['pid']=intval($pid);
             $data['num']=intval($num);
-			echo json_encode($this->check_max($data['num'],$pid,$uid));
+			//判断限购
+			$check_res = $this->check_max($data['num'],$pid,$uid);
+			if($check_res['status']!=1){
+				echo json_encode($check_res);
+				exit;
+			}
             $data['addtime']=time();
             $data['uid']=intval($uid);
             $data['shop_id']=intval($check_info['shop_id']);
@@ -297,8 +306,6 @@ class ShoppingController extends PublicController
     //判断限购数量
     public function check_max($num, $pid, $uid)
     {
-		echo $num.' '.$pid.' '.$uid;
-		echo '<br>';
         $product_max = M("product_max");
         $product_max_info = $product_max->where('product_id='.$pid.' AND user_id='.$uid)->find();
         if ($product_max_info) {
@@ -309,6 +316,6 @@ class ShoppingController extends PublicController
                 return array('status'=>0,'err'=>'超过限购数量.');
             }
         }
-        // return array('status'=>1);
+        return array('status'=>1);
     }
 }
