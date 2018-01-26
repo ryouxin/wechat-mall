@@ -177,6 +177,7 @@ class ShoppingController extends PublicController {
 		if($all_num>=$product_info->max){
 			echo $all_num.' '.$product_info->max;
 			echo 'max';
+			echo $product_info->max;
 			return;
 		}
 		$shpp=M("shopping_char");
