@@ -147,8 +147,8 @@ class WxpayController extends Controller
         if (!$max_info) {                                                             //pid = $max_info['pid'];
             return "订单信息错误...";
         } else {
-            $product_indo = M('product')->where('id='.$max_info['pid'])->find();
-            if ($product_indo['max']<999999) {
+            $product_info = M('product')->where('id='.$max_info['pid'])->find();
+            if ($product_info['max']<999999) {
                 $product_max = M('product_max')->where('product_id='.$max_info['pid'].' AND user_id='.$check_info['uid'])->find();
                 if ($product_max) {
                     $product_max_up['buy_num']+=$check_info['product_num'];

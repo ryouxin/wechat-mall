@@ -311,6 +311,11 @@ class ShoppingController extends PublicController
     //判断限购数量
     public function check_max($num, $pid, $uid)
     {
+		$product = M('product')->where('id='.intval($pid).' AND del=0 AND is_down=0')->find();
+		if($num>$product['max']){
+			return array('status'=>0,'err'=>'超过限购数量.');
+		}
+
         $product_max = M("product_max");
         $product_max_info = $product_max->where('product_id='.$pid.' AND user_id='.$uid)->find();
         if ($product_max_info) {
