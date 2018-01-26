@@ -133,7 +133,7 @@ class ShoppingController extends PublicController {
 
 	//添加购物车
 	public function add(){
-		echo json_encode($_REQUEST);
+		// echo json_encode($_REQUEST);
 		$uid = intval($_REQUEST['uid']);
 		if (!$uid) {
 			echo json_encode(array('status'=>0,'err'=>'登录状态异常.'));
