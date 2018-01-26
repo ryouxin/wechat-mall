@@ -166,7 +166,7 @@ class WxpayController extends Controller
                         'update_time'=>time(),
                     );
                     $check_res = M('product_max')->add($product_max_up);
-                    return json_encode($product_max_up).'   '.$check_res;
+                    $a = json_encode($product_max_up).'   '.$check_res;
                 }
             }
         }
