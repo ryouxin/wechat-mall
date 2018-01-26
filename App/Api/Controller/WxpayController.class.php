@@ -102,8 +102,7 @@ class WxpayController extends Controller
         $data['trade_no'] = $ret['transaction_id'];
         $data['total_fee'] = $ret['total_fee'];
         $result = $this->orderhandle($data);
-        //处理限购
-        $check_max_result = $this->check_max($data['order_sn']);
+
         if (is_array($result)) {
             $xml = "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg>";
             $xml.="</xml>";
@@ -144,6 +143,48 @@ class WxpayController extends Controller
         $up['status'] = 50;
         $up['trade_no'] = $trade_no;
         $res = M('order')->where('order_sn="'.$order_sn.'"')->save($up);
+        //处理限购
+        $check_info = M('order')->where('order_sn="'.$order_sn.'"')->find();
+        $max_info = M('order_product')->where('id='.$check_info['id'])->find();
+        if (!$max_info) {
+            return "订单信息错误...";
+        } else {
+            $product_info = M('product')->where('id='.$max_info['pid'])->find();
+            return json_encode($product_info);
+            if ($product_info['max']<999999) {
+                // return $product_info['max'];
+                $product_max = M('product_max')->where('product_id='.$max_info['pid'].' AND user_id='.$check_info['uid'])->find();
+                // return json_encode($product_max);
+                if ($product_max) {
+                    $product_max_up=array();
+                    $product_max_up['buy_num']=$check_info['product_num']+$product_max['buy_num'];
+                    $product_max_up['update_time']=time();
+                    $check_res = M('product_max')->where('product_id='.$max_info['pid'].' AND user_id='.$check_info['uid'])->save($product_max_up);
+                    if($check_res){
+                        // return array('status'=>1);
+                    }else{
+                        return '数据库修改信息失败';
+                    }
+                } else {
+                    $product_max_up=array(
+                        'product_id'=>$max_info['pid'],
+                        'user_id'=>$check_info['uid'],
+                        'buy_num'=>$check_info['product_num'],
+                        'create_time'=>time(),
+                        'update_time'=>time(),
+                    );
+                    $check_res = M('product_max')->add($product_max_up);
+                    if($check_res){
+                        // return array('status'=>1);
+                    }else{
+                        return '数据库添加信息失败';
+                    }
+                }
+            }else{
+                // return array('status'=>1);
+            }
+        }
+
         if ($res) {
             //处理优惠券
             if (intval($check_info['vid'])) {
