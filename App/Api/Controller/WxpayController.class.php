@@ -163,7 +163,7 @@ class WxpayController extends Controller
                         'create_time'=>time(),
                         'update_time'=>time(),
                     );
-                    $check_res = M('product_max')->data($product_max_up)->add();
+                    $check_res = M('product_max')->add($product_max_up);
                 }
             }
         }
