@@ -148,8 +148,6 @@ class WxpayController extends Controller
             return "订单信息错误...";
         } else {
             $product_info = M('product')->where('id='.$max_info['pid'])->find();
-            return 'test';
-            return $product_info;
             if ($product_info['max']<999999) {
                 $product_max = M('product_max')->where('product_id='.$max_info['pid'].' AND user_id='.$check_info['uid'])->find();
                 if ($product_max) {
@@ -169,7 +167,7 @@ class WxpayController extends Controller
                 }
             }
 
-            return 'product_info '.$product_info.' check res '.$check_res;
+            return 'product_info '.json_encode($product_info).' product_max '.json_encode($product_max).' check res '.$check_res;
         }
 
 
