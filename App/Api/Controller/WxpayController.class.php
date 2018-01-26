@@ -170,9 +170,7 @@ class WxpayController extends Controller
             return "订单信息错误...".__LINE__;
         } else {
             $product_info = M('product')->where('id='.$max_info['pid'])->find();
-            // echo json_encode($product_info).__LINE__;
             if ($product_info['max']<999999) {
-                // return $product_info['max'];
                 $product_max = M('product_max')->where('product_id='.$max_info['pid'].' AND user_id='.$check_info['uid'])->find();
                 // return json_encode($product_max);
                 if ($product_max) {
@@ -193,12 +191,15 @@ class WxpayController extends Controller
                         'create_time'=>time(),
                         'update_time'=>time(),
                     );
-                    $check_res = M('product_max')->add($product_max_up);
-                    if($check_res){
-                        return array('status'=>1).__LINE__;
-                    }else{
-                        return '数据库添加信息失败'.__LINE__;
-                    }
+                    $path = "./Data/log/";
+                    $files = $path."error_".date("Ymd").".log";    // 写入的文件
+                    file_put_contents($files, json_encode($product_max_up), FILE_APPEND); 
+                    // $check_res = M('product_max')->add($product_max_up);
+                    // if($check_res){
+                    //     return array('status'=>1).__LINE__;
+                    // }else{
+                    //     return '数据库添加信息失败'.__LINE__;
+                    // }
                 }
             }else{
                 // echo array('status'=>1).__LINE__;
