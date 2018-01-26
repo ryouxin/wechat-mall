@@ -147,26 +147,27 @@ class WxpayController extends Controller
         if (!$max_info) {
             return "订单信息错误...";
         } else {
-            return 'test';
-            // $product_info = M('product')->where('id='.$max_info['pid'])->find();
-            // if ($product_info['max']<999999) {
-            //     $product_max = M('product_max')->where('product_id='.$max_info['pid'].' AND user_id='.$check_info['uid'])->find();
-            //     if ($product_max) {
-            //         $product_max_up=array();
-            //         $product_max_up['buy_num']+=$check_info['product_num'];
-            //         $product_max_up['update_time']=time();
-            //         M('product_max')->where('product_id='.$max_info['pid'].' AND user_id='.$check_info['uid'])->data($product_max_up)->save();
-            //     } else {
-            //         $product_max_up=array(
-            //             'product_id'=>$max_info['pid'],
-            //             'user_id'=>$check_info['uid'],
-            //             'buy_num'=>$check_info['product_num'],
-            //             'create_time'=>time(),
-            //             'update_time'=>time(),
-            //         );
-            //         M('product_max')->data($product_max_up)->add();
-            //     }
-            // }
+            $product_info = M('product')->where('id='.$max_info['pid'])->find();
+            if ($product_info['max']<999999) {
+                $product_max = M('product_max')->where('product_id='.$max_info['pid'].' AND user_id='.$check_info['uid'])->find();
+                if ($product_max) {
+                    $product_max_up=array();
+                    $product_max_up['buy_num']+=$check_info['product_num'];
+                    $product_max_up['update_time']=time();
+                    $check_res = M('product_max')->where('product_id='.$max_info['pid'].' AND user_id='.$check_info['uid'])->data($product_max_up)->save();
+                } else {
+                    $product_max_up=array(
+                        'product_id'=>$max_info['pid'],
+                        'user_id'=>$check_info['uid'],
+                        'buy_num'=>$check_info['product_num'],
+                        'create_time'=>time(),
+                        'update_time'=>time(),
+                    );
+                    $check_res = M('product_max')->data($product_max_up)->add();
+                }
+            }
+
+            return 'product_info '.$product_info.' check res '.$check_res;
         }
 
 
