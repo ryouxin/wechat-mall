@@ -146,18 +146,14 @@ class WxpayController extends Controller
         $up['status'] = 50;
         $up['trade_no'] = $trade_no;
         $res = M('order')->where('order_sn="'.$order_sn.'"')->save($up);
-
-
-
-
         if ($res) {
             //处理优惠券
-            if (intval($check_info['vid'])) {
-                $vou_info = M('user_voucher')->where('uid='.intval($check_info['uid']).' AND vid='.intval($check_info['vid']))->find();
-                if (intval($vou_info['status'])==1) {
-                    M('user_voucher')->where('id='.intval($vou_info['id']))->save(array('status'=>2));
-                }
-            }
+            // if (intval($check_info['vid'])) {
+            //     $vou_info = M('user_voucher')->where('uid='.intval($check_info['uid']).' AND vid='.intval($check_info['vid']))->find();
+            //     if (intval($vou_info['status'])==1) {
+            //         M('user_voucher')->where('id='.intval($vou_info['id']))->save(array('status'=>2));
+            //     }
+            // }
             return array('status'=>1,'data'=>$data);
         } else {
             return '订单处理失败...';
