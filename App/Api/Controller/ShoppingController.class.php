@@ -163,10 +163,14 @@ class ShoppingController extends PublicController {
 		}
 		$product_max = M("product_max");
 		$product_max_info = $product_max->where('id='.$pid.' AND user_id='.$uid)->find();
+		echo $product_max->getLastSql();
+		echo '<br>';
 		echo json_encode($product_max_info);
 		echo '<br>';
 		$product_slecet = M('product');
-		$product_info = $product_slecet->where('id='.$pid);
+		$product_info = $product_slecet->where('id='.$pid)->find();
+		echo $product_info->getLastSql();
+		echo '<br>';
 		echo json_encode($product_info);
 		echo '<br>';
 		$shpp=M("shopping_char");
