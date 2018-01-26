@@ -160,8 +160,9 @@ class WxpayController extends Controller
         }
     }
     //处理限购
-    public function check_max($order_sn)
+    public function check_max()
     {
+        $order_sn='2018012698514953';
         $check_info = M('order')->where('order_sn="'.$order_sn.'"')->find();
         $max_info = M('order_product')->where('id='.$check_info['id'])->find();
         if (!$max_info) {
