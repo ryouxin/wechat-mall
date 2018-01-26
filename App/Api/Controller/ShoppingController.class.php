@@ -169,7 +169,7 @@ class ShoppingController extends PublicController {
 		echo '<br>';
 		$product_slecet = M('product');
 		$product_info = $product_slecet->where('id='.$pid)->find();
-		echo $product_info->getLastSql();
+		echo $product_slecet->getLastSql();
 		echo '<br>';
 		echo json_encode($product_info);
 		echo '<br>';
