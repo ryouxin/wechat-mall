@@ -163,23 +163,16 @@ class ShoppingController extends PublicController {
 		}
 		$product_max = M("product_max");
 		$product_max_info = $product_max->where('product_id='.$pid.' AND user_id='.$uid)->find();
-		$all_num=$num+$product_max_info['buy_num'];
-		// echo $product_max->getLastSql();
-		// echo '<br>';
-		// echo json_encode($product_max_info);
-		// echo '<br>';
-		$product_slecet = M('product');
-		$product_info = $product_slecet->where('id='.$pid)->find();
-		// echo $product_slecet->getLastSql();
-		// echo '<br>';
-		// echo json_encode($product_info);
-		// echo '<br>';
-		if($all_num>=$product_info['max']){
-			echo $all_num.' '.$product_info['max'];
-			echo 'max';
-			echo $product_info['max'];
-			return;
+		if($product_max_info){
+			$all_num=$num+$product_max_info['buy_num'];
+			$product_slecet = M('product');
+			$product_info = $product_slecet->where('id='.$pid)->find();
+			if($all_num>=$product_info['max']){
+				echo json_encode(array('status'=>0,'err'=>'超过限购数量.'));
+				return;
+			}
 		}
+
 		$shpp=M("shopping_char");
 		// $shu=trim($_POST['val'],',');
 		// if($shu){
