@@ -307,6 +307,6 @@ class ShoppingController extends PublicController
                 return array('status'=>0,'err'=>'超过限购数量.');
             }
         }
-        return array('status'=>1);
+        // return array('status'=>1);
     }
 }
