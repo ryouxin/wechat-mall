@@ -100,7 +100,12 @@ class ShoppingController extends PublicController
 
         $data=array();
         $data['num']=$num;
-
+		//判断限购
+		$check_res = $this->check_max($data['num'],intval($check['pid']),$uid);
+		if($check_res['status']!=1){
+			echo json_encode($check_res);
+			exit;
+		}
         $res = $shopping->where('id ='.intval($cart_id).' AND uid='.intval($uid))->save($data);
         if ($res) {
             echo json_encode(array('status'=>1,'succ'=>'操作成功!'));
