@@ -161,7 +161,14 @@ class ShoppingController extends PublicController {
 			echo json_encode(array('status'=>0,'err'=>'库存不足！'));
 			exit;
 		}
-
+		$product_max = M("product_max");
+		$product_max_info = $product_max->where('id='.$pid.' AND user_id='.$uid)->find();
+		echo json_encode($product_max_info);
+		echo '<br>';
+		$product_slecet = M('product');
+		$product_info = $product_slecet->where('id='.$pid);
+		echo json_encode($product_info);
+		echo '<br>';
 		$shpp=M("shopping_char");
 		// $shu=trim($_POST['val'],',');
 		// if($shu){
