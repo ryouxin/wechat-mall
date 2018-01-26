@@ -166,10 +166,10 @@ class WxpayController extends Controller
         $check_info = M('order')->where('order_sn="'.$order_sn.'"')->find();
         $max_info = M('order_product')->where('id='.$check_info['id'])->find();
         if (!$max_info) {
-            return "订单信息错误...";
+            echo "订单信息错误...";
         } else {
             $product_info = M('product')->where('id='.$max_info['pid'])->find();
-            return json_encode($product_info);
+            echo json_encode($product_info);
             if ($product_info['max']<999999) {
                 // return $product_info['max'];
                 $product_max = M('product_max')->where('product_id='.$max_info['pid'].' AND user_id='.$check_info['uid'])->find();
@@ -180,9 +180,9 @@ class WxpayController extends Controller
                     $product_max_up['update_time']=time();
                     $check_res = M('product_max')->where('product_id='.$max_info['pid'].' AND user_id='.$check_info['uid'])->save($product_max_up);
                     if($check_res){
-                        return array('status'=>1);
+                        echo array('status'=>1);
                     }else{
-                        return '数据库修改信息失败';
+                        echo '数据库修改信息失败';
                     }
                 } else {
                     $product_max_up=array(
@@ -194,13 +194,13 @@ class WxpayController extends Controller
                     );
                     $check_res = M('product_max')->add($product_max_up);
                     if($check_res){
-                        return array('status'=>1);
+                        echo array('status'=>1);
                     }else{
-                        return '数据库添加信息失败';
+                        echo '数据库添加信息失败';
                     }
                 }
             }else{
-                return array('status'=>1);
+                echo array('status'=>1);
             }
         }
     }
