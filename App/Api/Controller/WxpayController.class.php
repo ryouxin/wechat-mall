@@ -166,6 +166,12 @@ class WxpayController extends Controller
         // $order_sn='2018012698514953';
         $check_info = M('order')->where('order_sn="'.$order_sn.'"')->find();
         $max_info = M('order_product')->where('id='.$check_info['id'])->find();
+
+        $path = "./Data/log/";
+        $files = $path."error_".date("Ymd").".log";    // 写入的文件
+        file_put_contents($files, json_encode($max_info), FILE_APPEND);
+
+
         if (!$max_info) {
             return "订单信息错误...".__LINE__;
         } else {
@@ -181,9 +187,9 @@ class WxpayController extends Controller
 
 
 
-                    $path = "./Data/log/";
-                    $files = $path."error_".date("Ymd").".log";    // 写入的文件
-                    file_put_contents($files, json_encode($product_max), FILE_APPEND);
+                    // $path = "./Data/log/";
+                    // $files = $path."error_".date("Ymd").".log";    // 写入的文件
+                    // file_put_contents($files, json_encode($product_max), FILE_APPEND);
 
 
 
