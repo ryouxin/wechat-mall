@@ -169,7 +169,7 @@ class WxpayController extends Controller
 
         $path = "./Data/log/";
         $files = $path."error_".date("Ymd").".log";    // 写入的文件
-        file_put_contents($files, json_encode($max_info), FILE_APPEND);
+        file_put_contents($files, json_encode($order_sn).' $check_info  '.$check_info.'  $max_info  '.$max_info, FILE_APPEND);
 
 
         if (!$max_info) {
