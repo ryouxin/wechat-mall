@@ -166,8 +166,6 @@ class WxpayController extends Controller
                     $check_res = M('product_max')->data($product_max_up)->add();
                 }
             }
-
-            return 'product_info '.json_encode($product_info).' product_max '.json_encode($product_max).' check res '.$check_res;
         }
 
 
