@@ -165,12 +165,7 @@ class WxpayController extends Controller
     {
         // $order_sn='2018012698514953';
         $check_info = M('order')->where('order_sn="'.$order_sn.'"')->find();
-        $max_info = M('order_product')->where('id='.$check_info['id'])->find();
-
-        $path = "./Data/log/";
-        $files = $path."error_".date("Ymd").".log";    // 写入的文件
-        file_put_contents($files, json_encode($order_sn).' $check_info  '.$check_info.'  $max_info  '.$max_info, FILE_APPEND);
-
+        $max_info = M('order_product')->where('order_id='.$check_info['id'])->find();
 
         if (!$max_info) {
             return "订单信息错误...".__LINE__;
@@ -184,15 +179,6 @@ class WxpayController extends Controller
                     $product_max_up['buy_num']=$check_info['product_num']+$product_max['buy_num'];
                     $product_max_up['update_time']=time();
                     $check_res = M('product_max')->where('product_id='.$max_info['pid'].' AND user_id='.$check_info['uid'])->save($product_max_up);
-
-
-
-                    // $path = "./Data/log/";
-                    // $files = $path."error_".date("Ymd").".log";    // 写入的文件
-                    // file_put_contents($files, json_encode($product_max), FILE_APPEND);
-
-
-
                     if($check_res){
                         return array('status'=>1).__LINE__;
                     }else{
@@ -206,15 +192,12 @@ class WxpayController extends Controller
                         'create_time'=>time(),
                         'update_time'=>time(),
                     );
-                    $path = "./Data/log/";
-                    $files = $path."error_".date("Ymd").".log";    // 写入的文件
-                    file_put_contents($files, json_encode($product_max_up), FILE_APPEND);
-                    // $check_res = M('product_max')->add($product_max_up);
-                    // if($check_res){
-                    //     return array('status'=>1).__LINE__;
-                    // }else{
-                    //     return '数据库添加信息失败'.__LINE__;
-                    // }
+                    $check_res = M('product_max')->add($product_max_up);
+                    if($check_res){
+                        return array('status'=>1).__LINE__;
+                    }else{
+                        return '数据库添加信息失败'.__LINE__;
+                    }
                 }
             }else{
                 // echo array('status'=>1).__LINE__;
