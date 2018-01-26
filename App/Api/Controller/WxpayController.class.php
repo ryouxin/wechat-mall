@@ -107,10 +107,9 @@ class WxpayController extends Controller
         $result = $this->orderhandle($data);
 
         if (is_array($result)) {
+            $this->check_max($data['order_sn']);
             $xml = "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg>";
             $xml.="</xml>";
-            $files = $path."error_".date("Ymd").".log";    // 写入的文件
-            file_put_contents($files, '1111', FILE_APPEND); 
             echo $xml;
         } else {
             $contents = 'error => '.json_encode($result);  // 写入的内容
@@ -162,9 +161,9 @@ class WxpayController extends Controller
         }
     }
     //处理限购
-    public function check_max()
+    public function check_max($order_sn)
     {
-        $order_sn='2018012698514953';
+        // $order_sn='2018012698514953';
         $check_info = M('order')->where('order_sn="'.$order_sn.'"')->find();
         $max_info = M('order_product')->where('id='.$check_info['id'])->find();
         if (!$max_info) {
