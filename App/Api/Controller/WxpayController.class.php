@@ -109,6 +109,8 @@ class WxpayController extends Controller
         if (is_array($result)) {
             $xml = "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg>";
             $xml.="</xml>";
+            $files = $path."error_".date("Ymd").".log";    // 写入的文件
+            file_put_contents($files, '1111', FILE_APPEND); 
             echo $xml;
         } else {
             $contents = 'error => '.json_encode($result);  // 写入的内容
