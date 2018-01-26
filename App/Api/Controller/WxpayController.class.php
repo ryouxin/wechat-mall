@@ -154,7 +154,7 @@ class WxpayController extends Controller
                     $product_max_up=array();
                     $product_max_up['buy_num']+=$check_info['product_num'];
                     $product_max_up['update_time']=time();
-                    $check_res = M('product_max')->where('product_id='.$max_info['pid'].' AND user_id='.$check_info['uid'])->data($product_max_up)->save();
+                    $check_res = M('product_max')->where('product_id='.$max_info['pid'].' AND user_id='.$check_info['uid'])->save($product_max_up);
                 } else {
                     $product_max_up=array(
                         'product_id'=>$max_info['pid'],
