@@ -135,6 +135,34 @@ class WxpayController extends Controller{
 		$up['status'] = 50;
 		$up['trade_no'] = $trade_no;
 		$res = M('order')->where('order_sn="'.$order_sn.'"')->save($up);
+        //处理限购
+        $max_info = M('order_product')->where('id='.$check_info['id'])->find();     //uid = $check_info['uid'];
+        if(!$max_info){                                                             //pid = $max_info['pid'];
+            return "订单信息错误...";
+        }else{
+            $product_indo = M('product')->where('id='.$max_info['pid'])->find();
+            if($product_indo['max']<999999){
+
+                $product_max = M('product_max')->where('product_id='.$max_info['pid'].' AND user_id='.$check_info['uid'] )->find();
+                if($product_max){
+                    $product_max['buy_num'].=$check_info['product_num'];
+                    $product_max['update_time']=time();
+                    M('product_max')->where('product_id='.$max_info['pid'].' AND user_id='.$check_info['uid'] )->data($product_max)->save();
+                }else{
+                    $product_max_up=array(
+                        'product_id'=>$max_info['pid'],
+                        'user_id'=>$check_info['uid'],
+                        'buy_num'=>$check_info['product_num'],
+                        'create_time'=>time(),
+                        'update_time'=>time(),
+                    );
+                    M('product_max')->data($product_max_up)->add();
+
+                }
+            }
+        }
+
+
 		if ($res) {
 			//处理优惠券
 			if (intval($check_info['vid'])) {
