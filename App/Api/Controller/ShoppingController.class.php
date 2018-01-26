@@ -167,7 +167,7 @@ class ShoppingController extends PublicController {
 			$all_num=$num+$product_max_info['buy_num'];
 			$product_slecet = M('product');
 			$product_info = $product_slecet->where('id='.$pid)->find();
-			if($all_num>=$product_info['max']){
+			if($all_num>$product_info['max']){
 				echo json_encode(array('status'=>0,'err'=>'超过限购数量.'));
 				return;
 			}
