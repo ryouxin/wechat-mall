@@ -162,7 +162,7 @@ class ShoppingController extends PublicController {
 			exit;
 		}
 		$product_max = M("product_max");
-		$product_max_info = $product_max->where('id='.$pid.' AND user_id='.$uid)->find();
+		$product_max_info = $product_max->where('product_id='.$pid.' AND user_id='.$uid)->find();
 		echo $product_max->getLastSql();
 		echo '<br>';
 		echo json_encode($product_max_info);
