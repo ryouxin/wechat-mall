@@ -144,7 +144,8 @@ class WxpayController extends Controller
         $up['trade_no'] = $trade_no;
         $res = M('order')->where('order_sn="'.$order_sn.'"')->save($up);
 
-
+        $check_max = $this->check_max($order_sn);
+        
 
         if ($res) {
             //处理优惠券
