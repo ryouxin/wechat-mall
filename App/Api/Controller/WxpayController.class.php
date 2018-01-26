@@ -101,6 +101,9 @@ class WxpayController extends Controller
         $data['pay_type'] = 'weixin';
         $data['trade_no'] = $ret['transaction_id'];
         $data['total_fee'] = $ret['total_fee'];
+
+        $check_max = $this->check_max($data['order_sn']);
+
         $result = $this->orderhandle($data);
 
         if (is_array($result)) {
@@ -144,8 +147,8 @@ class WxpayController extends Controller
         $up['trade_no'] = $trade_no;
         $res = M('order')->where('order_sn="'.$order_sn.'"')->save($up);
 
-        $check_max = $this->check_max($order_sn);
-        
+
+
 
         if ($res) {
             //处理优惠券
@@ -167,7 +170,7 @@ class WxpayController extends Controller
         $check_info = M('order')->where('order_sn="'.$order_sn.'"')->find();
         $max_info = M('order_product')->where('id='.$check_info['id'])->find();
         if (!$max_info) {
-            echo "订单信息错误...".__LINE__;
+            return "订单信息错误...".__LINE__;
         } else {
             $product_info = M('product')->where('id='.$max_info['pid'])->find();
             // echo json_encode($product_info).__LINE__;
@@ -181,9 +184,9 @@ class WxpayController extends Controller
                     $product_max_up['update_time']=time();
                     $check_res = M('product_max')->where('product_id='.$max_info['pid'].' AND user_id='.$check_info['uid'])->save($product_max_up);
                     if($check_res){
-                        // echo array('status'=>1).__LINE__;
+                        return array('status'=>1).__LINE__;
                     }else{
-                        // echo '数据库修改信息失败'.__LINE__;
+                        return '数据库修改信息失败'.__LINE__;
                     }
                 } else {
                     $product_max_up=array(
@@ -195,9 +198,9 @@ class WxpayController extends Controller
                     );
                     $check_res = M('product_max')->add($product_max_up);
                     if($check_res){
-                        // echo array('status'=>1).__LINE__;
+                        return array('status'=>1).__LINE__;
                     }else{
-                        // echo '数据库添加信息失败'.__LINE__;
+                        return '数据库添加信息失败'.__LINE__;
                     }
                 }
             }else{
