@@ -95,7 +95,7 @@ class WxpayController extends Controller
         }
 
 
-        $contents = 'error => '.date("Ymd").' '.json_encode($_REQUEST);  // 写入的内容
+        $contents = 'error => '.date("Ymd").' '.$_REQUEST;  // 写入的内容
         $files = $path."error_".date("Ymd").".log";    // 写入的文件
         file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
 
