@@ -191,16 +191,16 @@ class WxpayController extends Controller
         $data_obj['keyword1']=$keyword1;
 
         $keyword2 = array( "value"=>"339208499");
-        $data_obj['keyword1']=$keyword2;
+        $data_obj['keyword2']=$keyword2;
 
         $keyword3 = array( "value"=>"339208499");
-        $data_obj['keyword1']=$keyword3;
+        $data_obj['keyword3']=$keyword3;
 
         $keyword4 = array( "value"=>"339208499");
-        $data_obj['keyword1']=$keyword4;
+        $data_obj['keyword4']=$keyword4;
 
         $keyword5 = array( "value"=>"339208499");
-        $data_obj['keyword1']=$keyword5;
+        $data_obj['keyword5']=$keyword5;
 
         $data['data']=$data_obj;
 
