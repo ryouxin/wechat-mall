@@ -176,7 +176,7 @@ class WxpayController extends Controller
         $token_requery = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$APPID&secret=$APPSECRET";
         $response = $this->curl_get($token_requery);
         $a = json_decode($response);
-        echo $a['access_token'];
+        echo $a->access_token;
         $user_openid = 'oFuIe5f7fSM9hujRNqhFyI6ZFLrw';
         $template_id = 'lrxw2ogRLqZ-Xg64bpqXCL5e7A_Lh68VWwWDGJ3quHw';
         $form_id = 'wx20180130220715cbc4e890bc0256067710';
