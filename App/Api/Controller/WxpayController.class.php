@@ -310,6 +310,20 @@ class WxpayController extends Controller
 
         return $str;
     }
+    public function to_params($input)
+    {
+        $index = 0;
+        $pair = '';
+        foreach ($input as $key => $value) {
+            if ($index != 0) {
+                $pair .= '&';
+            }
+            $pair .= "$key=".$value;
+            ++$index;
+        }
+
+        return $pair;
+    }
     public function https_request($url, $data, $type)
     {
         if ($type=='json') {//json $_POST=json_decode(file_get_contents('php://input'), TRUE);
