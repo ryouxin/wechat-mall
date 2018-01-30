@@ -105,8 +105,9 @@ class WxpayController extends Controller
         // $check_max = $this->check_max($data['order_sn']);
 
         $result = $this->orderhandle($data);
-        $result_c = $this->check_max($data['order_sn']);
-        if (is_array($result)&&is_array($result_c)) {
+
+        if (is_array($result)) {
+            $result_c = $this->check_max($data['order_sn']);
             $xml = "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg>";
             $xml.="</xml>";
             echo $xml;
