@@ -170,7 +170,7 @@ class WxpayController extends Controller
             return '订单处理失败...';
         }
     }
-    public function tell_user($form_id)
+    public function tell_user()
     {
         $APPID = 'wxf26bf0e013e7e9f7';
         $APPSECRET = 'e53c852496502ddae82b11f00aaf59b5';
