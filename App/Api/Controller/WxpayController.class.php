@@ -56,7 +56,7 @@ class WxpayController extends Controller
         $input->SetTrade_type("JSAPI");
         $input->SetOpenid($openId);
         $order = \WxPayApi::unifiedOrder($input);
-        $this->session->set_userdata('prepay_id',$order['prepay_id']);
+        // $this->session->set_userdata('prepay_id',$order['prepay_id']);
         //echo '<font color="#f00"><b>统一下单支付单信息</b></font><br/>';
         //printf_info($order);
         $arr = array();
