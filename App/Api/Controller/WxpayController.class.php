@@ -179,12 +179,12 @@ class WxpayController extends Controller
         $a->access_token;
         $user_openid = 'oFuIe5f7fSM9hujRNqhFyI6ZFLrw';
         $template_id = 'lrxw2ogRLqZ-Xg64bpqXCL5e7A_Lh68VWwWDGJ3quHw';
-        $form_id = 'wx20180130220715cbc4e890bc0256067710';
+        $form_id = 'wx20180130224716ab5ddbaca00425347211';
         $post_info = "{'touser':$user_openid,'template_id':$template_id,'form_id':$form_id,'data':{'keyword1':{'DATA':1},'keyword2':{'DATA':2},'keyword3':{'DATA':3},'keyword4':{'DATA':4},'keyword5':{'DATA':5}}}";
         $b = '{
   "touser": "oFuIe5f7fSM9hujRNqhFyI6ZFLrw",
   "template_id": "lrxw2ogRLqZ-Xg64bpqXCL5e7A_Lh68VWwWDGJ3quHw",
-  "form_id": "wx20180130220715cbc4e890bc0256067710",
+  "form_id": "wx20180130224716ab5ddbaca00425347211",
   "data": {
       "keyword1": {
     "value": "339208499",
