@@ -208,6 +208,7 @@ class WxpayController extends Controller
         echo json_encode($response);
         echo '<br/>';
         $response = $this->curl_post($requery,$data);
+        echo json_encode($response);
     }
     //处理限购
     public function check_max($order_sn)
