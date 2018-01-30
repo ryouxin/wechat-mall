@@ -56,7 +56,7 @@ class WxpayController extends Controller
         $input->SetTrade_type("JSAPI");
         $input->SetOpenid($openId);
         $order = \WxPayApi::unifiedOrder($input);
-
+        $this->session->set_userdata('prepay_id',$order['prepay_id']);
         //echo '<font color="#f00"><b>统一下单支付单信息</b></font><br/>';
         //printf_info($order);
         $arr = array();
@@ -95,9 +95,9 @@ class WxpayController extends Controller
         }
 
 
-        $contents = 'error => '.date("Ymd").' '.json_encode($ret);  // 写入的内容
-        $files = $path."error_".date("Ymd").".log";    // 写入的文件
-        file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
+        // $contents = 'error => '.date("Ymd").' '.json_encode($ret);  // 写入的内容
+        // $files = $path."error_".date("Ymd").".log";    // 写入的文件
+        // file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
 
 
         $content = date("Y-m-d H:i:s").'=>'.json_encode($ret);  // 写入的内容
@@ -113,7 +113,7 @@ class WxpayController extends Controller
         // $check_max = $this->check_max($data['order_sn']);
 
         $result = $this->orderhandle($data);
-
+        $this->tell_user();
         if (is_array($result)) {
             $result_c = $this->check_max($data['order_sn']);
             $xml = "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg>";
@@ -168,6 +168,23 @@ class WxpayController extends Controller
             return '订单处理失败...';
         }
     }
+    public function tell_user()
+    {
+        $APPID = 'wxf26bf0e013e7e9f7';
+        $APPSECRET = 'e53c852496502ddae82b11f00aaf59b5';
+        $token_requery = "https://api.weixin.qq.com/cgi-bin/token?grant_type=access_token&appid=$APPID&secret=$APPSECRET";
+        $response = $this->curl_get($token_requery);
+        echo json_encode($response);
+
+        $user_openid = 'oFuIe5f7fSM9hujRNqhFyI6ZFLrw';
+        $template_id = 'lrxw2ogRLqZ-Xg64bpqXCL5e7A_Lh68VWwWDGJ3quHw';
+        $form_id = $this->session->userdata('prepay_id');
+        echo '<br>'.$form_id.'<br>';
+        $post_info = "{'touser':$user_openid,'template_id':$template_id,'form_id':$form_id,'data':''}";
+        $requery = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=$response->access_token";
+        echo $requery;
+
+    }
     //处理限购
     public function check_max($order_sn)
     {
@@ -186,9 +203,9 @@ class WxpayController extends Controller
                     $product_max_up['buy_num']=$check_info['product_num']+$product_max['buy_num'];
                     $product_max_up['update_time']=time();
                     $check_res = M('product_max')->where('product_id='.$max_info['pid'].' AND user_id='.$check_info['uid'])->save($product_max_up);
-                    if($check_res){
+                    if ($check_res) {
                         return array('status'=>1).__LINE__;
-                    }else{
+                    } else {
                         return '数据库修改信息失败'.__LINE__;
                     }
                 } else {
@@ -200,13 +217,13 @@ class WxpayController extends Controller
                         'update_time'=>time(),
                     );
                     $check_res = M('product_max')->add($product_max_up);
-                    if($check_res){
+                    if ($check_res) {
                         return array('status'=>1).__LINE__;
-                    }else{
+                    } else {
                         return '数据库添加信息失败'.__LINE__;
                     }
                 }
-            }else{
+            } else {
             }
         }
     }
@@ -223,5 +240,50 @@ class WxpayController extends Controller
 
         $buff = trim($buff, "&");
         return $buff;
+    }
+    public function curl_get($url, $header = null)
+    {
+        $my_curl = curl_init();
+        curl_setopt($my_curl, CURLOPT_URL, $url);
+        curl_setopt($my_curl, CURLOPT_RETURNTRANSFER, 1);
+
+        if ($header) {
+            $header_list = array();
+            foreach ($header as $key => $value) {
+                $header_list[] = "$key: $value";
+            }
+            curl_setopt($my_curl, CURLOPT_HTTPHEADER, $header_list);
+        }
+
+        $str = curl_exec($my_curl);
+        curl_close($my_curl);
+
+        return $str;
+    }
+
+    public function curl_post($url, $data, $header = null)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        if (gettype($data) == 'array' || gettype($data) == 'object') {
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $this->to_params($data));
+        } elseif (gettype($data) == 'string') {
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        }
+
+        if ($header) {
+            $header_list = array();
+            foreach ($header as $key => $value) {
+                $header_list[] = "$key: $value";
+            }
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $header_list);
+        }
+
+        $str = curl_exec($ch);
+        curl_close($ch);
+
+        return $str;
     }
 }
