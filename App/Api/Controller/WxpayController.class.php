@@ -208,8 +208,17 @@ class WxpayController extends Controller
 }
   },
         }';
+        $data = array(
+            'keyword1'=>'{"value": "339208499", "color": "#173177"}',
+        );
+        $request_data=array(
+ 'touser'=>'oFuIe5f7fSM9hujRNqhFyI6ZFLrw',//接收者（用户）的 openid
+ 'template_id'=>'lrxw2ogRLqZ-Xg64bpqXCL5e7A_Lh68VWwWDGJ3quHw',//所需下发的模板消息的id
+ 'form_id'=>'wx20180130220715cbc4e890bc0256067710',//表单提交场景下，为 submit 事件带上的 formId；支付场景下，为本次支付的 prepay_id
+ 'data'=>$data,//"keyword1": {"value": "339208499", "color": "#173177"}
+);
         $requery = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=$a->access_token";
-        $response = $this->curl_post($requery, $b);
+        $response = $this->https_request($requery, $request_data, 'json');
         echo json_encode($response);
     }
     //处理限购
@@ -312,5 +321,25 @@ class WxpayController extends Controller
         curl_close($ch);
 
         return $str;
+    }
+    public function https_request($url, $data, $type)
+    {
+        if ($type=='json') {//json $_POST=json_decode(file_get_contents('php://input'), TRUE);
+ $headers = array("Content-type: application/json;charset=UTF-8","Accept: application/json","Cache-Control: no-cache", "Pragma: no-cache");
+            $data=json_encode($data);
+        }
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        if (!empty($data)) {
+            curl_setopt($curl, CURLOPT_POST, 1);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        }
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $output = curl_exec($curl);
+        curl_close($curl);
+        return $output;
     }
 }
