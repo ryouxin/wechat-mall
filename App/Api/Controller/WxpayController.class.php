@@ -176,13 +176,14 @@ class WxpayController extends Controller
         $token_requery = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$APPID&secret=$APPSECRET";
         $response = $this->curl_get($token_requery);
         $a = json_decode($response);
-        echo $a->access_token;
+        $a->access_token;
         $user_openid = 'oFuIe5f7fSM9hujRNqhFyI6ZFLrw';
         $template_id = 'lrxw2ogRLqZ-Xg64bpqXCL5e7A_Lh68VWwWDGJ3quHw';
         $form_id = 'wx20180130220715cbc4e890bc0256067710';
         $post_info = "{'touser':$user_openid,'template_id':$template_id,'form_id':$form_id,'data':''}";
-        $requery = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=$response->access_token";
-        echo $requery;
+        $requery = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=$a->access_token";
+        $response = $this->curl_post($requery,$post_info);
+        echo json_encode($response);
 
     }
     //处理限购
