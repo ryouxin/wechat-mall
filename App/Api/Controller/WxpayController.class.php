@@ -205,7 +205,7 @@ class WxpayController extends Controller
         $data['data']=$data_obj;
 
         $response = $this->https_request($requery, $data, 'json');
-        echo json_encode($response);
+        echo json_encode($data);
         echo '<br/>';
         $response = $this->curl_post($requery,$data);
         echo json_encode($response);
