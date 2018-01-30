@@ -181,45 +181,33 @@ class WxpayController extends Controller
         $template_id = 'lrxw2ogRLqZ-Xg64bpqXCL5e7A_Lh68VWwWDGJ3quHw';
         $form_id = 'wx20180130224716ab5ddbaca00425347211';
         $post_info = "{'touser':$user_openid,'template_id':$template_id,'form_id':$form_id,'data':{'keyword1':{'DATA':1},'keyword2':{'DATA':2},'keyword3':{'DATA':3},'keyword4':{'DATA':4},'keyword5':{'DATA':5}}}";
-        $b = '{
-  "touser": "oFuIe5f7fSM9hujRNqhFyI6ZFLrw",
-  "template_id": "lrxw2ogRLqZ-Xg64bpqXCL5e7A_Lh68VWwWDGJ3quHw",
-  "form_id": "wx20180130224716ab5ddbaca00425347211",
-  "data": {
-      "keyword1": {
-    "value": "339208499",
-    "color": "#173177"
-},
-"keyword2": {
-    "value": "2015年01月05日 12:30",
-    "color": "#173177"
-},
-"keyword3": {
-    "value": "粤海喜来登酒店",
-    "color": "#173177"
-} ,
-"keyword4": {
-    "value": "广州市天河区天河路208号",
-    "color": "#173177"
-} ,
-"keyword5": {
-    "value": "广州市天河区天河路208号",
-    "color": "#173177"
-}
-  },
-        }';
-        $data = array(
-            'keyword1'=>'{"value": "339208499", "color": "#173177"}',
-        );
-        $request_data=array(
- 'touser'=>'oFuIe5f7fSM9hujRNqhFyI6ZFLrw',//接收者（用户）的 openid
- 'template_id'=>'lrxw2ogRLqZ-Xg64bpqXCL5e7A_Lh68VWwWDGJ3quHw',//所需下发的模板消息的id
- 'form_id'=>'wx20180130224716ab5ddbaca00425347211',//表单提交场景下，为 submit 事件带上的 formId；支付场景下，为本次支付的 prepay_id
- 'data'=>$data,//"keyword1": {"value": "339208499", "color": "#173177"}
-);
         $requery = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=$a->access_token";
-        $response = $this->https_request($requery, $b, 'json');
+        $data = array();
+        $data['touser']=$user_openid;
+        $data['template_id']=$template_id;
+        $data['form_id']=$form_id;
+        $data_obj=array();
+        $keyword1 = array( "value"=>"339208499", "color"=> "#173177");
+        $data_obj['keyword1']=$keyword1;
+
+        $keyword2 = array( "value"=>"339208499", "color"=> "#173177");
+        $data_obj['keyword1']=$keyword2;
+
+        $keyword3 = array( "value"=>"339208499", "color"=> "#173177");
+        $data_obj['keyword1']=$keyword3;
+
+        $keyword4 = array( "value"=>"339208499", "color"=> "#173177");
+        $data_obj['keyword1']=$keyword4;
+
+        $keyword5 = array( "value"=>"339208499", "color"=> "#173177");
+        $data_obj['keyword1']=$keyword5;
+
+        $data['data']=$data_obj;
+
+        $response = $this->https_request($requery, $data, 'json');
         echo json_encode($response);
+        echo '<br/>';
+        $response = $this->curl_post($requery,$data);
     }
     //处理限购
     public function check_max($order_sn)
