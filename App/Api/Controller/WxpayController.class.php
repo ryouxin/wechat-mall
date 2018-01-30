@@ -214,7 +214,7 @@ class WxpayController extends Controller
         $request_data=array(
  'touser'=>'oFuIe5f7fSM9hujRNqhFyI6ZFLrw',//接收者（用户）的 openid
  'template_id'=>'lrxw2ogRLqZ-Xg64bpqXCL5e7A_Lh68VWwWDGJ3quHw',//所需下发的模板消息的id
- 'form_id'=>'wx20180130220715cbc4e890bc0256067710',//表单提交场景下，为 submit 事件带上的 formId；支付场景下，为本次支付的 prepay_id
+ 'form_id'=>'wx20180130224716ab5ddbaca00425347211',//表单提交场景下，为 submit 事件带上的 formId；支付场景下，为本次支付的 prepay_id
  'data'=>$data,//"keyword1": {"value": "339208499", "color": "#173177"}
 );
         $requery = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=$a->access_token";
