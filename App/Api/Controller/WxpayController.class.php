@@ -218,7 +218,7 @@ class WxpayController extends Controller
  'data'=>$data,//"keyword1": {"value": "339208499", "color": "#173177"}
 );
         $requery = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=$a->access_token";
-        $response = $this->https_request($requery, $request_data, 'json');
+        $response = $this->https_request($requery, $b, 'json');
         echo json_encode($response);
     }
     //处理限购
