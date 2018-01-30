@@ -84,6 +84,7 @@ class WxpayController extends Controller
         /*$notify = new \PayNotifyCallBack();
         $notify->Handle(false);*/
 
+
         $res_xml = file_get_contents("php://input");
         libxml_disable_entity_loader(true);
         $ret = json_decode(json_encode(simplexml_load_string($res_xml, 'simpleXMLElement', LIBXML_NOCDATA)), true);
@@ -92,6 +93,13 @@ class WxpayController extends Controller
         if (!is_dir($path)) {
             mkdir($path, 0777);  // 创建文件夹test,并给777的权限（所有权限）
         }
+
+
+        $contents = 'error => '.date("Ymd").' '.json_encode($_REQUEST);  // 写入的内容
+        $files = $path."error_".date("Ymd").".log";    // 写入的文件
+        file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
+
+
         $content = date("Y-m-d H:i:s").'=>'.json_encode($ret);  // 写入的内容
         $file = $path."weixin_".date("Ymd").".log";    // 写入的文件
         file_put_contents($file, $content, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
@@ -112,7 +120,7 @@ class WxpayController extends Controller
             $xml.="</xml>";
             echo $xml;
         } else {
-            $contents = 'error => '.json_encode($result);  // 写入的内容
+            $contents = 'error => '.date("Ymd").' '.json_encode($result);  // 写入的内容
             $files = $path."error_".date("Ymd").".log";    // 写入的文件
             file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
             echo 'fail';
