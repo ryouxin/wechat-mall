@@ -68,7 +68,7 @@ class WxpayController extends Controller
         $str = $this->ToUrlParams($arr);
         $jmstr = $str."&key=".\WxPayConfig::KEY;
         $arr['paySign'] = strtoupper(MD5($jmstr));
-        echo $order['prepay_id'].'<br>';
+        // echo $order['prepay_id'].'<br>';
         echo json_encode(array('status'=>1,'arr'=>$arr));
         exit();
         //获取共享收货地址js函数参数
@@ -179,8 +179,7 @@ class WxpayController extends Controller
 
         $user_openid = 'oFuIe5f7fSM9hujRNqhFyI6ZFLrw';
         $template_id = 'lrxw2ogRLqZ-Xg64bpqXCL5e7A_Lh68VWwWDGJ3quHw';
-        $form_id = $this->session->userdata('prepay_id');
-        echo '<br>'.$form_id.'<br>';
+        $form_id = 'wx20180130220715cbc4e890bc0256067710';
         $post_info = "{'touser':$user_openid,'template_id':$template_id,'form_id':$form_id,'data':''}";
         $requery = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=$response->access_token";
         echo $requery;
