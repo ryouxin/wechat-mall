@@ -207,7 +207,7 @@ class WxpayController extends Controller
         $response = $this->https_request($requery, $data, 'json');
         echo json_encode($data);
         echo '<br/>';
-        $response = $this->curl_post($requery,$data);
+        $response = $this->curl_post($requery,json_encode($data));
         echo json_encode($response);
     }
     //处理限购
