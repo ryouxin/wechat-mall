@@ -187,19 +187,19 @@ class WxpayController extends Controller
         $data['template_id']=$template_id;
         $data['form_id']=$form_id;
         $data_obj=array();
-        $keyword1 = array( "value"=>"339208499", "color"=> "#173177");
+        $keyword1 = array( "value"=>"339208499");
         $data_obj['keyword1']=$keyword1;
 
-        $keyword2 = array( "value"=>"339208499", "color"=> "#173177");
+        $keyword2 = array( "value"=>"339208499");
         $data_obj['keyword1']=$keyword2;
 
-        $keyword3 = array( "value"=>"339208499", "color"=> "#173177");
+        $keyword3 = array( "value"=>"339208499");
         $data_obj['keyword1']=$keyword3;
 
-        $keyword4 = array( "value"=>"339208499", "color"=> "#173177");
+        $keyword4 = array( "value"=>"339208499");
         $data_obj['keyword1']=$keyword4;
 
-        $keyword5 = array( "value"=>"339208499", "color"=> "#173177");
+        $keyword5 = array( "value"=>"339208499");
         $data_obj['keyword1']=$keyword5;
 
         $data['data']=$data_obj;
