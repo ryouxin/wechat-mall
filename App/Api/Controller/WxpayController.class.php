@@ -181,10 +181,31 @@ class WxpayController extends Controller
         $template_id = 'lrxw2ogRLqZ-Xg64bpqXCL5e7A_Lh68VWwWDGJ3quHw';
         $form_id = 'wx20180130220715cbc4e890bc0256067710';
         $post_info = "{'touser':$user_openid,'template_id':$template_id,'form_id':$form_id,'data':{'keyword1':{'DATA':1},'keyword2':{'DATA':2},'keyword3':{'DATA':3},'keyword4':{'DATA':4},'keyword5':{'DATA':5}}}";
+        $a = '{
+  "touser": "oFuIe5f7fSM9hujRNqhFyI6ZFLrw",
+  "template_id": "lrxw2ogRLqZ-Xg64bpqXCL5e7A_Lh68VWwWDGJ3quHw",
+  "form_id": "wx20180130220715cbc4e890bc0256067710",
+  "data": {
+      "keyword1": {
+          "DATA": "339208499",
+      },
+      "keyword2": {
+          "DATA": "2015年01月05日 12:30",
+      },
+      "keyword3": {
+          "DATA": "粤海喜来登酒店",
+      } ,
+      "keyword4": {
+          "DATA": "粤海喜来登酒店",
+      } ,
+      "keyword5": {
+          "DATA": "广州市天河区天河路208号",
+      }
+  },
+        }';
         $requery = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=$a->access_token";
-        $response = $this->curl_post($requery,$post_info);
+        $response = $this->curl_post($requery, $a);
         echo json_encode($response);
-
     }
     //处理限购
     public function check_max($order_sn)
