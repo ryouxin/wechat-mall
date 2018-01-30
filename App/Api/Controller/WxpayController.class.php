@@ -68,6 +68,7 @@ class WxpayController extends Controller
         $str = $this->ToUrlParams($arr);
         $jmstr = $str."&key=".\WxPayConfig::KEY;
         $arr['paySign'] = strtoupper(MD5($jmstr));
+        echo json_encode($order).'<br/>';
         $this->tell_user($order['prepay_id']);
         echo json_encode(array('status'=>1,'arr'=>$arr));
         exit();
