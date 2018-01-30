@@ -187,20 +187,25 @@ class WxpayController extends Controller
   "form_id": "wx20180130220715cbc4e890bc0256067710",
   "data": {
       "keyword1": {
-          "value": "339208499",
-      },
-      "keyword2": {
-          "value": "2015年01月05日 12:30",
-      },
-      "keyword3": {
-          "value": "粤海喜来登酒店",
-      } ,
-      "keyword4": {
-          "value": "粤海喜来登酒店",
-      } ,
-      "keyword5": {
-          "value": "广州市天河区天河路208号",
-      }
+    "value": "339208499",
+    "color": "#173177"
+},
+"keyword2": {
+    "value": "2015年01月05日 12:30",
+    "color": "#173177"
+},
+"keyword3": {
+    "value": "粤海喜来登酒店",
+    "color": "#173177"
+} ,
+"keyword4": {
+    "value": "广州市天河区天河路208号",
+    "color": "#173177"
+} ,
+"keyword5": {
+    "value": "广州市天河区天河路208号",
+    "color": "#173177"
+}
   },
         }';
         $requery = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=$a->access_token";
