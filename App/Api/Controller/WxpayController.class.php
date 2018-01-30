@@ -187,19 +187,19 @@ class WxpayController extends Controller
   "form_id": "wx20180130220715cbc4e890bc0256067710",
   "data": {
       "keyword1": {
-          "DATA": "339208499",
+          "value": "339208499",
       },
       "keyword2": {
-          "DATA": "2015年01月05日 12:30",
+          "value": "2015年01月05日 12:30",
       },
       "keyword3": {
-          "DATA": "粤海喜来登酒店",
+          "value": "粤海喜来登酒店",
       } ,
       "keyword4": {
-          "DATA": "粤海喜来登酒店",
+          "value": "粤海喜来登酒店",
       } ,
       "keyword5": {
-          "DATA": "广州市天河区天河路208号",
+          "value": "广州市天河区天河路208号",
       }
   },
         }';
