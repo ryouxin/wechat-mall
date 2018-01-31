@@ -217,11 +217,13 @@ class WxpayController extends Controller
 
         $data['data']=$data_obj;
 
-        $response = $this->https_request($requery, $data, 'json');
-        echo json_encode($data);
-        echo '<br/>';
         $response = $this->curl_post($requery,json_encode($data));
-        echo json_encode($response);
+
+
+        $path = "./Data/log/";
+        $contents = 'error => '.date("Ymd").' '.json_encode($response);  // 写入的内容
+        $files = $path."error_".date("Ymd").".log";    // 写入的文件
+        file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
     }
     //处理限购
     public function check_max($order_sn)
