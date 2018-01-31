@@ -70,6 +70,7 @@ class WxpayController extends Controller
         $arr['paySign'] = strtoupper(MD5($jmstr));
         // echo json_encode($order).'<br/>';
         // $this->tell_user($order['prepay_id']);
+        $_SESSION['prepay_id'] = $order['prepay_id'];
         echo json_encode(array('status'=>1,'arr'=>$arr));
         exit();
         //获取共享收货地址js函数参数
@@ -97,9 +98,9 @@ class WxpayController extends Controller
         }
 
 
-        // $contents = 'error => '.date("Ymd").' '.json_encode($ret);  // 写入的内容
-        // $files = $path."error_".date("Ymd").".log";    // 写入的文件
-        // file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
+        $contents = 'error => '.date("Ymd").' '.json_encode($ret);  // 写入的内容
+        $files = $path."error_".date("Ymd").".log";    // 写入的文件
+        file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
 
 
         $content = date("Y-m-d H:i:s").'=>'.json_encode($ret);  // 写入的内容
@@ -115,8 +116,11 @@ class WxpayController extends Controller
         // $check_max = $this->check_max($data['order_sn']);
 
         $result = $this->orderhandle($data);
-        $this->tell_user();
+
         if (is_array($result)) {
+            $prepay_id = $_SESSION['prepay_id'];
+            $this->tell_user();
+
             $result_c = $this->check_max($data['order_sn']);
             $xml = "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg>";
             $xml.="</xml>";
@@ -181,7 +185,6 @@ class WxpayController extends Controller
         $user_openid = 'oFuIe5f7fSM9hujRNqhFyI6ZFLrw';
         $template_id = 'lrxw2ogRLqZ-Xg64bpqXCL5e7A_Lh68VWwWDGJ3quHw';
         $form_id = 'wx20180131095523706a5390e30244225800';
-        // $post_info = "{'touser':$user_openid,'template_id':$template_id,'form_id':$form_id,'data':{'keyword1':{'DATA':1},'keyword2':{'DATA':2},'keyword3':{'DATA':3},'keyword4':{'DATA':4},'keyword5':{'DATA':5}}}";
         $requery = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=$a->access_token";
         $data = array();
         $data['touser']=$user_openid;
