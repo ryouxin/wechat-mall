@@ -170,7 +170,7 @@ class WxpayController extends Controller
             return '订单处理失败...';
         }
     }
-    public function tell_user()
+    public function tell_user($form_id)
     {
         $APPID = 'wxf26bf0e013e7e9f7';
         $APPSECRET = 'e53c852496502ddae82b11f00aaf59b5';
@@ -180,7 +180,7 @@ class WxpayController extends Controller
         $a->access_token;
         $user_openid = 'oFuIe5f7fSM9hujRNqhFyI6ZFLrw';
         $template_id = 'lrxw2ogRLqZ-Xg64bpqXCL5e7A_Lh68VWwWDGJ3quHw';
-        $form_id = 'wx20180130232735f2bb2423680496524110';
+        // $form_id = 'wx20180131090016a67201ceb30176601735';
         // $post_info = "{'touser':$user_openid,'template_id':$template_id,'form_id':$form_id,'data':{'keyword1':{'DATA':1},'keyword2':{'DATA':2},'keyword3':{'DATA':3},'keyword4':{'DATA':4},'keyword5':{'DATA':5}}}";
         $requery = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=$a->access_token";
         $data = array();
