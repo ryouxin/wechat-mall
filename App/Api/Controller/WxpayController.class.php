@@ -121,8 +121,21 @@ class WxpayController extends Controller
             $prepay_id = $result['data']['prepay_id'];
 
             $p_id = $result['data']['p_id'];
-            $order_product =M('order_product')->where('order_id='.'"'.$p_id.'"')->find();
-            $product = M('product')->where('id="'.$order_product['pid'].'"')->find();
+            $order_product =M('order_product')->where('order_id='.'"'.$p_id.'"')->select();
+            foreach ($order_product as $one ) {
+                # code...
+            }
+            $product = M('product')->where('id="'.$order_product['pid'].'"')->select();
+
+            $key_val_url = "http://test.wondergm.com/xinghe/api.php?Module=Shop&Action=Order";
+            $key_var_data = array(
+                'protocol'=> '20000821',
+                'key'=>'ahfuehfagdfjahsjasdhtec',
+                'OrderUserId'=> $ret['openid'],
+                'Product'=>$product['pro_number'],
+            );
+
+
 
 
             $openid = $ret['openid'];
@@ -133,8 +146,9 @@ class WxpayController extends Controller
             $key_val = $product['pro_number'];
 
 
+
             $tell_user = $this->tell_user($prepay_id, $openid, $time, $product_name, $order, $money, $key_val);
-            if($tell_user!='ok'){
+            if ($tell_user!='ok') {
                 return;
             }
 
@@ -194,7 +208,7 @@ class WxpayController extends Controller
             return '订单处理失败...';
         }
     }
-    public function tell_user($form_id, $user_openid,$time, $product_name, $order, $money, $key_val)
+    public function tell_user($form_id, $user_openid, $time, $product_name, $order, $money, $key_val)
     {
         $APPID = 'wxf26bf0e013e7e9f7';
         $APPSECRET = 'e53c852496502ddae82b11f00aaf59b5';
@@ -228,17 +242,15 @@ class WxpayController extends Controller
 
         $response = $this->curl_post($requery, json_encode($data));
         $response = json_decode($response);
-        if($response['errcode']!=0){
+        if ($response['errcode']!=0) {
             $path = "./Data/log/";
             $contents = 'error => '.date("Ymd").' '.json_encode($response).' info '.json_encode($data);  // 写入的内容
             $files = $path."error_".date("Ymd").".log";    // 写入的文件
             file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
             return 'err';
-        }else{
+        } else {
             return 'ok';
         }
-
-
     }
     //处理限购
     public function check_max($order_sn)
