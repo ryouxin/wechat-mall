@@ -180,7 +180,7 @@ class WxpayController extends Controller
         $a->access_token;
         $user_openid = 'oFuIe5f7fSM9hujRNqhFyI6ZFLrw';
         $template_id = 'lrxw2ogRLqZ-Xg64bpqXCL5e7A_Lh68VWwWDGJ3quHw';
-        $form_id = 'wx20180131094420e90240130c0780134536';
+        $form_id = 'wx20180131095523706a5390e30244225800';
         // $post_info = "{'touser':$user_openid,'template_id':$template_id,'form_id':$form_id,'data':{'keyword1':{'DATA':1},'keyword2':{'DATA':2},'keyword3':{'DATA':3},'keyword4':{'DATA':4},'keyword5':{'DATA':5}}}";
         $requery = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=$a->access_token";
         $data = array();
