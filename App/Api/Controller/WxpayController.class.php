@@ -121,8 +121,8 @@ class WxpayController extends Controller
             $prepay_id = $result['data']['prepay_id'];
 
             $p_id = $result['data']['p_id'];
-            $order_product =M('order_product')->where('order_id='.'"'.$pid.'"')->find();
-            $product = M('product')->where('id="'.$order_product->pid.'"')->find();
+            $order_product =M('order_product')->where('order_id='.'"'.$p_id.'"')->find();
+            $product = M('product')->where('id="'.$order_product['pid'].'"')->find();
 
 
             $openid = $ret['openid'];
@@ -130,7 +130,7 @@ class WxpayController extends Controller
             $product_name = '激活码';
             $order = $ret['out_trade_no'];
             $money = $ret['cash_fee']/100;
-            $key_val = $product->pro_number;
+            $key_val = $product['pro_number'];
 
 
             $tell_user = $this->tell_user($prepay_id, $openid, $time, $product_name, $order, $money, $key_val);
