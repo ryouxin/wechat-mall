@@ -68,9 +68,14 @@ class WxpayController extends Controller
         $str = $this->ToUrlParams($arr);
         $jmstr = $str."&key=".\WxPayConfig::KEY;
         $arr['paySign'] = strtoupper(MD5($jmstr));
-        // echo json_encode($order).'<br/>';
-        // $this->tell_user($order['prepay_id']);
-        $_SESSION['prepay_id'] = $order['prepay_id'];
+
+        //添加prepay_id
+        $prepay_id = array(
+            'prepay_id'=>$order['prepay_id'],
+        );
+        M('order')->where('order_sn="'.$pay_sn.'"')->save($prepay_id);
+
+
         echo json_encode(array('status'=>1,'arr'=>$arr));
         exit();
         //获取共享收货地址js函数参数
@@ -84,10 +89,6 @@ class WxpayController extends Controller
     //***************************
     public function notify()
     {
-        /*$notify = new \PayNotifyCallBack();
-        $notify->Handle(false);*/
-
-
         $res_xml = file_get_contents("php://input");
         libxml_disable_entity_loader(true);
         $ret = json_decode(json_encode(simplexml_load_string($res_xml, 'simpleXMLElement', LIBXML_NOCDATA)), true);
@@ -113,7 +114,6 @@ class WxpayController extends Controller
         $data['trade_no'] = $ret['transaction_id'];
         $data['total_fee'] = $ret['total_fee'];
 
-        // $check_max = $this->check_max($data['order_sn']);
 
         $result = $this->orderhandle($data);
 
@@ -127,10 +127,7 @@ class WxpayController extends Controller
             $key_val = 'null';
 
 
-            for ($i=0; $i < 100 ; $i++) {
-                # code...
-                $this->tell_user($prepay_id,$openid,$time,$product_name,$order,$money,$key_val);
-            }
+            $this->tell_user($prepay_id, $openid, $time, $product_name, $order, $money, $key_val);
 
 
             $result_c = $this->check_max($data['order_sn']);
@@ -186,7 +183,7 @@ class WxpayController extends Controller
             return '订单处理失败...';
         }
     }
-    public function tell_user($form_id,$user_openid)
+    public function tell_user($form_id, $user_openid)
     {
         $APPID = 'wxf26bf0e013e7e9f7';
         $APPSECRET = 'e53c852496502ddae82b11f00aaf59b5';
@@ -220,7 +217,7 @@ class WxpayController extends Controller
 
         $data['data']=$data_obj;
 
-        $response = $this->curl_post($requery,json_encode($data));
+        $response = $this->curl_post($requery, json_encode($data));
 
 
         $path = "./Data/log/";
@@ -231,7 +228,6 @@ class WxpayController extends Controller
     //处理限购
     public function check_max($order_sn)
     {
-        // $order_sn='2018012698514953';
         $check_info = M('order')->where('order_sn="'.$order_sn.'"')->find();
         $max_info = M('order_product')->where('order_id='.$check_info['id'])->find();
 
