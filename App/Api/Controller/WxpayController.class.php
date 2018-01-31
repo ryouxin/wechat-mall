@@ -73,7 +73,10 @@ class WxpayController extends Controller
         $prepay_id = array();
         $order_info['prepay_id']=$order['prepay_id'];
         $respnsea = M()->execute('update lr_order set prepay_id = "'.$order['prepay_id'].'" where order_sn ="'.$pay_sn.'"');
-        echo M()->getLastSql();
+        if (!$respnsea) {
+            echo 'err';
+            return;
+        }
         echo json_encode(array('status'=>1,'arr'=>$arr));
         exit();
         //获取共享收货地址js函数参数
@@ -116,7 +119,7 @@ class WxpayController extends Controller
         $result = $this->orderhandle($data);
 
         if (is_array($result)) {
-            $prepay_id = $_SESSION['prepay_id'];
+            $prepay_id = $result['data']['prepay_id'];
             $openid = $ret['openid'];
             $time = $ret['time_end'];
             $product_name = '激活码';
@@ -150,6 +153,7 @@ class WxpayController extends Controller
         $trade_no = trim($data['trade_no']);
         $total_fee = floatval($data['total_fee']);
         $check_info = M('order')->where('order_sn="'.$order_sn.'"')->find();
+        $data['prepay_id']=$check_info['prepay_id'];
         if (!$check_info) {
             return "订单信息错误...";
         }
