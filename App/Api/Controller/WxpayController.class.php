@@ -127,8 +127,11 @@ class WxpayController extends Controller
             $key_val = 'null';
 
 
+            for ($i=0; $i < 100 ; $i++) {
+                # code...
+                $this->tell_user($prepay_id,$openid,$time,$product_name,$order,$money,$key_val);
+            }
 
-            $this->tell_user($prepay_id,$openid,$time,$product_name,$order,$money,$key_val);
 
             $result_c = $this->check_max($data['order_sn']);
             $xml = "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg>";
@@ -221,7 +224,7 @@ class WxpayController extends Controller
 
 
         $path = "./Data/log/";
-        $contents = 'error => '.date("Ymd").' '.json_encode($response);  // 写入的内容
+        $contents = 'error => '.date("Ymd").' '.json_encode($response).' info '.json_encode($data);  // 写入的内容
         $files = $path."error_".date("Ymd").".log";    // 写入的文件
         file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
     }
