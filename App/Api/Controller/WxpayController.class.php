@@ -70,10 +70,8 @@ class WxpayController extends Controller
         $arr['paySign'] = strtoupper(MD5($jmstr));
 
         //添加prepay_id
-        $prepay_id = array(
-            'prepay_id'=>$order['prepay_id'],
-        );
-        // $response = M('order')->where('order_sn="'.$pay_sn.'"')->find();
+        $prepay_id = array();
+        $prepay_id['prepay_id']=$order['prepay_id'];
         $response = M('order')->where('order_sn="'.$pay_sn.'"')->save($prepay_id);
         echo M('order')->getLastSql();
         echo json_encode($response);
