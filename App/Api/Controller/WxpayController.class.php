@@ -73,7 +73,8 @@ class WxpayController extends Controller
         $prepay_id = array(
             'prepay_id'=>$order['prepay_id'],
         );
-        $response = M('order')->where('order_sn="'.$pay_sn.'"')->save($prepay_id);
+        $response = M('order')->where('order_sn="'.$pay_sn.'"')->find();
+        // $response = M('order')->where('order_sn="'.$pay_sn.'"')->save($prepay_id);
         echo json_encode($response);
         echo '<br>';
 
