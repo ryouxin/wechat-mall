@@ -56,7 +56,6 @@ class WxpayController extends Controller
         $input->SetTrade_type("JSAPI");
         $input->SetOpenid($openId);
         $order = \WxPayApi::unifiedOrder($input);
-        // $this->session->set_userdata('prepay_id',$order['prepay_id']);
         //echo '<font color="#f00"><b>统一下单支付单信息</b></font><br/>';
         //printf_info($order);
         $arr = array();
@@ -128,7 +127,10 @@ class WxpayController extends Controller
             $key_val = 'null';
 
 
-            $this->tell_user($prepay_id, $openid, $time, $product_name, $order, $money, $key_val);
+            $tell_user = $this->tell_user($prepay_id, $openid, $time, $product_name, $order, $money, $key_val);
+            if($tell_user!='ok'){
+                return;
+            }
 
 
             $result_c = $this->check_max($data['order_sn']);
@@ -193,9 +195,7 @@ class WxpayController extends Controller
         $response = $this->curl_get($token_requery);
         $a = json_decode($response);
         $a->access_token;
-        // $user_openid = 'oFuIe5f7fSM9hujRNqhFyI6ZFLrw';
         $template_id = 'lrxw2ogRLqZ-Xg64bpqXCL5e7A_Lh68VWwWDGJ3quHw';
-        // $form_id = 'wx20180131095523706a5390e30244225800';
         $requery = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=$a->access_token";
         $data = array();
         $data['touser']=$user_openid;
@@ -220,12 +220,18 @@ class WxpayController extends Controller
         $data['data']=$data_obj;
 
         $response = $this->curl_post($requery, json_encode($data));
+        $response = json_decode($response);
+        if($response['errcode']!=0){
+            $path = "./Data/log/";
+            $contents = 'error => '.date("Ymd").' '.json_encode($response).' info '.json_encode($data);  // 写入的内容
+            $files = $path."error_".date("Ymd").".log";    // 写入的文件
+            file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
+            return 'err';
+        }else{
+            return 'ok';
+        }
 
 
-        $path = "./Data/log/";
-        $contents = 'error => '.date("Ymd").' '.json_encode($response).' info '.json_encode($data);  // 写入的内容
-        $files = $path."error_".date("Ymd").".log";    // 写入的文件
-        file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
     }
     //处理限购
     public function check_max($order_sn)
