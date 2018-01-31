@@ -119,12 +119,18 @@ class WxpayController extends Controller
 
         if (is_array($result)) {
             $prepay_id = $result['data']['prepay_id'];
+
+            $p_id = $result['data']['p_id'];
+            $order_product =M('order_product')->where('order_id='.'"'.$pid.'"')->find();
+            $product = M('product')->where('id="'.$order_product->pid.'"')->find();
+
+
             $openid = $ret['openid'];
             $time = $ret['time_end'];
             $product_name = '激活码';
             $order = $ret['out_trade_no'];
             $money = $ret['cash_fee']/100;
-            $key_val = 'null';
+            $key_val = $product->pro_number;
 
 
             $tell_user = $this->tell_user($prepay_id, $openid, $time, $product_name, $order, $money, $key_val);
@@ -156,6 +162,7 @@ class WxpayController extends Controller
         $total_fee = floatval($data['total_fee']);
         $check_info = M('order')->where('order_sn="'.$order_sn.'"')->find();
         $data['prepay_id']=$check_info['prepay_id'];
+        $data['p_id']=$check_info['id'];
         if (!$check_info) {
             return "订单信息错误...";
         }
