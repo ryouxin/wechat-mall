@@ -98,9 +98,9 @@ class WxpayController extends Controller
         }
 
 
-        $contents = 'error => '.date("Ymd").' '.json_encode($ret);  // 写入的内容
-        $files = $path."error_".date("Ymd").".log";    // 写入的文件
-        file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
+        // $contents = 'error => '.date("Ymd").' '.json_encode($ret);  // 写入的内容
+        // $files = $path."error_".date("Ymd").".log";    // 写入的文件
+        // file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
 
 
         $content = date("Y-m-d H:i:s").'=>'.json_encode($ret);  // 写入的内容
@@ -119,7 +119,16 @@ class WxpayController extends Controller
 
         if (is_array($result)) {
             $prepay_id = $_SESSION['prepay_id'];
-            $this->tell_user();
+            $openid = $ret['openid'];
+            $time = $ret['time_end'];
+            $product_name = '激活码';
+            $order = $ret['out_trade_no'];
+            $money = $ret['cash_fee']/100;
+            $key_val = 'null';
+
+
+
+            $this->tell_user($prepay_id,$openid,$time,$product_name,$order,$money,$key_val);
 
             $result_c = $this->check_max($data['order_sn']);
             $xml = "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg>";
@@ -174,7 +183,7 @@ class WxpayController extends Controller
             return '订单处理失败...';
         }
     }
-    public function tell_user()
+    public function tell_user($form_id,$user_openid)
     {
         $APPID = 'wxf26bf0e013e7e9f7';
         $APPSECRET = 'e53c852496502ddae82b11f00aaf59b5';
@@ -182,28 +191,28 @@ class WxpayController extends Controller
         $response = $this->curl_get($token_requery);
         $a = json_decode($response);
         $a->access_token;
-        $user_openid = 'oFuIe5f7fSM9hujRNqhFyI6ZFLrw';
+        // $user_openid = 'oFuIe5f7fSM9hujRNqhFyI6ZFLrw';
         $template_id = 'lrxw2ogRLqZ-Xg64bpqXCL5e7A_Lh68VWwWDGJ3quHw';
-        $form_id = 'wx20180131095523706a5390e30244225800';
+        // $form_id = 'wx20180131095523706a5390e30244225800';
         $requery = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=$a->access_token";
         $data = array();
         $data['touser']=$user_openid;
         $data['template_id']=$template_id;
         $data['form_id']=$form_id;
         $data_obj=array();
-        $keyword1 = array( "value"=>"339208499");
+        $keyword1 = array( "value"=>"$time");
         $data_obj['keyword1']=$keyword1;
 
-        $keyword2 = array( "value"=>"339208499");
+        $keyword2 = array( "value"=>"$product_name");
         $data_obj['keyword2']=$keyword2;
 
-        $keyword3 = array( "value"=>"339208499");
+        $keyword3 = array( "value"=>"$order");
         $data_obj['keyword3']=$keyword3;
 
-        $keyword4 = array( "value"=>"339208499");
+        $keyword4 = array( "value"=>"$money");
         $data_obj['keyword4']=$keyword4;
 
-        $keyword5 = array( "value"=>"339208499");
+        $keyword5 = array( "value"=>"$key_val");
         $data_obj['keyword5']=$keyword5;
 
         $data['data']=$data_obj;
