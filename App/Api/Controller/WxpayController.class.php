@@ -183,7 +183,8 @@ class WxpayController extends Controller
 
         $activation_code =($this->curl_post($key_val_url,$key_var_data));
         $activation_code = json_decode($activation_code);
-        echo $activation_code['ErrorCode'];
+        echo gettype($activation_code);
+        echo $activation_code;
     }
 
     //***************************
