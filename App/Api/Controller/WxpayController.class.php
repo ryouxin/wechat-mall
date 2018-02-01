@@ -145,7 +145,7 @@ class WxpayController extends Controller
                 }
                 //将激活码插入订单详情
                 M()->execute('update lr_order set remark = "'.$key_val.'" where order_sn ="'.$data['order_sn'].'"');
-                $tell_user = $this->tell_user($prepay_id, $openid, $time, $product_name, $order, $money, $key_val);
+                $tell_user = $this->tell_user($prepay_id, $openid, $time, $product_name, $order, $money, $key_val,$check_activation_code['id']);
                 if ($tell_user!='ok') {
                     return;
                 }
@@ -253,7 +253,7 @@ class WxpayController extends Controller
             return '订单处理失败...';
         }
     }
-    public function tell_user($form_id, $user_openid, $time, $product_name, $order, $money, $key_val)
+    public function tell_user($form_id, $user_openid, $time, $product_name, $order, $money, $key_val,$order_id)
     {
         $APPID = 'wxf26bf0e013e7e9f7';
         $APPSECRET = 'e53c852496502ddae82b11f00aaf59b5';
@@ -267,7 +267,7 @@ class WxpayController extends Controller
         $data['touser']=$user_openid;
         $data['template_id']=$template_id;
         $data['form_id']=$form_id;
-        $data['page']='pages/order/detail?orderId=294';
+        $data['page']='pages/order/detail?orderId='.$order_id;
         $data_obj=array();
         $keyword1 = array( "value"=>"$time");
         $data_obj['keyword1']=$keyword1;
