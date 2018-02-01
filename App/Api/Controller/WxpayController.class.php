@@ -208,6 +208,7 @@ class WxpayController extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
         $output = curl_exec($ch);
         curl_close($ch);
+        echo json_encode($post_data);
         echo $output;
     }
 
