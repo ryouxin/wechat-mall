@@ -129,7 +129,7 @@ class WxpayController extends Controller
             $money = $ret['cash_fee']/100;
             $activation_code = $this->get_activation_code($p_id, $openid);
             if ($activation_code!='err') {
-                $activation_code = json_decode($activation_code);
+                $activation_code = json_decode($activation_code)[1];
                 foreach ($activation_code as $one) {
                     $key_val.='<br>'.json_encode($one);
                 }
