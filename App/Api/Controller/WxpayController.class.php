@@ -131,7 +131,7 @@ class WxpayController extends Controller
             if ($activation_code!='err') {
                 $activation_code = json_decode($activation_code);
                 foreach ($activation_code as $one) {
-                    $key_val.='<br>'.$one->CDkey;
+                    $key_val.='<br>'.json_encode($one);
                 }
                 // $key_val = $product['pro_number'];
             } else {
@@ -162,10 +162,7 @@ class WxpayController extends Controller
 
     //获取激活码接口
     public function get_activation_code($pid,$user_openid)
-    // public function get_activation_code()
     {
-        // $pid=260;
-        // $user_openid=123;
         $order_product =M('order_product')->where('order_id='.'"'.$pid.'"')->select();
         $key = 'ahfuehfagdfjahsjasdhtec';
         $time = time();
