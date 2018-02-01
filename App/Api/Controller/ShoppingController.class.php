@@ -176,6 +176,12 @@ class ShoppingController extends PublicController
 
 
         $shpp=M("shopping_char");
+
+        //限制购物车含量不超过20
+        $exists_num = $shpp->where('uid='.'"'.$uid.'"')->find('sum(num)');
+        echo 'exists num '.$exists_num;
+
+
         // $shu=trim($_POST['val'],',');
         // if($shu){
         // 	//判断用户是否已经选择完规格，未选完则提示错误
