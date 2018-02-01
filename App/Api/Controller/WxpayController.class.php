@@ -134,7 +134,7 @@ class WxpayController extends Controller
                 if ($activation_code!='err') {
                     $activation_code = $activation_code;
                     foreach ($activation_code as $one) {
-                        $key_val.=$one->CDkey.'  \n';
+                        $key_val.=$one->CDkey.'                ';
                     }
                     // $key_val = $product['pro_number'];
                 } else {
