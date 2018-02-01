@@ -168,7 +168,7 @@ class WxpayController extends Controller
     {
 
         $p_id = $result['data']['p_id'];
-        $order_product =M('order_product')->where('order_id='.'"257"')->select();
+        $order_product =M('order_product')->where('order_id='.'"258"')->select();
         $key_var_data = array(
             'protocol'=> '20000821',
             'key'=>'ahfuehfagdfjahsjasdhtec',
@@ -188,9 +188,12 @@ class WxpayController extends Controller
 
             // echo '<br/>';
         }
-        echo json_encode($key_var_data);
+        // echo json_encode($key_var_data);
 
         $key_val_url = "http://test.wondergm.com/xinghe/api.php?Module=Shop&Action=Order";
+
+        $activation_code = $this->curl_post($key_val_url,$key_var_data);
+        echo $activation_code;
 
     }
 
