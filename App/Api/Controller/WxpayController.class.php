@@ -127,27 +127,34 @@ class WxpayController extends Controller
             $product_name = '激活码';
             $order = $ret['out_trade_no'];
             $money = $ret['cash_fee']/100;
-            $activation_code = $this->get_activation_code($p_id, $openid);
-            if ($activation_code!='err') {
-                $activation_code = $activation_code;
-                foreach ($activation_code as $one) {
-                    $key_val.=$one->CDkey.'      ';
+
+            $check_activation_code = M('order')->where('order_sn="'.$order_sn.'"')->find();
+            if(!$check_activation_code['remark']){
+                $activation_code = $this->get_activation_code($p_id, $openid);
+                if ($activation_code!='err') {
+                    $activation_code = $activation_code;
+                    foreach ($activation_code as $one) {
+                        $key_val.=$one->CDkey.'      ';
+                    }
+                    // $key_val = $product['pro_number'];
+                } else {
+                    $contents = 'error => '.date("Ymd").' '.$activation_code;  // 写入的内容
+                    $files = $path."error_".date("Ymd").".log";    // 写入的文件
+                    file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
+                    echo 'fail';
                 }
-                // $key_val = $product['pro_number'];
-            } else {
-                $contents = 'error => '.date("Ymd").' '.$activation_code;  // 写入的内容
-                $files = $path."error_".date("Ymd").".log";    // 写入的文件
-                file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
-                echo 'fail';
+                //将激活码插入订单详情
+                M()->execute('update lr_order set remark = "'.$key_val.'" where order_sn ="'.$data['order_sn'].'"');
+                $tell_user = $this->tell_user($prepay_id, $openid, $time, $product_name, $order, $money, $key_val);
+                if ($tell_user!='ok') {
+                    return;
+                }
             }
-            //将激活码插入订单详情
-            M()->execute('update lr_order set remark = "'.$key_val.'" where order_sn ="'.$data['order_sn'].'"');
 
 
-            $tell_user = $this->tell_user($prepay_id, $openid, $time, $product_name, $order, $money, $key_val);
-            if ($tell_user!='ok') {
-                return;
-            }
+
+
+
 
 
             $result_c = $this->check_max($data['order_sn']);
