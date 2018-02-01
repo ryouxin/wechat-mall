@@ -167,34 +167,48 @@ class WxpayController extends Controller
     public function get_activation_code()
     {
 
-        $p_id = $result['data']['p_id'];
-        $order_product =M('order_product')->where('order_id='.'"258"')->select();
-        $key_var_data = array(
-            'protocol'=> '20000821',
-            'key'=>'ahfuehfagdfjahsjasdhtec',
-            'OrderUserId'=> 123,
-            'Product'=>array(),
-        );
-        foreach ($order_product as $one) {
-            # code...
-            // echo json_encode($one);
-            // echo '<br/>';
-            $product = M('product')->where('id="'.$one['pid'].'"')->find();
-            // echo json_encode($product);
-            $product_data=array('ProductId'=>$product['pro_number'],'Num'=>$one['num']);
-            // echo json_encode($product_data);
-            array_push($key_var_data['Product'], $product_data);
-
-
-            // echo '<br/>';
-        }
-        echo json_encode($key_var_data);
-
-        $key_val_url = "http://test.wondergm.com/xinghe/api.php?Module=Shop&Action=Order";
-
-        $activation_code = $this->curl_post($key_val_url,$key_var_data);
-        echo $activation_code;
-
+        // $p_id = $result['data']['p_id'];
+        // $order_product =M('order_product')->where('order_id='.'"258"')->select();
+        // $key_var_data = array(
+        //     'protocol'=> '20000821',
+        //     'key'=>'ahfuehfagdfjahsjasdhtec',
+        //     'OrderUserId'=> 123,
+        //     'Product'=>array(),
+        // );
+        // foreach ($order_product as $one) {
+        //     # code...
+        //     // echo json_encode($one);
+        //     // echo '<br/>';
+        //     $product = M('product')->where('id="'.$one['pid'].'"')->find();
+        //     // echo json_encode($product);
+        //     $product_data=array('ProductId'=>$product['pro_number'],'Num'=>$one['num']);
+        //     // echo json_encode($product_data);
+        //     array_push($key_var_data['Product'], $product_data);
+        //
+        //
+        //     // echo '<br/>';
+        // }
+        // echo json_encode($key_var_data);
+        //
+        // $key_val_url = "http://test.wondergm.com/xinghe/api.php?Module=Shop&Action=Order";
+        //
+        // $activation_code = $this->curl_post($key_val_url,$key_var_data);
+        // echo $activation_code;
+        $url = "http://test.wondergm.com/xinghe/api.php?Module=Shop&Action=Order";
+        $post_data = array(
+    "protocol" => "20000821",
+    "key" => "ahfuehfagdfjahsjasdhtec",
+    "OrderUserId" => 123 ,
+    "Product" => '[{"ProductId":"global.stgl.10usd.choice","Num":"1"},{"ProductId":"global.stgl.10usd.Lucky","Num":"1"}]' ,
+);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+        $output = curl_exec($ch);
+        curl_close($ch);
+        echo $output;
     }
 
 
