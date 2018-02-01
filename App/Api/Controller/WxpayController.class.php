@@ -185,7 +185,7 @@ class WxpayController extends Controller
         echo $activation_code;
         $activation_code = json_decode($activation_code);
         echo gettype($activation_code);
-        // echo $activation_code->error;
+        echo $activation_code->ErrorCode;
     }
 
     //***************************
