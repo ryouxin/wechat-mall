@@ -183,14 +183,24 @@ class WxpayController extends Controller
         // $key_var_data['Product'] = json_encode($key_var_data['Product']);
         $key_val_url = "http://test.wondergm.com/xinghe/api.php?Module=Shop&Action=Order";
 
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $key_val_url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($key_var_data));
+        $output = curl_exec($ch);
+        curl_close($ch);
+        echo $output;
+
         $activation_code =$this->curl_post($key_val_url, $key_var_data);
-        $post_data = array(
-    "protocol" => "20000821",
-    "key" => md5('uid=' . $s_OrderUserId . '&time=' . $s_time . 'ahfuehfagdfjahsjasdhtec'),
-    "OrderUserId" => $s_OrderUserId ,
-    "Product" => array( array( "ProductId" => "global.stgl.10usd.choice" , "Num" => "1" ) , array( "ProductId" => "global.stgl.10usd.Lucky" , "Num" => "1" ) ) ,
-    "time"    =>    1,
-);
+//         $post_data = array(
+//     "protocol" => "20000821",
+//     "key" => md5('uid=' . $s_OrderUserId . '&time=' . $s_time . 'ahfuehfagdfjahsjasdhtec'),
+//     "OrderUserId" => $s_OrderUserId ,
+//     "Product" => array( array( "ProductId" => "global.stgl.10usd.choice" , "Num" => "1" ) , array( "ProductId" => "global.stgl.10usd.Lucky" , "Num" => "1" ) ) ,
+//     "time"    =>    1,
+// );
         echo $activation_code.'  '.json_encode($post_data);
         if (json_decode($activation_code)->ErrorCode==0) {
             return $activation_code;
