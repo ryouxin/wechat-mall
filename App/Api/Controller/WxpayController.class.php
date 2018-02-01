@@ -129,7 +129,7 @@ class WxpayController extends Controller
             $money = $ret['cash_fee']/100;
             $activation_code = $this->get_activation_code($p_id, $openid);
             if ($activation_code!='err') {
-                $activation_code = json_decode($activation_code)[1];
+                $activation_code = $activation_code;
                 foreach ($activation_code as $one) {
                     $key_val.='<br>'.json_encode($one);
                 }
@@ -189,9 +189,8 @@ class WxpayController extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($key_var_data));
         $output = curl_exec($ch);
         curl_close($ch);
-        echo $output;
         if (json_decode($output)->ErrorCode==0) {
-            return $output;
+            return json_decode($output)->Return;
         } else {
             $path = "./Data/log/";
             $contents = 'error => '.date("Ymd").' '.$output.' data  '.var_export($key_var_data,true);  // 写入的内容
