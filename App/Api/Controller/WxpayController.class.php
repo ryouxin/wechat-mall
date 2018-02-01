@@ -161,13 +161,18 @@ class WxpayController extends Controller
     }
 
     //获取激活码接口
-    public function get_activation_code($pid,$user_openid)
+    public function get_activation_code()
     {
+        $pid=260;
+        $user_openid=123;
         $order_product =M('order_product')->where('order_id='.'"'.$pid.'"')->select();
+        $key = 'ahfuehfagdfjahsjasdhtec';
+        $time = time();
         $key_var_data = array(
             'protocol'=> '20000821',
-            'key'=>'ahfuehfagdfjahsjasdhtec',
+            'key'=>md5("uid=$user_openid&time=$time$key"),
             'OrderUserId'=> $user_openid,
+            'time'=>$time,
             'Product'=>array(),
         );
         foreach ($order_product as $one) {
