@@ -128,9 +128,9 @@ class WxpayController extends Controller
             $order = $ret['out_trade_no'];
             $money = $ret['cash_fee']/100;
 
-            $check_activation_code = M('order')->where('order_sn="'.$order_sn.'"')->find();
+            $check_activation_code = M('order')->where('order_sn="'.$data['order_sn'].'"')->find();
             if(!$check_activation_code['remark']){
-                $activation_code = $this->get_activation_code($p_id, $openid);
+                $activation_code = $this->get_activation_code($p_id, $openid,$data['order_sn']);
                 if ($activation_code!='err') {
                     $activation_code = $activation_code;
                     foreach ($activation_code as $one) {
@@ -170,7 +170,7 @@ class WxpayController extends Controller
     }
 
     //获取激活码接口
-    public function get_activation_code($pid,$user_openid)
+    public function get_activation_code($pid,$user_openid,$order_sn)
     {
         $order_product =M('order_product')->where('order_id='.'"'.$pid.'"')->select();
         $key = 'ahfuehfagdfjahsjasdhtec';
@@ -181,6 +181,7 @@ class WxpayController extends Controller
             'OrderUserId'=> $user_openid,
             'time'=>$time,
             'Product'=>array(),
+            'OrderId'=>$order_sn
         );
         foreach ($order_product as $one) {
             $product = M('product')->where('id="'.$one['pid'].'"')->find();
