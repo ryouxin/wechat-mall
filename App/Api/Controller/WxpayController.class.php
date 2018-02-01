@@ -183,7 +183,7 @@ class WxpayController extends Controller
             // echo json_encode($product);
             $product_data=array('ProductId'=>$product['pro_number'],'Num'=>$one['num']);
             // echo json_encode($product_data);
-            array_push($key_var_data['Product'], $product_data);
+            array_push($key_var_data['Product'], json_encode($product_data));
 
 
             // echo '<br/>';
