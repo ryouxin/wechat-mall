@@ -175,16 +175,16 @@ class WxpayController extends Controller
             'protocol'=> '20000821',
             'key'=>'ahfuehfagdfjahsjasdhtec',
             'OrderUserId'=> $ret['openid'],
-            // 'Product'=>$product['pro_number'],
+            'Product'=>array(),
         );
         foreach ($order_product as $one) {
             # code...
             // echo json_encode($one);
             // echo '<br/>';
             $product = M('product')->where('id="'.$one['pid'].'"')->find();
-            echo json_encode($product);
+            // echo json_encode($product);
             $product_data=array('ProductId'=>$product['pro_number'],'Num'=>$one['num']);
-            echo json_encode($product_data);
+            // echo json_encode($product_data);
             array_push($key_var_data['Product'], $product_data);
 
 
