@@ -136,7 +136,7 @@ class WxpayController extends Controller
                     foreach ($activation_code as $one) {
                         $key_val.=$one->CDkey.'                ';
                     }
-                    $key_val.=$key_val.' 点击"进入小程序查看"复制激活码。';
+                    // $key_val.=$key_val.' 点击"进入小程序查看"复制激活码。';
                     // $key_val = $product['pro_number'];
                 } else {
                     $contents = 'error => '.date("Ymd").' '.$activation_code;  // 写入的内容
@@ -283,7 +283,7 @@ class WxpayController extends Controller
         $data_obj['keyword4']=$keyword4;
 
         $keyword5 = array( "value"=>"$key_val");
-        $data_obj['keyword5']=$keyword5;
+        $data_obj['keyword5']=$keyword5.' 点击"进入小程序查看"复制激活码。';
 
         $data['data']=$data_obj;
 
