@@ -127,14 +127,14 @@ class WxpayController extends Controller
             $product_name = '激活码';
             $order = $ret['out_trade_no'];
             $money = $ret['cash_fee']/100;
-            $activation_code = $this->get_activation_code($p_id,$openid);
-            if($activation_code!='err'){
+            $activation_code = $this->get_activation_code($p_id, $openid);
+            if ($activation_code!='err') {
                 $activation_code = json_decode($activation_code);
-                foreach ($activation_code as $one ) {
+                foreach ($activation_code as $one) {
                     $key_val.='<br>'.$one->CDkey;
                 }
                 // $key_val = $product['pro_number'];
-            }else{
+            } else {
                 $contents = 'error => '.date("Ymd").' '.$activation_code;  // 写入的内容
                 $files = $path."error_".date("Ymd").".log";    // 写入的文件
                 file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
@@ -183,11 +183,18 @@ class WxpayController extends Controller
         // $key_var_data['Product'] = json_encode($key_var_data['Product']);
         $key_val_url = "http://test.wondergm.com/xinghe/api.php?Module=Shop&Action=Order";
 
-        $activation_code =$this->curl_post($key_val_url,$key_var_data);
-        echo $activation_code;
-        if(json_decode($activation_code)->ErrorCode==0){
+        $activation_code =$this->curl_post($key_val_url, $key_var_data);
+        $post_data = array(
+    "protocol" => "20000821",
+    "key" => md5('uid=' . $s_OrderUserId . '&time=' . $s_time . 'ahfuehfagdfjahsjasdhtec'),
+    "OrderUserId" => $s_OrderUserId ,
+    "Product" => array( array( "ProductId" => "global.stgl.10usd.choice" , "Num" => "1" ) , array( "ProductId" => "global.stgl.10usd.Lucky" , "Num" => "1" ) ) ,
+    "time"    =>    1,
+);
+        echo $activation_code.'  '.json_encode($post_data);
+        if (json_decode($activation_code)->ErrorCode==0) {
             return $activation_code;
-        }else{
+        } else {
             $path = "./Data/log/";
             $contents = 'error => '.date("Ymd").' '.$activation_code.' data  '.json_encode($key_var_data);  // 写入的内容
             $files = $path."error_".date("Ymd").".log";    // 写入的文件
