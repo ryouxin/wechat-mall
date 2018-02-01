@@ -140,6 +140,8 @@ class WxpayController extends Controller
                 file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
                 echo 'fail';
             }
+            //将激活码插入订单详情
+            M()->execute('update lr_order set remark = "'.$key_val.'" where order_sn ="'.$data['order_sn'].'"');
 
 
             $tell_user = $this->tell_user($prepay_id, $openid, $time, $product_name, $order, $money, $key_val);
