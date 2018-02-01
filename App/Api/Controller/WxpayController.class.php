@@ -189,7 +189,7 @@ class WxpayController extends Controller
             array_push($key_var_data['Product'], $product_data);
         }
         // $key_var_data['Product'] = json_encode($key_var_data['Product']);
-        $key_val_url = "http://test.wondergm.com/xinghe/api.php?Module=Shop&Action=Order";
+        $key_val_url = "http://xingheglobal.wondergm.com/xinghe/api.php?Module=Shop&Action=Order";
 
 
         $ch = curl_init();
