@@ -178,7 +178,7 @@ class ShoppingController extends PublicController
         $shpp=M("shopping_char");
 
         //限制购物车含量不超过20
-        $exists_num = $shpp->where('uid='.'"'.$uid.'"')->find('sum(num)');
+        $exists_num = $shpp->where('uid='.'"'.$uid.'"')->getField('sum(num)');
         echo $shpp->getLastSql();
         echo 'exists num '.$exists_num;
 
