@@ -168,7 +168,7 @@ class WxpayController extends Controller
     {
 
         $p_id = $result['data']['p_id'];
-        $order_product =M('order_product')->where('order_id='.'"258"')->select();
+        $order_product =M('order_product')->where('order_id='.'"259"')->select();
         $key_var_data = array(
             'protocol'=> '20000821',
             'key'=>'ahfuehfagdfjahsjasdhtec',
