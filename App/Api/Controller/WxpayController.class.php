@@ -183,11 +183,12 @@ class WxpayController extends Controller
             // echo json_encode($product);
             $product_data=array('ProductId'=>$product['pro_number'],'Num'=>$one['num']);
             // echo json_encode($product_data);
-            array_push($key_var_data['Product'], json_encode($product_data));
+            array_push($key_var_data['Product'], $product_data);
 
 
             // echo '<br/>';
         }
+        $key_var_data['Product'] = json_encode($key_var_data['Product']);
         echo json_encode($key_var_data);
         //
         $key_val_url = "http://test.wondergm.com/xinghe/api.php?Module=Shop&Action=Order";
