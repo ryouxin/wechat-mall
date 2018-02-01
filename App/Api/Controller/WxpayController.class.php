@@ -131,7 +131,7 @@ class WxpayController extends Controller
             if ($activation_code!='err') {
                 $activation_code = $activation_code;
                 foreach ($activation_code as $one) {
-                    $key_val.=$one->CDkey.'\\n';
+                    $key_val.=$one->CDkey.'  \\n ';
                 }
                 // $key_val = $product['pro_number'];
             } else {
@@ -251,7 +251,7 @@ class WxpayController extends Controller
         $response = $this->curl_get($token_requery);
         $a = json_decode($response);
         $a->access_token;
-        $template_id = 'lrxw2ogRLqZ-Xg64bpqXCL5e7A_Lh68VWwWDGJ3quHw';
+        $template_id = 'ESKpxHnVKZm79L5RMQWrJkUItIKnxfxyVxOqGWskHao';
         $requery = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=$a->access_token";
         $data = array();
         $data['touser']=$user_openid;
