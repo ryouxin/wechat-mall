@@ -122,7 +122,7 @@ class WxpayController extends Controller
 
             $p_id = $result['data']['p_id'];
             $order_product =M('order_product')->where('order_id='.'"'.$p_id.'"')->select();
-            foreach ($order_product as $one ) {
+            foreach ($order_product as $one) {
                 # code...
             }
             $product = M('product')->where('id="'.$order_product['pid'].'"')->select();
@@ -164,6 +164,32 @@ class WxpayController extends Controller
             echo 'fail';
         }
     }
+
+    //获取激活码接口
+    public function get_activation_code()
+    {
+
+        $p_id = $result['data']['p_id'];
+        $order_product =M('order_product')->where('order_id='.'"257"')->select();
+        foreach ($order_product as $one) {
+            # code...
+            echo json_encode($one);
+            echo '<br/>';
+            $product = M('product')->where('id="'.$one['pid'].'"')->select();
+            echo json_encode($product);
+            echo '<br/>';
+        }
+
+
+        $key_val_url = "http://test.wondergm.com/xinghe/api.php?Module=Shop&Action=Order";
+        $key_var_data = array(
+            'protocol'=> '20000821',
+            'key'=>'ahfuehfagdfjahsjasdhtec',
+            'OrderUserId'=> $ret['openid'],
+            'Product'=>$product['pro_number'],
+        );
+    }
+
 
     //***************************
     //  订单处理 接口
