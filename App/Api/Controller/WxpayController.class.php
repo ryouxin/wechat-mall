@@ -267,7 +267,7 @@ class WxpayController extends Controller
         $data['touser']=$user_openid;
         $data['template_id']=$template_id;
         $data['form_id']=$form_id;
-        $data['page']='index';
+        // $data['page']='index';
         $data_obj=array();
         $keyword1 = array( "value"=>"$time");
         $data_obj['keyword1']=$keyword1;
