@@ -172,7 +172,7 @@ class WxpayController extends Controller
         $key_var_data = array(
             'protocol'=> '20000821',
             'key'=>'ahfuehfagdfjahsjasdhtec',
-            'OrderUserId'=> $ret['openid'],
+            'OrderUserId'=> 123,
             'Product'=>array(),
         );
         foreach ($order_product as $one) {
@@ -188,7 +188,7 @@ class WxpayController extends Controller
 
             // echo '<br/>';
         }
-        // echo json_encode($key_var_data);
+        echo json_encode($key_var_data);
 
         $key_val_url = "http://test.wondergm.com/xinghe/api.php?Module=Shop&Action=Order";
 
