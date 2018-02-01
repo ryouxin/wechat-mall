@@ -171,23 +171,27 @@ class WxpayController extends Controller
 
         $p_id = $result['data']['p_id'];
         $order_product =M('order_product')->where('order_id='.'"257"')->select();
-        foreach ($order_product as $one) {
-            # code...
-            echo json_encode($one);
-            echo '<br/>';
-            $product = M('product')->where('id="'.$one['pid'].'"')->select();
-            echo json_encode($product);
-            echo '<br/>';
-        }
-
-
-        $key_val_url = "http://test.wondergm.com/xinghe/api.php?Module=Shop&Action=Order";
         $key_var_data = array(
             'protocol'=> '20000821',
             'key'=>'ahfuehfagdfjahsjasdhtec',
             'OrderUserId'=> $ret['openid'],
-            'Product'=>$product['pro_number'],
+            // 'Product'=>$product['pro_number'],
         );
+        foreach ($order_product as $one) {
+            # code...
+            // echo json_encode($one);
+            // echo '<br/>';
+            $product = M('product')->where('id="'.$one['pid'].'"')->select();
+            $product_data=array('ProductId'=>$product['pro_number'],'Num'=>$one['num']);
+            array_push($key_var_data['Product'], $var);
+
+            // echo json_encode($product);
+            // echo '<br/>';
+        }
+        echo json_encode($key_var_data);
+
+        $key_val_url = "http://test.wondergm.com/xinghe/api.php?Module=Shop&Action=Order";
+
     }
 
 
