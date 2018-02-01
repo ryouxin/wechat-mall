@@ -136,8 +136,6 @@ class WxpayController extends Controller
             );
 
 
-
-
             $openid = $ret['openid'];
             $time = $ret['time_end'];
             $product_name = '激活码';
