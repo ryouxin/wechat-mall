@@ -161,10 +161,8 @@ class WxpayController extends Controller
     }
 
     //获取激活码接口
-    public function get_activation_code()
+    public function get_activation_code($pid,$user_openid)
     {
-        $pid=260;
-        $user_openid=123;
         $order_product =M('order_product')->where('order_id='.'"'.$pid.'"')->select();
         $key = 'ahfuehfagdfjahsjasdhtec';
         $time = time();
@@ -192,21 +190,11 @@ class WxpayController extends Controller
         $output = curl_exec($ch);
         curl_close($ch);
         echo $output;
-
-        $activation_code =$this->curl_post($key_val_url, $key_var_data);
-//         $post_data = array(
-//     "protocol" => "20000821",
-//     "key" => md5('uid=' . $s_OrderUserId . '&time=' . $s_time . 'ahfuehfagdfjahsjasdhtec'),
-//     "OrderUserId" => $s_OrderUserId ,
-//     "Product" => array( array( "ProductId" => "global.stgl.10usd.choice" , "Num" => "1" ) , array( "ProductId" => "global.stgl.10usd.Lucky" , "Num" => "1" ) ) ,
-//     "time"    =>    1,
-// );
-        echo $activation_code.'  '.json_encode($post_data);
-        if (json_decode($activation_code)->ErrorCode==0) {
-            return $activation_code;
+        if (json_decode($output)->ErrorCode==0) {
+            return $output;
         } else {
             $path = "./Data/log/";
-            $contents = 'error => '.date("Ymd").' '.$activation_code.' data  '.json_encode($key_var_data);  // 写入的内容
+            $contents = 'error => '.date("Ymd").' '.$output.' data  '.json_encode($key_var_data);  // 写入的内容
             $files = $path."error_".date("Ymd").".log";    // 写入的文件
             file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
             return 'err';
