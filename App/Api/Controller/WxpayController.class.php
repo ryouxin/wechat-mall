@@ -182,10 +182,11 @@ class WxpayController extends Controller
             // echo json_encode($one);
             // echo '<br/>';
             $product = M('product')->where('id="'.$one['pid'].'"')->select();
+            echo json_encode($product);
             $product_data=array('ProductId'=>$product['pro_number'],'Num'=>$one['num']);
             array_push($key_var_data['Product'], $product_data);
 
-            // echo json_encode($product);
+
             // echo '<br/>';
         }
         echo json_encode($key_var_data);
