@@ -121,28 +121,25 @@ class WxpayController extends Controller
             $prepay_id = $result['data']['prepay_id'];
 
             $p_id = $result['data']['p_id'];
-            $order_product =M('order_product')->where('order_id='.'"'.$p_id.'"')->select();
-            foreach ($order_product as $one) {
-                # code...
-            }
-            $product = M('product')->where('id="'.$order_product['pid'].'"')->select();
-
-            $key_val_url = "http://test.wondergm.com/xinghe/api.php?Module=Shop&Action=Order";
-            $key_var_data = array(
-                'protocol'=> '20000821',
-                'key'=>'ahfuehfagdfjahsjasdhtec',
-                'OrderUserId'=> $ret['openid'],
-                'Product'=>$product['pro_number'],
-            );
-
 
             $openid = $ret['openid'];
             $time = $ret['time_end'];
             $product_name = '激活码';
             $order = $ret['out_trade_no'];
             $money = $ret['cash_fee']/100;
-            $key_val = $product['pro_number'];
-
+            $activation_code = $this->get_activation_code($p_id,$openid);
+            if($activation_code!='err'){
+                $activation_code = json_decode($activation_code);
+                foreach ($activation_code as $one ) {
+                    $key_val.='<br>'.$one->CDkey;
+                }
+                // $key_val = $product['pro_number'];
+            }else{
+                $contents = 'error => '.date("Ymd").' '.$activation_code;  // 写入的内容
+                $files = $path."error_".date("Ymd").".log";    // 写入的文件
+                file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
+                echo 'fail';
+            }
 
 
             $tell_user = $this->tell_user($prepay_id, $openid, $time, $product_name, $order, $money, $key_val);
@@ -164,13 +161,13 @@ class WxpayController extends Controller
     }
 
     //获取激活码接口
-    public function get_activation_code()
+    public function get_activation_code($pid,$user_openid)
     {
-        $order_product =M('order_product')->where('order_id='.'"258"')->select();
+        $order_product =M('order_product')->where('order_id='.'"'.$pid.'"')->select();
         $key_var_data = array(
             'protocol'=> '20000821',
             'key'=>'ahfuehfagdfjahsjasdhtec',
-            'OrderUserId'=> 123,
+            'OrderUserId'=> $user_openid,
             'Product'=>array(),
         );
         foreach ($order_product as $one) {
@@ -181,14 +178,21 @@ class WxpayController extends Controller
         $key_var_data['Product'] = json_encode($key_var_data['Product']);
         $key_val_url = "http://test.wondergm.com/xinghe/api.php?Module=Shop&Action=Order";
 
-        $activation_code =($this->curl_post($key_val_url,$key_var_data));
-        echo $activation_code;
-        $activation_code = json_decode($activation_code);
-        foreach ($activation_code->Return as $one ) {
-            # code...
-            echo $one->CDkey;
+        $activation_code =$this->curl_post($key_val_url,$key_var_data);
+        if(json_decode($activation_code)->ErrorCode==0){
+            return $activation_code;
+        }else{
+            $path = "./Data/log/";
+            $contents = 'error => '.date("Ymd").' '.$activation_code;  // 写入的内容
+            $files = $path."error_".date("Ymd").".log";    // 写入的文件
+            file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
+            return 'err';
         }
-        // echo $activation_code->Return;
+        // $activation_code = json_decode($activation_code);
+        // foreach ($activation_code->Return as $one ) {
+        //     # code...
+        //     echo $one->CDkey;
+        // }
     }
 
     //***************************
