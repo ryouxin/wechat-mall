@@ -188,28 +188,28 @@ class WxpayController extends Controller
 
             // echo '<br/>';
         }
-        echo json_encode($key_var_data);
+        // echo json_encode($key_var_data);
         //
-        // $key_val_url = "http://test.wondergm.com/xinghe/api.php?Module=Shop&Action=Order";
-        //
-        // $activation_code = $this->curl_post($key_val_url,$key_var_data);
-        // echo $activation_code;
-        $url = "http://test.wondergm.com/xinghe/api.php?Module=Shop&Action=Order";
-        $post_data = array(
-    "protocol" => "20000821",
-    "key" => "ahfuehfagdfjahsjasdhtec",
-    "OrderUserId" => 123 ,
-    "Product" => '[{"ProductId":"global.stgl.10usd.choice","Num":"1"},{"ProductId":"global.stgl.10usd.Lucky","Num":"1"}]' ,
-);
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
-        $output = curl_exec($ch);
-        curl_close($ch);
-        echo json_encode($post_data);
-        echo $output;
+        $key_val_url = "http://test.wondergm.com/xinghe/api.php?Module=Shop&Action=Order";
+
+        $activation_code = $this->curl_post($key_val_url,$key_var_data);
+        echo $activation_code;
+//         $url = "http://test.wondergm.com/xinghe/api.php?Module=Shop&Action=Order";
+//         $post_data = array(
+//     "protocol" => "20000821",
+//     "key" => "ahfuehfagdfjahsjasdhtec",
+//     "OrderUserId" => 123 ,
+//     "Product" => '[{"ProductId":"global.stgl.10usd.choice","Num":"1"},{"ProductId":"global.stgl.10usd.Lucky","Num":"1"}]' ,
+// );
+//         $ch = curl_init();
+//         curl_setopt($ch, CURLOPT_URL, $url);
+//         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+//         curl_setopt($ch, CURLOPT_POST, 1);
+//         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+//         $output = curl_exec($ch);
+//         curl_close($ch);
+//         echo json_encode($post_data);
+//         echo $output;
     }
 
 
