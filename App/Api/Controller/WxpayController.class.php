@@ -166,8 +166,6 @@ class WxpayController extends Controller
     //获取激活码接口
     public function get_activation_code()
     {
-
-        // $p_id = $result['data']['p_id'];
         $order_product =M('order_product')->where('order_id='.'"258"')->select();
         $key_var_data = array(
             'protocol'=> '20000821',
@@ -176,27 +174,16 @@ class WxpayController extends Controller
             'Product'=>array(),
         );
         foreach ($order_product as $one) {
-            # code...
-            // echo json_encode($one);
-            // echo '<br/>';
             $product = M('product')->where('id="'.$one['pid'].'"')->find();
-            // echo json_encode($product);
             $product_data=array('ProductId'=>$product['pro_number'],'Num'=>$one['num']);
-            // echo json_encode($product_data);
             array_push($key_var_data['Product'], $product_data);
-
-
-            // echo '<br/>';
         }
         $key_var_data['Product'] = json_encode($key_var_data['Product']);
-        echo json_encode($key_var_data);
-        //
         $key_val_url = "http://test.wondergm.com/xinghe/api.php?Module=Shop&Action=Order";
 
         $activation_code = $this->curl_post($key_val_url,$key_var_data);
         echo $activation_code;
     }
-
 
     //***************************
     //  订单处理 接口
