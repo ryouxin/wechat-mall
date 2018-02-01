@@ -193,15 +193,15 @@ class WxpayController extends Controller
         $output = curl_exec($ch);
         curl_close($ch);
         echo $output;
-        // if (json_decode($output)->ErrorCode==0) {
-        //     return $output;
-        // } else {
+        if (json_decode($output)->ErrorCode==0) {
+            return $output;
+        } else {
             $path = "./Data/log/";
             $contents = 'error => '.date("Ymd").' '.$output.' data  '.var_export($key_var_data,true);  // 写入的内容
             $files = $path."error_".date("Ymd").".log";    // 写入的文件
             file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
             return 'err';
-        // }
+        }
     }
 
     //***************************
