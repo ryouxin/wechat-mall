@@ -161,8 +161,11 @@ class WxpayController extends Controller
     }
 
     //获取激活码接口
-    public function get_activation_code($pid,$user_openid)
+    // public function get_activation_code($pid,$user_openid)
+    public function get_activation_code()
     {
+        $pid=260;
+        $user_openid=123;
         $order_product =M('order_product')->where('order_id='.'"'.$pid.'"')->select();
         $key = 'ahfuehfagdfjahsjasdhtec';
         $time = time();
@@ -199,11 +202,6 @@ class WxpayController extends Controller
             file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
             return 'err';
         }
-        // $activation_code = json_decode($activation_code);
-        // foreach ($activation_code->Return as $one ) {
-        //     # code...
-        //     echo $one->CDkey;
-        // }
     }
 
     //***************************
