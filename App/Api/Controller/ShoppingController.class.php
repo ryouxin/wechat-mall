@@ -180,11 +180,9 @@ class ShoppingController extends PublicController
         //限制购物车含量不超过20
         $exists_num = $shpp->where('uid='.'"'.$uid.'"')->getField('sum(num)');
         if($exists_num+intval($num)>=20){
-            echo json_encode(array('status'=>0,'err'=>'购物车数量不能超过20！'));
+            echo json_encode(array('status'=>0,'err'=>'购物车数量过多！'));
             exit;
         }
-        echo $shpp->getLastSql();
-        echo 'exists num '.$exists_num;
 
 
         // $shu=trim($_POST['val'],',');
