@@ -81,6 +81,7 @@
 
         <tr class="text-c">
             <th width="40">订单ID</th>
+            <th width="40">商品名称</th>
             <th width="150">买家</th>
             <th width="130">总金额</th>
             <th width="80">支付类型</th>
@@ -95,6 +96,7 @@
         <volist name='order_list' id='order'>
             <tr data-id="{$order.id}" data-name="{$order.name}" class="text-c">
                 <td>{$order.id}</td>
+                <td><?php echo json_encode($order)?></td>
                 <td>{$order.u_name}</td>
                 <td>{$order.price}</td>
                 <td><if condition="$order.type eq 'alipay'">支付宝<elseif condition="$order.type eq 'weixin'" />微信支付<else />现金支付</if></td>
