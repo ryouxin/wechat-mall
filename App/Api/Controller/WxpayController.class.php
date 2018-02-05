@@ -133,8 +133,9 @@ class WxpayController extends Controller
                 $activation_code = $this->get_activation_code($p_id, $openid,$data['order_sn']);
                 if ($activation_code!='err') {
                     $activation_code = $activation_code;
-                    foreach ($activation_code as $one) {
-                        $key_val.=$one->CDkey.'                ';
+                    foreach ($activation_code as $key => $one) {
+                        $_index = $key+1;
+                        $key_val.='激活码'. $_index .': '.$one->CDkey.'                ';
                     }
                     // $key_val.=$key_val.' 点击"进入小程序查看"复制激活码。';
                     // $key_val = $product['pro_number'];
