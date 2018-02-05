@@ -252,6 +252,8 @@ class ProductController extends PublicController{
 		$this->assign('type',$type);
 		$this->assign('shop_id',$shop_id);
 		$this->assign('page',$page);
+
+        $this->assign('max',$max);
 		//=============
 		// 将变量输出
 		//=============
