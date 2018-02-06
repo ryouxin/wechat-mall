@@ -96,7 +96,10 @@
         <volist name='order_list' id='order'>
             <tr data-id="{$order.id}" data-name="{$order.name}" class="text-c">
                 <td>{$order.id}</td>
-                <td>{$order.products_name}</td>
+                <td>
+                    <?php foreach($order.products_name as $one){
+                        echo json_encode($one);
+                    }?></td>
                 <td>{$order.u_name}</td>
                 <td>{$order.price}</td>
                 <td><if condition="$order.type eq 'alipay'">支付宝<elseif condition="$order.type eq 'weixin'" />微信支付<else />现金支付</if></td>
