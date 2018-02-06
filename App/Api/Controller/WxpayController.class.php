@@ -283,7 +283,7 @@ class WxpayController extends Controller
         $keyword4 = array( "value"=>"$money");
         $data_obj['keyword4']=$keyword4;
 
-        $keyword5 = array( "value"=>"$key_val           点击<进入小程序查看>复制激活码。");
+        $keyword5 = array( "value"=>"点击<进入小程序查看>复制激活码。");
         $data_obj['keyword5']=$keyword5;
 
         $data['data']=$data_obj;
