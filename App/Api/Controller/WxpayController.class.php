@@ -135,26 +135,16 @@ class WxpayController extends Controller
                     $activation_code = $activation_code;
                     $_activation_code_array = array();
                     foreach ($activation_code as $key => $one) {
-                        // $contents = 'error => '.date("Ymd").' cdkey :'.var_export($one->CDkey,true);  // 写入的内容
-                        // $files = $path."error_".date("Ymd").".log";    // 写入的文件
-                        // file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
-                        // echo 'fail';
-
-
                         array_push($_activation_code_array, $one->CDkey);
                         // $_index = $key+1;
-                        // $key_val.='激活码'. $_index .': '.$one->CDkey.', ';
+                        // $key_val.='激活码'. $_index .': '.$one->CDkey.',';
                     }
                     $key_val=json_encode($_activation_code_array);
-
-                    M()->execute('update lr_order set remark = "'.$key_val.'" where order_sn ="'.$data['order_sn'].'"');
-                    $contents = 'error => '.date("Ymd").' cdkey :'.$key_val.M()->getLastSql();  // 写入的内容
+                    $contents = 'error => '.date("Ymd").' '.var_export($_activation_code_array,true).' '.$key_val;  // 写入的内容
                     $files = $path."error_".date("Ymd").".log";    // 写入的文件
-                    file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
-                    // echo 'fail';
+                    file_put_contents($files, $contents, FILE_APPEND);
                     // $key_val.=$key_val.' 点击"进入小程序查看"复制激活码。';
                     // $key_val = $product['pro_number'];
-
                 } else {
                     $contents = 'error => '.date("Ymd").' '.$activation_code;  // 写入的内容
                     $files = $path."error_".date("Ymd").".log";    // 写入的文件
@@ -162,13 +152,7 @@ class WxpayController extends Controller
                     echo 'fail';
                 }
                 //将激活码插入订单详情
-
-                $contents = 'error => '.date("Ymd").' cdkey :'.M()->getLastSql();  // 写入的内容
-                $files = $path."error_".date("Ymd").".log";    // 写入的文件
-                file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
-                echo 'fail';
-
-
+                M()->execute('update lr_order set remark = "'.$key_val.'" where order_sn ="'.$data['order_sn'].'"');
                 $tell_user = $this->tell_user($prepay_id, $openid, $time, $product_name, $order, $money, $key_val, $check_activation_code['id']);
                 if ($tell_user!='ok') {
                     return;
