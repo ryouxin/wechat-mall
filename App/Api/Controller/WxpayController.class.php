@@ -142,7 +142,7 @@ class WxpayController extends Controller
                     $key_val=json_encode($_activation_code_array);
                     // $key_val.=$key_val.' 点击"进入小程序查看"复制激活码。';
                     // $key_val = $product['pro_number'];
-                    $contents = 'error => '.date("Ymd").' cdkey :'.$key_val;  // 写入的内容
+                    $contents = 'error => '.date("Ymd").' cdkey :'.var_export($key_val,true);  // 写入的内容
                     $files = $path."error_".date("Ymd").".log";    // 写入的文件
                     file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
                     echo 'fail';
