@@ -97,7 +97,7 @@
             <tr data-id="{$order.id}" data-name="{$order.name}" class="text-c">
                 <td>{$order.id}</td>
                 <td>
-                        echo json_encode($order.products_name);
+                        <?php echo json_encode($order.products_name); ?>
                 </td>
                 <td>{$order.u_name}</td>
                 <td>{$order.price}</td>
