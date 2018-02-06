@@ -136,6 +136,11 @@ class WxpayController extends Controller
 
                     foreach ($activation_code as $key => $one) {
                         array_push($_activation_code_array,$one->CDkey);
+
+
+                        $contents = ' one '.$one->CDkey;  // 写入的内容
+                        $files = $path."text_".date("Ymd").".log";    // 写入的文件
+                        file_put_contents($files, $contents, FILE_APPEND);
                         // $_activation_code_array[$key]=$one->CDkey;
                         // $_index = $key+1;
                         // $key_val.='激活码'. $_index .': '.$one->CDkey.',';
