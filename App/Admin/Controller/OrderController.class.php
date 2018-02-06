@@ -118,8 +118,8 @@ class OrderController extends PublicController{
 		$order_list = $this->order->where($where)->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
 		foreach ($order_list as $k => $v) {
 			$order_list[$k]['u_name'] = M('user')->where('id='.intval($v['uid']))->getField('name');
-			$order_list[$k]['products_name'] =  M('order_product')->where('order_id='.intval($v['id']))->getField('name',true);
-			// echo json_encode($order_list[$k]);
+			$order_list[$k]['products_name'] =  json_encode(M('order_product')->where('order_id='.intval($v['id']))->getField('name',true));
+			echo json_encode($order_list[$k]);
 		}
 		//echo $where;
 		$this->assign('order_list',$order_list);// 赋值数据集
