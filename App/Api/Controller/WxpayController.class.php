@@ -135,7 +135,8 @@ class WxpayController extends Controller
                     $activation_code = $activation_code;
 
                     foreach ($activation_code as $key => $one) {
-                        $_activation_code_array[$key]=$one->CDkey;
+                        array_push($_activation_code_array,$one->CDkey);
+                        // $_activation_code_array[$key]=$one->CDkey;
                         // $_index = $key+1;
                         // $key_val.='激活码'. $_index .': '.$one->CDkey.',';
                     }
