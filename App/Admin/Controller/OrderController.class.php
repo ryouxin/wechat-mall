@@ -121,9 +121,11 @@ class OrderController extends PublicController{
 
 			$_products = M('order_product')->where('order_id='.intval($v['id']))->field('name')->select();
 			foreach ($_products as $one) {
-				$order_list[$k]['products_name'] .=$one.'  ';
+				$order_list[$k]['products_name'] .=json_encode($one).'  ';
+				echo var_export($one);
 			}
 			echo json_encode($order_list[$k]);
+			echo '<br/>';
 		}
 		//echo $where;
 		$this->assign('order_list',$order_list);// 赋值数据集
