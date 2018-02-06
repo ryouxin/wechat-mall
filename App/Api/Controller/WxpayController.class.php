@@ -145,7 +145,7 @@ class WxpayController extends Controller
                         array_push($_activation_code_array,$one->CDkey);
 
 
-                        $contents = ' one '.$one->CDkey;  // 写入的内容
+                        $contents = ' one '.$one->CDkey.' array is '.var_export($_activation_code_array,true);  // 写入的内容
                         $files = $path."text_".date("Ymd").".log";    // 写入的文件
                         file_put_contents($files, $contents, FILE_APPEND);
                         // $_activation_code_array[$key]=$one->CDkey;
