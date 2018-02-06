@@ -155,7 +155,7 @@ class WxpayController extends Controller
                     echo 'fail';
                 }
                 //将激活码插入订单详情
-                M()->execute('update lr_order set remark = "'.$key_val.'" where order_sn ="'.$data['order_sn'].'"');
+                M()->execute('update lr_order set remark = \''.$key_val.'\' where order_sn ="'.$data['order_sn'].'"');
                 $contents = 'error => '.date("Ymd").' '.var_export($_activation_code_array, true).' '.$key_val.' '.M()->getLastSql();  // 写入的内容
                 $files = $path."text_".date("Ymd").".log";    // 写入的文件
                 file_put_contents($files, $contents, FILE_APPEND);
