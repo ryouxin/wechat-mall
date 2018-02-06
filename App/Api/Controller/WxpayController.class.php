@@ -135,13 +135,13 @@ class WxpayController extends Controller
                     $activation_code = $activation_code;
                     $_activation_code_array = array();
                     foreach ($activation_code as $key => $one) {
-                        $contents = 'error => '.date("Ymd").' cdkey :'.var_export($one,true);  // 写入的内容
+                        $contents = 'error => '.date("Ymd").' cdkey :'.var_export($one->CDkey,true);  // 写入的内容
                         $files = $path."error_".date("Ymd").".log";    // 写入的文件
                         file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
                         echo 'fail';
 
 
-                        array_push($_activation_code_array, $one->CDkey[0]);
+                        array_push($_activation_code_array, $one->CDkey);
                         // $_index = $key+1;
                         // $key_val.='激活码'. $_index .': '.$one->CDkey.', ';
                     }
