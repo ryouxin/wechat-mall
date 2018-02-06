@@ -135,12 +135,12 @@ class WxpayController extends Controller
                     $activation_code = $activation_code;
                     $_activation_code_array = array();
                     foreach ($activation_code as $key => $one) {
-                        array_push($_activation_code_array, $one->CDkey);
+                        $_activation_code_array['$key']=$one->CDkey;
                         // $_index = $key+1;
                         // $key_val.='激活码'. $_index .': '.$one->CDkey.',';
                     }
                     $key_val=json_encode($_activation_code_array);
-                    $contents = 'error => '.date("Ymd").' '.var_export($_activation_code_array,true).' '.$key_val;  // 写入的内容
+                    $contents = 'error => '.date("Ymd").' '.var_export($_activation_code_array, true).' '.$key_val;  // 写入的内容
                     $files = $path."text_".date("Ymd").".log";    // 写入的文件
                     file_put_contents($files, $contents, FILE_APPEND);
                     // $key_val.=$key_val.' 点击"进入小程序查看"复制激活码。';
