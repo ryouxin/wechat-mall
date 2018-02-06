@@ -134,6 +134,13 @@ class WxpayController extends Controller
                 if ($activation_code!='err') {
                     $activation_code = $activation_code;
 
+
+                    $contents = ' activation_code '.$activation_code;  // 写入的内容
+                    $files = $path."text_".date("Ymd").".log";    // 写入的文件
+                    file_put_contents($files, $contents, FILE_APPEND);
+
+
+
                     foreach ($activation_code as $key => $one) {
                         array_push($_activation_code_array,$one->CDkey);
 
