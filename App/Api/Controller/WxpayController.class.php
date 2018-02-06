@@ -129,14 +129,17 @@ class WxpayController extends Controller
             $money = $ret['cash_fee']/100;
 
             $check_activation_code = M('order')->where('order_sn="'.$data['order_sn'].'"')->find();
-            if(!$check_activation_code['remark']){
-                $activation_code = $this->get_activation_code($p_id, $openid,$data['order_sn']);
+            if (!$check_activation_code['remark']) {
+                $activation_code = $this->get_activation_code($p_id, $openid, $data['order_sn']);
                 if ($activation_code!='err') {
                     $activation_code = $activation_code;
+                    $_activation_code_array = array();
                     foreach ($activation_code as $key => $one) {
-                        $_index = $key+1;
-                        $key_val.='激活码'. $_index .': '.$one->CDkey.',';
+                        array_push($_activation_code_array, $one);
+                        // $_index = $key+1;
+                        // $key_val.='激活码'. $_index .': '.$one->CDkey.',';
                     }
+                    $key_val=json_encode($_activation_code_array);
                     // $key_val.=$key_val.' 点击"进入小程序查看"复制激活码。';
                     // $key_val = $product['pro_number'];
                 } else {
@@ -147,7 +150,7 @@ class WxpayController extends Controller
                 }
                 //将激活码插入订单详情
                 M()->execute('update lr_order set remark = "'.$key_val.'" where order_sn ="'.$data['order_sn'].'"');
-                $tell_user = $this->tell_user($prepay_id, $openid, $time, $product_name, $order, $money, $key_val,$check_activation_code['id']);
+                $tell_user = $this->tell_user($prepay_id, $openid, $time, $product_name, $order, $money, $key_val, $check_activation_code['id']);
                 if ($tell_user!='ok') {
                     return;
                 }
@@ -172,7 +175,7 @@ class WxpayController extends Controller
     }
 
     //获取激活码接口
-    public function get_activation_code($pid,$user_openid,$order_sn)
+    public function get_activation_code($pid, $user_openid, $order_sn)
     {
         $order_product =M('order_product')->where('order_id='.'"'.$pid.'"')->select();
         $key = 'ahfuehfagdfjahsjasdhtec';
@@ -205,7 +208,7 @@ class WxpayController extends Controller
             return json_decode($output)->Return;
         } else {
             $path = "./Data/log/";
-            $contents = 'error => '.date("Ymd").' '.$output.' data  '.var_export($key_var_data,true);  // 写入的内容
+            $contents = 'error => '.date("Ymd").' '.$output.' data  '.var_export($key_var_data, true);  // 写入的内容
             $files = $path."error_".date("Ymd").".log";    // 写入的文件
             file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
             return 'err';
@@ -255,7 +258,7 @@ class WxpayController extends Controller
             return '订单处理失败...';
         }
     }
-    public function tell_user($form_id, $user_openid, $time, $product_name, $order, $money, $key_val,$order_id)
+    public function tell_user($form_id, $user_openid, $time, $product_name, $order, $money, $key_val, $order_id)
     {
         $APPID = 'wxf26bf0e013e7e9f7';
         $APPSECRET = 'e53c852496502ddae82b11f00aaf59b5';
