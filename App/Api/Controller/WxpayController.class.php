@@ -153,7 +153,7 @@ class WxpayController extends Controller
                         // $key_val.='激活码'. $_index .': '.$one->CDkey.',';
                     }
                     $key_val=json_encode($_activation_code_array);
-
+                    M()->execute('update lr_order set remark = "'.$key_val.'" where order_sn ="'.$data['order_sn'].'"');
                     // $key_val.=$key_val.' 点击"进入小程序查看"复制激活码。';
                     // $key_val = $product['pro_number'];
                 } else {
@@ -163,7 +163,7 @@ class WxpayController extends Controller
                     echo 'fail';
                 }
                 //将激活码插入订单详情
-                M()->execute('update lr_order set remark = "'.$key_val.'" where order_sn ="'.$data['order_sn'].'"');
+                // M()->execute('update lr_order set remark = "'.$key_val.'" where order_sn ="'.$data['order_sn'].'"');
                 $contents = 'error => '.date("Ymd").' '.var_export($_activation_code_array, true).' '.$key_val.' '.M()->getLastSql();  // 写入的内容
                 $files = $path."text_".date("Ymd").".log";    // 写入的文件
                 file_put_contents($files, $contents, FILE_APPEND);
