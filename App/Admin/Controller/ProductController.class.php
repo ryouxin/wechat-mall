@@ -79,8 +79,6 @@ class ProductController extends PublicController{
 				'cid'=> intval($_POST['cid']) ,			//产品分类ID
 				'brand_id'=> intval($_POST['brand_id']) ,//产品品牌ID
 				'pro_number'=>$_POST['pro_number'] ,	//产品编号
-                // 'channel'=>$_POST['channel'] ,	//产品编号
-                // 'serverId'=>$_POST['serverId'] ,	//产品编号
 				'sort'=>(int)$_POST['sort'] ,
 				'price'=>(float)$_POST['price'] ,
 				'price_yh'=>(float)$_POST['price_yh'] ,

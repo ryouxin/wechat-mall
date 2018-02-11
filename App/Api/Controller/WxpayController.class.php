@@ -97,31 +97,18 @@ class WxpayController extends Controller
         if (!is_dir($path)) {
             mkdir($path, 0777);  // 创建文件夹test,并给777的权限（所有权限）
         }
-
-
-        // $contents = 'error => '.date("Ymd").' '.json_encode($ret);  // 写入的内容
-        // $files = $path."error_".date("Ymd").".log";    // 写入的文件
-        // file_put_contents($files, $contents, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
-
-
         $content = date("Y-m-d H:i:s").'=>'.json_encode($ret);  // 写入的内容
         $file = $path."weixin_".date("Ymd").".log";    // 写入的文件
         file_put_contents($file, $content, FILE_APPEND);  // 最简单的快速的以追加的方式写入写入方法，
-
         $data = array();
         $data['order_sn'] = $ret['out_trade_no'];
         $data['pay_type'] = 'weixin';
         $data['trade_no'] = $ret['transaction_id'];
         $data['total_fee'] = $ret['total_fee'];
-
-
         $result = $this->orderhandle($data);
-
         if (is_array($result)) {
             $prepay_id = $result['data']['prepay_id'];
-
             $p_id = $result['data']['p_id'];
-
             $openid = $ret['openid'];
             $time = $ret['time_end'];
             $product_name = '激活码';
@@ -135,17 +122,8 @@ class WxpayController extends Controller
                     $activation_code = $activation_code;
                     foreach ($activation_code as $key => $one) {
                         array_push($_activation_code_array,$one->CDkey);
-
-
-                        // $contents = ' one '.$one->CDkey.' array is '.var_export($_activation_code_array,true).' josn '.json_encode($_activation_code_array);  // 写入的内容
-                        // $files = $path."text_".date("Ymd").".log";    // 写入的文件
-                        // file_put_contents($files, $contents, FILE_APPEND);
-                        // $_activation_code_array[$key]=$one->CDkey;
-                        // $_index = $key+1;
-                        // $key_val.='激活码'. $_index .': '.$one->CDkey.',';
                     }
                     $key_val=json_encode($_activation_code_array);
-                    // M()->execute('update lr_order set remark = "'.$key_val.'" where order_sn ="'.$data['order_sn'].'"');
                     // $key_val.=$key_val.' 点击"进入小程序查看"复制激活码。';
                     // $key_val = $product['pro_number'];
                 } else {
@@ -156,21 +134,11 @@ class WxpayController extends Controller
                 }
                 //将激活码插入订单详情
                 M()->execute('update lr_order set remark = \''.$key_val.'\' where order_sn ="'.$data['order_sn'].'"');
-                $contents = 'error => '.date("Ymd").' '.var_export($_activation_code_array, true).' '.$key_val.' '.M()->getLastSql();  // 写入的内容
-                $files = $path."text_".date("Ymd").".log";    // 写入的文件
-                file_put_contents($files, $contents, FILE_APPEND);
                 $tell_user = $this->tell_user($prepay_id, $openid, $time, $product_name, $order, $money, $key_val, $check_activation_code['id']);
                 if ($tell_user!='ok') {
                     return;
                 }
             }
-
-
-
-
-
-
-
             $result_c = $this->check_max($data['order_sn']);
             $xml = "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg>";
             $xml.="</xml>";
@@ -202,10 +170,7 @@ class WxpayController extends Controller
             $product_data=array('ProductId'=>$product['pro_number'],'Num'=>$one['num']);
             array_push($key_var_data['Product'], $product_data);
         }
-        // $key_var_data['Product'] = json_encode($key_var_data['Product']);
         $key_val_url = "http://xingheglobal.wondergm.com/xinghe/api.php?Module=Shop&Action=Order";
-
-
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $key_val_url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
