@@ -368,6 +368,7 @@ class ShoppingController extends PublicController
         // }
         // return array('status'=>1);
     }
+    //处理限购周期
     private function check_max_date($product_max_info, $start_time, $over_time,$pid)
     {
         $all_num=$num+$product_max_info['buy_num'];
