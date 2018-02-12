@@ -211,20 +211,6 @@
 					<input type="text" class="input-text" placeholder="产品编号" name="pro_number" id="pro_number" value="{$pro_allinfo.pro_number}">
 				</div>
 			</div>
-
-			<div class="row cl">
-				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>限购周期:(开发中)</label>
-				<div class="formControls col-xs-8 col-sm-3">
-				<select class="inp_1" name="maxDate" id="maxDate" style="width:150px;">
-                    <option value="ever">无限制</option>
-                    <option value="day">日</option>
-                    <option value="week">周</option>
-                    <option value="month">月</option>
-                </select>
-				</div>
-			</div>
-
-
 			<div class="row cl">
 				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>库存：</label>
 				<div class="formControls col-xs-8 col-sm-3">
@@ -238,6 +224,21 @@
 					<input type="text" class="input-text" placeholder="限购数量" name="max" id="max" value="<?php echo $pro_allinfo['max']==0 ? 999999 : $pro_allinfo['max']; ?>">
 				</div>
 			</div>
+
+
+
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>限购周期:(开发中)</label>
+				<div class="formControls col-xs-8 col-sm-3">
+					<select class="inp_1" name="maxDate" id="maxDate" style="width:150px;">
+                        <option value="0">无限制</option>
+                        <option value="1">日</option>
+                        <option value="2">周</option>
+                        <option value="3">月</option>
+                    </select>
+				</div>
+			</div>
+
 
 			<div class="row cl">
 				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>缩略图，图片大小230*230</label>

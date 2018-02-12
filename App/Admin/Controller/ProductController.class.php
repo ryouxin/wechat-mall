@@ -85,7 +85,8 @@ class ProductController extends PublicController{
 				'price_jf'=>(float)$_POST['price_jf'] ,//赠送积分
 				'updatetime'=>time(),
 				'num'=>(int)$_POST['num'] ,			//库存
-                'max'=>(int)$_POST['max'] ,			//限购
+                'max'=>(int)$_POST['max'] ,			//限购数量
+                'maxDate'=>(int)$_POST['maxDate'],  //限购周期
 				'content'=>$_POST['content'] ,
 				'company'=>$_POST['company'],  //产品单位
 				'pro_type'=>1,
