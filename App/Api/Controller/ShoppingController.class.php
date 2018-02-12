@@ -353,7 +353,7 @@ class ShoppingController extends PublicController
                 return $this->check_max_date($product_max_info,$start_time,$over_time);
                 break;
             default:
-                return array('status'=>0,'err'=>'系统错误.');
+                return array('status'=>0,'err'=>'系统错误.'.$product['maxDate']);
                 break;
         }
 
