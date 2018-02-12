@@ -335,22 +335,22 @@ class ShoppingController extends PublicController
             case '1':
                 $start_time = strtotime(date('Y-m-d H:i:s',strtotime('Sunday -6 day',time())));
                 $over_time = $start_time + 86400;
-                return $this->check_max_date($product_max_info, $start_time, $over_time);
+                return $this->check_max_date($product_max_info, $start_time, $over_time,$pid);
                 break;
             case '2':
                 $start_time = strtotime(date('Y-m-d', time()));
                 $over_time = $start_time + 604800;
-                return $this->check_max_date($product_max_info, $start_time, $over_time);
+                return $this->check_max_date($product_max_info, $start_time, $over_time,$pid);
                 break;
             case '3':
                 $start_time = strtotime(date('Y-m-01', time()));
                 $over_time = strtotime(date('Y-m-d', strtotime(date('Y-m-01', time()) . ' +1 month -1 day'))) + 86400;
-                return $this->check_max_date($product_max_info,$start_time,$over_time);
+                return $this->check_max_date($product_max_info,$start_time,$over_time,$pid);
                 break;
             case '4':
                 $start_time = 1;
                 $over_time = 9999999999;
-                return $this->check_max_date($product_max_info,$start_time,$over_time);
+                return $this->check_max_date($product_max_info,$start_time,$over_time,$pid);
                 break;
             default:
                 return array('status'=>0,'err'=>'系统错误.'.$product['maxDate']);
@@ -368,7 +368,7 @@ class ShoppingController extends PublicController
         // }
         // return array('status'=>1);
     }
-    private function check_max_date($product_max_info, $start_time, $over_time)
+    private function check_max_date($product_max_info, $start_time, $over_time,$pid)
     {
         $all_num=$num+$product_max_info['buy_num'];
         $product_slecet = M('product');
