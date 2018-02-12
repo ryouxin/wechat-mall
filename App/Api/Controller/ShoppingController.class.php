@@ -100,12 +100,12 @@ class ShoppingController extends PublicController
 
         $data=array();
         $data['num']=$num;
-		//判断限购
-		$check_res = $this->check_max($data['num'],intval($check['pid']),$uid);
-		if($check_res['status']!=1){
-			echo json_encode($check_res);
-			exit;
-		}
+        //判断限购
+        $check_res = $this->check_max($data['num'], intval($check['pid']), $uid);
+        if ($check_res['status']!=1) {
+            echo json_encode($check_res);
+            exit;
+        }
         $res = $shopping->where('id ='.intval($cart_id).' AND uid='.intval($uid))->save($data);
         if ($res) {
             echo json_encode(array('status'=>1,'succ'=>'操作成功!'));
@@ -179,7 +179,7 @@ class ShoppingController extends PublicController
 
         //限制购物车含量不超过20
         $exists_num = $shpp->where('uid='.'"'.$uid.'"')->getField('sum(num)');
-        if($exists_num+intval($num)>=20){
+        if ($exists_num+intval($num)>=20) {
             echo json_encode(array('status'=>0,'err'=>'购物车数量过多！'));
             exit;
         }
@@ -206,12 +206,12 @@ class ShoppingController extends PublicController
         $cart_info = $shpp->where('pid='.intval($pid).' AND uid='.intval($uid))->field('id,num')->find();
         if ($cart_info) {
             $data['num'] = intval($cart_info['num'])+intval($num);
-			//判断限购
-			$check_res = $this->check_max($data['num'],$pid,$uid);
-			if($check_res['status']!=1){
-				echo json_encode($check_res);
-				exit;
-			}
+            //判断限购
+            $check_res = $this->check_max($data['num'], $pid, $uid);
+            if ($check_res['status']!=1) {
+                echo json_encode($check_res);
+                exit;
+            }
             //判断库存
             if (intval($check_info['num'])<=$data['num']) {
                 echo json_encode(array('status'=>0,'err'=>'库存不足！'));
@@ -222,12 +222,12 @@ class ShoppingController extends PublicController
         } else {
             $data['pid']=intval($pid);
             $data['num']=intval($num);
-			//判断限购
-			$check_res = $this->check_max($data['num'],$pid,$uid);
-			if($check_res['status']!=1){
-				echo json_encode($check_res);
-				exit;
-			}
+            //判断限购
+            $check_res = $this->check_max($data['num'], $pid, $uid);
+            if ($check_res['status']!=1) {
+                echo json_encode($check_res);
+                exit;
+            }
             $data['addtime']=time();
             $data['uid']=intval($uid);
             $data['shop_id']=intval($check_info['shop_id']);
@@ -320,21 +320,63 @@ class ShoppingController extends PublicController
     //判断限购数量
     public function check_max($num, $pid, $uid)
     {
-		$product = M('product')->where('id='.intval($pid).' AND del=0 AND is_down=0')->find();
-		if($num>$product['max']){
-			return array('status'=>0,'err'=>'超过限购数量.');
-		}
+        $product = M('product')->where('id='.intval($pid).' AND del=0 AND is_down=0')->find();
+        if ($num>$product['max']) {
+            return array('status'=>0,'err'=>'超过限购数量.');
+        }
 
         $product_max = M("product_max");
         $product_max_info = $product_max->where('product_id='.$pid.' AND user_id='.$uid)->find();
-        if ($product_max_info) {
-            $all_num=$num+$product_max_info['buy_num'];
-            $product_slecet = M('product');
-            $product_info = $product_slecet->where('id='.$pid)->find();
-            if ($all_num>$product_info['max']) {
-                return array('status'=>0,'err'=>'超过限购数量.');
-            }
+
+        switch ($product['maxDate']) {
+            case '0':
+                return array('status'=>1);
+                break;
+            case '1':
+                $start_time = strtotime(date('Y-m-d H:i:s',strtotime('Sunday -6 day',time())));
+                $over_time = $start_time + 86400;
+                return $this->check_max_date($product_max_info, $start_time, $over_time);
+                break;
+            case '2':
+                $start_time = strtotime(date('Y-m-d', time()));
+                $over_time = $start_time + 604800;
+                return $this->check_max_date($product_max_info, $start_time, $over_time);
+                break;
+            case '3':
+                $start_time = strtotime(date('Y-m-01', time()));
+                $over_time = strtotime(date('Y-m-d', strtotime(date('Y-m-01', time()) . ' +1 month -1 day'))) + 86400;
+                return $this->check_max_date($product_max_info,$start_time,$over_time);
+                break;
+            case '4':
+                $start_time = 1;
+                $over_time = 9999999999;
+                return $this->check_max_date($product_max_info,$start_time,$over_time);
+                break;
+            default:
+                return array('status'=>0,'err'=>'系统错误.');
+                break;
         }
-        return array('status'=>1);
+
+
+        // if ($product_max_info) {
+        //     $all_num=$num+$product_max_info['buy_num'];
+        //     $product_slecet = M('product');
+        //     $product_info = $product_slecet->where('id='.$pid)->find();
+        //     if ($all_num>$product_info['max']) {
+        //         return array('status'=>0,'err'=>'超过限购数量.');
+        //     }
+        // }
+        // return array('status'=>1);
+    }
+    private function check_max_date($product_max_info, $start_time, $over_time)
+    {
+        $all_num=$num+$product_max_info['buy_num'];
+        $product_slecet = M('product');
+        $product_info = $product_slecet->where('id='.$pid)->find();
+        if ($all_num>$product_info['max'] && $product_max_info['update_time']>=$start_time && $product_max_info['update_time']<=$over_time) {
+            return array('status'=>0,'err'=>'超过限购数量.');
+        } else {
+            return array('status'=>1);
+        }
     }
 }
