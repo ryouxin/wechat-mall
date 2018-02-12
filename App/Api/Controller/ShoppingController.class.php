@@ -328,7 +328,7 @@ class ShoppingController extends PublicController
         $product_max = M("product_max");
         $product_max_info = $product_max->where('product_id='.$pid.' AND user_id='.$uid)->find();
 
-        switch ($product['maxDate']) {
+        switch ($product['maxdate']) {
             case '0':
                 return array('status'=>1);
                 break;
