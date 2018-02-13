@@ -334,13 +334,14 @@ class ShoppingController extends PublicController
                 break;
             case '1':
                 // echo ('1');
-                $start_time = strtotime(date('Y-m-d H:i:s', strtotime('Sunday -6 day', time())));
+                $start_time = strtotime(date('Y-m-d', time()));
+
                 $over_time = $start_time + 86400;
                 return $this->check_max_date($product_max_info, $start_time, $over_time, $pid);
                 break;
             case '2':
                 // echo ('2');
-                $start_time = strtotime(date('Y-m-d', time()));
+                $start_time = strtotime(date('Y-m-d H:i:s', strtotime('Sunday -6 day', time())));
                 $over_time = $start_time + 604800;
                 return $this->check_max_date($product_max_info, $start_time, $over_time, $pid);
                 break;
@@ -378,6 +379,7 @@ class ShoppingController extends PublicController
         $all_num=$num+$product_max_info['buy_num'];
         $product_slecet = M('product');
         $product_info = $product_slecet->where('id='.$pid)->find();
+        // echo $start_time.' '.$over_time;
         if ($all_num>$product_info['max'] && $product_max_info['update_time']>=$start_time && $product_max_info['update_time']<=$over_time) {
             return array('status'=>0,'err'=>'超过限购数量.');
         } else {
