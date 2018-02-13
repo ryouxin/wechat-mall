@@ -327,7 +327,7 @@ class ShoppingController extends PublicController
 
         $product_max = M("product_max");
         $product_max_info = $product_max->where('product_id='.$pid.' AND user_id='.$uid)->find();
-        echo ('商品信息: '.json_encode($product_max_info));
+        // echo ('商品信息: '.json_encode($product_max_info));
         switch ($product['maxdate']) {
             case '0':
                 return array('status'=>1);
@@ -379,7 +379,7 @@ class ShoppingController extends PublicController
         $all_num=$num+$product_max_info['buy_num'];
         $product_slecet = M('product');
         $product_info = $product_slecet->where('id='.$pid)->find();
-        echo $start_time.' '.$over_time.' '.$product_max_info['update_time'].' '.$all_num.' '.$product_info['max'];
+        // echo $start_time.' '.$over_time.' '.$product_max_info['update_time'].' '.$all_num.' '.$product_info['max'];
         // echo $msg;
         if ($all_num>=$product_info['max'] && $product_max_info['update_time']>=$start_time && $product_max_info['update_time']<=$over_time) {
             return array('status'=>0,'err'=>'超过限购数量.');
