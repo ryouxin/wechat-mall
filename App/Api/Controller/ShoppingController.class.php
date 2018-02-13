@@ -379,7 +379,7 @@ class ShoppingController extends PublicController
         $all_num=$num+$product_max_info['buy_num'];
         $product_slecet = M('product');
         $product_info = $product_slecet->where('id='.$pid)->find();
-        // echo $start_time.' '.$over_time;
+        echo $start_time.' '.$over_time.' '.$product_max_info['update_time'].' '.$all_num.' '.$product_info['max'];
         if ($all_num>$product_info['max'] && $product_max_info['update_time']>=$start_time && $product_max_info['update_time']<=$over_time) {
             return array('status'=>0,'err'=>'超过限购数量.');
         } else {
