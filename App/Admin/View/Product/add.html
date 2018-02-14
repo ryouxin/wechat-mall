@@ -231,12 +231,17 @@
 				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>限购周期:</label>
 				<div class="formControls col-xs-8 col-sm-3">
 					<select class="inp_1" name="max_id" id="max_id" style="width:150px;">
-                        <option value="1">无限制</option>
+						<volist name="max_periodic_list" id="m">
+	                        <option value="{$m.id}" <if condition="$m.id eq $pro_allinfo['max_id']">selected="selected"</if>>-- {$m.max}</option>
+	                    </volist>
+
+
+                        <!-- <option value="1">无限制</option>
                         <option value="2">日</option>
                         <option value="3">周</option>
                         <option value="4">月</option>
 						<option value="5">年</option>
-                        <option value="6">永久</option>
+                        <option value="6">永久</option> -->
                     </select>
 				</div>
 			</div>

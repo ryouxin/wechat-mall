@@ -245,6 +245,12 @@ class ProductController extends PublicController{
 		$brand_list = M('brand')->where('1=1')->field('id,name')->select();
 		$this->assign('brand_list',$brand_list);
 
+        //=========================
+		// 查询所有限购周期
+		//=========================
+		$max_periodic_list = M('max_periodic')->where('1=1')->field('id,max_type,max')->select();
+		$this->assign('max_periodic_list',$max_periodic_list);
+
 		//==========================
 		// 将GET到的数据再输出
 		//==========================
