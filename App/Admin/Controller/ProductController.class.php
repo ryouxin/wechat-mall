@@ -39,6 +39,8 @@ class ProductController extends PublicController{
 			//$productlist[$k]['shangchang'] = M('shangchang')->where('id='.intval($v['shop_id']))->getField('name');
 			$productlist[$k]['cname'] = M('category')->where('id='.intval($v['cid']))->getField('name');
 			$productlist[$k]['brand'] = M('brand')->where('id='.intval($v['brand_id']))->getField('name');
+
+
 		}
 
 		//==========================
@@ -86,7 +88,7 @@ class ProductController extends PublicController{
 				'updatetime'=>time(),
 				'num'=>(int)$_POST['num'] ,			//库存
                 'max'=>(int)$_POST['max'] ,			//限购数量
-                'maxDate'=>(int)$_POST['maxDate'],  //限购周期
+                'max_id'=>(int)$_POST['max_id'],  //限购周期
 				'content'=>$_POST['content'] ,
 				'company'=>$_POST['company'],  //产品单位
 				'pro_type'=>1,
