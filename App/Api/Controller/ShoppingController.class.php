@@ -328,33 +328,33 @@ class ShoppingController extends PublicController
         $product_max = M("product_max");
         $product_max_info = $product_max->where('product_id='.$pid.' AND user_id='.$uid)->find();
         $product_max_type = M('max_periodic')->where('id='.$product['max_id'])->find();
-        echo ('商品信息: '.json_encode($product_max_type));
+        // echo ('商品信息: '.json_encode($product_max_type));
         // switch ($product['maxdate']) {
         switch ($product_max_type['max_type']) {
             case '0':
                 return array('status'=>1);
                 break;
             case '1':
-                echo ('1');
+                // echo ('1');
                 $start_time = strtotime(date('Y-m-d', time()));
 
                 $over_time = $start_time + 86400;
                 return $this->check_max_date($product_max_info, $start_time, $over_time, $pid);
                 break;
             case '2':
-                echo ('2');
+                // echo ('2');
                 $start_time = strtotime(date('Y-m-d H:i:s', strtotime('Sunday -6 day', time())));
                 $over_time = $start_time + 604800;
                 return $this->check_max_date($product_max_info, $start_time, $over_time, $pid);
                 break;
             case '3':
-                echo ('3');
+                // echo ('3');
                 $start_time = strtotime(date('Y-m-01', time()));
                 $over_time = strtotime(date('Y-m-d', strtotime(date('Y-m-01', time()) . ' +1 month -1 day'))) + 86400;
                 return $this->check_max_date($product_max_info, $start_time, $over_time, $pid);
                 break;
             case '4':
-                echo ('4');
+                // echo ('4');
                 $start_time = strtotime(date('Y',time()).'-01-01 00:00:00');
                 $over_time = strtotime(date('Y',time()).'-12-31 23:59:59');
                 return $this->check_max_date($product_max_info, $start_time, $over_time, $pid);
